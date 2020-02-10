@@ -1,16 +1,18 @@
 <?php
 include 'header.php';
+include 'config.php';
     // SELECT nom,prenom,addrmail,notel FROM tabusers WHERE nmuser = ?
     $context = stream_context_create(array(
         'http' => array(
+            'method' => "GET",
             'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
     ));
 
 
-    $json=file_get_contents("http://172.16.69.181:6001/agence", false, $context);
+    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence", false, $context);
     $listeAgence=json_decode($json, true);
 
-    $json=file_get_contents("http://172.16.69.181:6001/service", false, $context);
+    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/service", false, $context);
     $listeService=json_decode($json, true);
     /*
     $json=file_get_contents("http://172.16.69.181:6002/user_adresse?idadresse=1", false, $context);

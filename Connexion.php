@@ -1,6 +1,6 @@
 <?php
 
-  // include 'config.php';
+  include 'config.php';
   session_start();
   //
   // try{
@@ -19,9 +19,11 @@
     'http' => array(
         'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
   ));
-
-  $json=file_get_contents("http://172.16.69.181:6002/mysql2?email=fred@gmail.com&password=toto", false, $context);
-
+  $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence_get_ip?idagence=" . $_POST['agence_selected'], false, $context);
+  $user_infos=json_decode($json, true);
+  echo $ip_agence = $user_infos['data'][0]['ip'] . ":" . $user_infos['data'][0]['port'];
+  echo "http://" . $ip_agence . "/mysql2?email=" . $_POST['username'] . "&password=" . $_POST['password'];
+  $json=file_get_contents("http://" . $ip_agence . "/mysql2?email=" . $_POST['username'] . "&password=" . $_POST['password'], false, $context);
   $user_infos=json_decode($json, true);
 
 // ['data'][0]['iduser']
@@ -32,16 +34,16 @@
 
   if($user_infos['data'][0]['iduser'] != NULL){
     $_SESSION['nmuser'] = $user_infos['data'][0]['iduser'];
-    $_SESSION['idadresse'] = $user_infos['data'][0]['idadresse'];
     $_SESSION['cdtype_user'] = $user_infos['data'][0]['cdtype_user'];
-    $_SESSION['adresse'] = $user_infos['data'][0]['adresse'];
-    $_SESSION['ville'] = $user_infos['data'][0]['ville'];
+    $_SESSION['okactif'] = $user_infos['data'][0]['okactif'];//à checker
+    $_SESSION['idcategservice'] = $user_infos['data'][0]['idcategservice'];//à checker
+    $_SESSION['ip_agence'] = $ip_agence;
     //Si le client n'a pas d'abo, la prochaine fois qu'il choisira un service,
     // cette variable passera à -1 signifiant qu'il doit payer son service avant
     // dans choisir un nouveau
     $_SESSION['cdabonement'] = $user_infos['data'][0]['cdabonnement'];
 
-    include 'checkSpent.php';
+    //include 'checkSpent.php';
 
     header('Location: index.php');
     exit;

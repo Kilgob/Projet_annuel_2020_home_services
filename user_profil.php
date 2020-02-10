@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'config.php';
     // SELECT nom,prenom,addrmail,notel FROM tabusers WHERE nmuser = ?
     $context = stream_context_create(array(
         'http' => array(

@@ -1,5 +1,5 @@
 <?php
-
+    include 'config.php';
 
     $context = stream_context_create(array(
         'http' => array(
@@ -7,7 +7,7 @@
             'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
     ));
 
-    $requete = "http://172.16.69.181:6001/categ_service?lb=" . $_POST['name_service'] . "&idagence=" . $_POST['agence_selected'];
+    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/categ_service?lb=" . $_POST['name_service'] . "&idagence=" . $_POST['agence_selected'];
     $requete = str_replace(" ", "%20", $requete);
 
     $json=file_get_contents($requete, false, $context);

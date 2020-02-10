@@ -1,8 +1,7 @@
 <?php
 //Page appelée lors d'arriver sur la paga facture ou bien la page demande de service
 // afin d'empêcher de choisir un nouveau service et de pouvoir faire payer le bon montant
-    session_start();
-    $json=file_get_contents("http://172.16.69.181:6002/serviceunpaidfromuser?iduser=" . $_SESSION['nmuser'], false, $context);//fonctionne ?
+    $json=file_get_contents("http://" . $_SESSION['ip_agence'] . "/serviceunpaidfromuser?iduser=" . $_SESSION['nmuser'], false, $context);//fonctionne ?
 
     $servicePending=json_decode($json, true);
 

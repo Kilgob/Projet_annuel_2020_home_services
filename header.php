@@ -1,6 +1,5 @@
 <?php
   session_start();
-  // include 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
@@ -39,7 +38,7 @@
               <a class="nav-link" href="tarifs.php">Tarifs</a>
             </li>
             <?php
-                if($_SESSION != [] &&$_SESSION['cdtype_user'] == 'pat'){
+                if($_SESSION != [] && $_SESSION['cdtype_user'] == 'pat'){
             ?>
             <li class="nav_item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admistration</a>

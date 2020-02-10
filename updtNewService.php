@@ -1,5 +1,5 @@
 <?php
-
+    include 'config.php';
     $context = stream_context_create(array(
         'http' => array(
             'method' => "GET",
@@ -8,7 +8,7 @@
 
     //if(isset( $_POST['service']) && isset($_POST['price']) && isset($_POST['agence_selected']) && isset($_POST['categService']))
 
-    $requete = "http://172.16.69.181:6001/categ_from_agence?agence=" . $_GET['idagence'];
+    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/categ_from_agence?agence=" . $_GET['idagence'];
     $json = file_get_contents($requete, false, $context);
     $categ_service=json_decode($json, true);
 
