@@ -1,7 +1,6 @@
 function finAgence(){
     let xhr = new XMLHttpRequest();
 
-    console.log("debut js");
     const idagence = document.getElementById('agence_select_service').options[document.getElementById('agence_select_service').selectedIndex].value;
     console.log("id de l'agence : " + idagence);
     // const folder = document.getElementById('dosssier').innerHTML;
