@@ -14,7 +14,7 @@
 
     echo '<select name="categService" id="categ-service-select">';
     foreach ($categ_service['data'] as $result) {
-        echo '<option value=\"' . $result['idcategservice'] . '">' . $result['lb'] . '</option>';
+        echo '<option value="' . $result['idcategservice'] . '">' . $result['lb'] . '</option>';
     }
 
     echo '<option value="" selected>--Choisissez une catégorie de service--</option>

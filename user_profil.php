@@ -7,7 +7,7 @@ include 'config.php';
             'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
     ));
 
-    $json=file_get_contents("http://172.16.69.181:6002/user?iduser=1", false, $context);
+    $json=file_get_contents("http://" . $_SESSION['ip_agence'] . "/user?iduser=" . $_SESSION['nmuser'], false, $context);
     $user_compl=json_decode($json, true);
 
 /*

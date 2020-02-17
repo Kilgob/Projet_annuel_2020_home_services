@@ -8,18 +8,18 @@
     <title>NextHome</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style_header.css" />
-    <!-- <link rel="stylesheet" href="css/style_main.css" />
+    <link rel="stylesheet" href="css/style_main.css" />
     <link rel="stylesheet" href="css/style_liste_dossier.css" />
-    <link rel="stylesheet" href="css/style_homePage.css"/>
-    <link rel="stylesheet" href="css/style_general_manage.css" />
-    <link rel="stylesheet" href="css/style_liste_dossier.css" />
-    <link rel="stylesheet" href="css/style_inscription.css" />
-    <link rel="stylesheet" href="css/style_user_profil.css" />
-    <link rel="stylesheet" href="css/style_users_management.css" />
-    <link rel="stylesheet" href="css/style_rdv_management.css" />
-    <link rel="stylesheet" href="css/style_ConnexionIndex.css" />
-    <link rel="stylesheet" href="css/style_email_modify_password.css" />
-    <link rel="stylesheet" href="css/style_presentation.css" /> -->
+      <!-- <link rel="stylesheet" href="css/style_homePage.css"/>
+      <link rel="stylesheet" href="css/style_general_manage.css" />
+      <link rel="stylesheet" href="css/style_liste_dossier.css" />
+      <link rel="stylesheet" href="css/style_inscription.css" />
+      <link rel="stylesheet" href="css/style_user_profil.css" />
+      <link rel="stylesheet" href="css/style_users_management.css" />
+      <link rel="stylesheet" href="css/style_rdv_management.css" />
+      <link rel="stylesheet" href="css/style_ConnexionIndex.css" />
+      <link rel="stylesheet" href="css/style_email_modify_password.css" />
+      <link rel="stylesheet" href="css/style_presentation.css" /> -->
     <link rel="stylesheet" href="css/style_footer.css" />
   </head>
   <body>
@@ -47,7 +47,8 @@
                 <a class="dropdown-item" href="rdv_management.php">Rendez-vous</a>
                 <a class="dropdown-item" href="general_manage.php">Générale</a>
                 <a class="dropdown-item" href="create_service.php">Créer un service</a>
-                  <a class="dropdown-item" href="add_prestataire.php">Nouveau presatataire</a>
+                <a class="dropdown-item" href="add_prestataire.php">Nouveau presatataire</a>
+                <a class="dropdown-item" href="prestataire.php">Gérer les presatataires</a>
               </div>
             </li>
           <?php }
