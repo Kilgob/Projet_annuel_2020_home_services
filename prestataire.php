@@ -13,11 +13,13 @@
             'header' => "Authorization: Basic " . base64_encode("user:pass"))
     ));
 
-    //if(isset( $_POST['service']) && isset($_POST['price']) && isset($_POST['agence_selected']) && isset($_POST['categService']))
-
     $requete = "http://" . $_SESSION['ip_agence'] . "/prestataire";
     $json = file_get_contents($requete, false, $context);
     $liste_prestataire=json_decode($json, true);
+
+    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence", false, $context);
+    $listeAgence=json_decode($json, true);
+
 
  ?>
 
@@ -28,10 +30,19 @@
       <div class="row d-flex justify-content-center">
         <div class="col-md-2 col_homePage">
           <div class="row d-flex justify-content-center title_my_row">
-            <h3>Mes dossiers</h3>
+              <p>Choisissez votre agence</p>
+              <select onchange="finPrest()" name="agence_selected" id="agence_select">
+                  <?php foreach ($listeAgence['data'] as $result) {
+                      $result_terner = $result['idagence'] == 4?'selected':' ' ;//Sélectionner l'agence choisit
+                      echo '<option value="' . $result['idagence'] . '"' . $result_terner . '>' . $result['nom'] . " (" . $result['ville'] . ')</option>';
+                  }
+                  ?>
+              </select>
+            <h3>Mes prestataires</h3>
           </div>
 
-          <div class="row d-flex justify-content-center">
+
+          <div id="new_prest" class="row d-flex justify-content-center">
             <div class="form-elegant" >
               <div class="card">
                 <nav>
@@ -44,13 +55,13 @@
                         if($folder['okactif'] != "0"){
                           echo '<li  onclick="research(' . $folder['iduser'] . ')" class="d-flex justify-content-center">';
                           echo '<div class="nav_item_position_folders">';
-                          echo '<p>Prestataire ' . $folder['iduser'] . ' :<br>' . $folder['mail'] . '</p>';
+                          echo '<p>Prestataire n° ' . $folder['iduser'] . ' :<br>' . $folder['mail'] . '</p>';
                           echo '</div></li>';
                         }
                         else{
-                          echo '<li class="nav-item_en_cours">';
-                          echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
-                          echo '<p>Prestataire ' . $folder['iduser'] . ' :<br>' . $folder['mail'] . '<br>(En attente de validation)</p>';
+                          echo '<li  onclick="research(' . $folder['iduser'] . ')" class="nav-item_en_cours" >';
+                          echo '<div class="nav_item_position_folders_yellow" id="en_cours">';
+                          echo '<p>Prestataire ' . $folder['iduser'] . ' :<br>' . $folder['mail'] . '<br>(Compte désactivé)</p>';
                           echo '</div></li>';
                         }
                       }

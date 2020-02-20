@@ -12,7 +12,7 @@
     $json = file_get_contents($requete, false, $context);
     $categ_service=json_decode($json, true);
 
-    echo '<select name="categService" id="categ-service-select">';
+    echo '<select name="categService" id="categ_service_updt">';
     foreach ($categ_service['data'] as $result) {
         echo '<option value="' . $result['idcategservice'] . '">' . $result['lb'] . '</option>';
     }

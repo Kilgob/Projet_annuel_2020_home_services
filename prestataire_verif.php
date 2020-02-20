@@ -33,7 +33,6 @@
     echo '<div></div>';
     echo '<div class="form-group">';
     echo '<i id="size_date">Date de création du compte : ' . substr($userInfo['data'][0]['dtcrea'],0, -9) . '</i>';
-    echo '<br><i>Statut : ' . $userInfo['data'][0]['okactif'] . '</i>';
     echo '</div>';
     echo '<div></div>';
 
@@ -46,26 +45,35 @@
           <div class="form-group row user_profil_input_row">
             <div class="mx-auto user_profil_align">
 
-              <div class="form-group display_input_inline_block">
-                <input type='text' class="form-control" placeholder="Prénom" aria-label="firstname" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['prenom']; ?>" name="prenom" />
-                <input type='text' class="form-control" placeholder="Nom" aria-label="lastname" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['nom']; ?>" name="nom" />
-              </div>
-              <div class="form-group">
-                <input type='text' class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['mail']; ?>" size="30" name="mail" />
-              </div>
-              <div id="user_profil_address_and_num_div" class="form-group">
-                <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['adresse']; ?>" name="adresse" />
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['ville']; ?>" name="ville" />
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control input_247px" placeholder="Numéro de téléphone" aria-label="num_tel" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['notel']; ?>" name="notel" />
-              </div>
-              <i>Ajouter de quoi changer le mdp</i>
+                <div class="form-group display_input_inline_block">
+                    <input type='text' class="form-control" placeholder="Prénom" aria-label="firstname" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['prenom']; ?>" name="prenom" />
+                    <input type='text' class="form-control" placeholder="Nom" aria-label="lastname" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['nom']; ?>" name="nom" />
+                </div>
+                <div class="form-group">
+                    <input type='text' class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['mail']; ?>" size="30" name="mail" />
+                </div>
+                <div id="user_profil_address_and_num_div" class="form-group">
+                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['adresse']; ?>" name="adresse" />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['ville']; ?>" name="ville" />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input_247px" placeholder="Numéro de téléphone" aria-label="num_tel" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['notel']; ?>" name="notel" />
+                </div>
+                <div>
+                    <br><i>Statut : </i>
+                    <br><input type="radio" id="statutac" name="okactif" value="1" <?php echo $userInfo['data'][0]['okactif'] == 1?'Checked':' '; ?> > Compte activé</input>
+                    <br><input type="radio" id="statutdesac" name="okactif" value="0"<?php echo $userInfo['data'][0]['okactif'] == 0?'Checked':' '; ?> > Compte désactivé</input>
+                </div>
+                <i>Ajouter de quoi changer le mdp</i>
+                <div class="form-group">
+                    <input type="hidden" class="form-control input_247px" aria-label="iduser" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['iduser']; ?>" name="iduser" />
+                </div>
             </div>
           </div>
         </div>
+
         <div class="form-group">
           <b>réattribuer le prestataire à une agence</b>
           <select onchange="finAgence()" name="agence_selected" id="agence_select_service">
@@ -79,9 +87,10 @@
           </select>
         </div>
         <div class="form-group">
-          <select name="categService" id="categ_service_updt">
-            <option value="" selected>--Selectionnez d'abord une agence--</option>
-          </select>
+            <b>Puis sélectionnez une catégorie de service</b>
+            <select name="categService" id="categ_service_updt">
+                <option value="" selected>--Selectionnez d'abord une agence--</option>
+            </select>
         </div>
         <input class="btn btn-secondary" type='submit' value="Modifier les informations du prestataire" />
     </div>
