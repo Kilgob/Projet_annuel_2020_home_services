@@ -1,6 +1,6 @@
 <?php
   include 'header.php';
-include 'config.php';
+  include 'config.php';
 
     $context = stream_context_create(array(
         'http' => array(
@@ -26,15 +26,15 @@ include 'config.php';
               <label>Mot de passe</label><div></div>
               <input type="password" class="form-control connexion_input" placeholder="Mot de passe" aria-label="Username" aria-describedby="basic-addon1" name="password"><div class="space"></div>
             </div>
-              <div class="form-group">
-                  <select name="agence_selected" id="agence-select_agence">
-                      <?php foreach ($listeAgence['data'] as $result) {
-                          echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';
-                      } ?>
+            <div class="form-group">
+                <select name="agence_selected" id="agence-select_agence">
+                    <?php foreach ($listeAgence['data'] as $result) {
+                        echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';
+                    } ?>
 
-                      <option value="" selected>--Sélectionner une agence--</option>
-                  </select>
-              </div>
+                    <option value="" selected>--Sélectionner une agence--</option>
+                </select>
+            </div>
           </div>
           <input type="submit" class="btn btn-primary" value="Connexion"/>
         </form>

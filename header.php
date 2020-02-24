@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="css/style_header.css" />
     <link rel="stylesheet" href="css/style_main.css" />
     <link rel="stylesheet" href="css/style_liste_dossier.css" />
+    <link rel="stylesheet" href="css/style_inscription.css" />
       <!-- <link rel="stylesheet" href="css/style_homePage.css"/>
       <link rel="stylesheet" href="css/style_general_manage.css" />
       <link rel="stylesheet" href="css/style_liste_dossier.css" />
-      <link rel="stylesheet" href="css/style_inscription.css" />
+
       <link rel="stylesheet" href="css/style_user_profil.css" />
       <link rel="stylesheet" href="css/style_users_management.css" />
       <link rel="stylesheet" href="css/style_rdv_management.css" />
