@@ -1,20 +1,21 @@
 <?php
-include 'header.php';
-// SELECT nom,prenom,addrmail,notel FROM tabusers WHERE nmuser = ?
-$context = stream_context_create(array(
-    'http' => array(
-        'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
-));
+    include 'header.php';
+    include 'config.php';
+    // SELECT nom,prenom,addrmail,notel FROM tabusers WHERE nmuser = ?
+    $context = stream_context_create(array(
+        'http' => array(
+            'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
+    ));
 
-$json=file_get_contents("http://172.16.69.181:6001/categ_service", false, $context);
-$categ_service=json_decode($json, true);
+    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/categ_service", false, $context);
+    $categ_service=json_decode($json, true);
 
-$json=file_get_contents("http://172.16.69.181:6001/agence", false, $context);
-$listeAgence=json_decode($json, true);
+    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence", false, $context);
+    $listeAgence=json_decode($json, true);
 
-// lister tous les services (pas utilisé)
-$json=file_get_contents("http://172.16.69.181:6001/service", false, $context);
-$listeService=json_decode($json, true);
+    // lister tous les services (pas utilisé)
+    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/service", false, $context);
+    $listeService=json_decode($json, true);
 ?>
 
 <main>
@@ -32,13 +33,16 @@ $listeService=json_decode($json, true);
                                     <input type='text' class="form-control" placeholder="Nom" aria-label="lastname" aria-describedby="basic-addon1" value="" name="nom" />
                                 </div>
                                 <div class="form-group">
-                                    <input type='text' class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1" value="" size="30" name="addrmail" />
-                                </div>
-                                <div id="user_profil_address_and_num_div" class="form-group">
-                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="" name="nom_rue" />
+                                    <input type='text' class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1" value="" size="30" name="mail" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="" name="lbville" />
+                                    <input type='password' class="form-control" placeholder="mot de passe" aria-label="password" aria-describedby="basic-addon1" value="" size="30" name="password" />
+                                </div>
+                                <div id="user_profil_address_and_num_div" class="form-group">
+                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="" name="adresse" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="" name="ville" />
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control input_247px" placeholder="Numéro de téléphone" aria-label="num_tel" aria-describedby="basic-addon1" value="" name="notel" />
@@ -47,7 +51,7 @@ $listeService=json_decode($json, true);
                         </div>
                     </div>
                     <div class="form-group">
-                        <select name="agence_selected" id="agence-select">
+                        <select onchange="finAgence()" name="agence_selected" id="agence_select_service">
                             <?php foreach ($listeAgence['data'] as $result) {
                                 echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';
                             } ?>
@@ -57,7 +61,7 @@ $listeService=json_decode($json, true);
                     </div>
 
                     <div class="form-group">
-                        <select name="categService" id="categ-service-select">
+                        <select name="categService" id="categ_service_updt">
                             <option value="" selected>--Selectionnez d'abord une agence--</option>
                         </select>
                     </div>
