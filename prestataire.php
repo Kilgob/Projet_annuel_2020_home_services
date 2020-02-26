@@ -13,7 +13,7 @@
             'header' => "Authorization: Basic " . base64_encode("user:pass"))
     ));
 
-    $requete = "http://" . $_SESSION['ip_agence'] . "/prestataire";
+    $requete = "http://" . $_SESSION['ip_agence'] . "/gestion_user?type_user=pre";
     $json = file_get_contents($requete, false, $context);
     $liste_prestataire=json_decode($json, true);
 
@@ -30,15 +30,25 @@
       <div class="row d-flex justify-content-center">
         <div class="col-md-2 col_homePage">
           <div class="row d-flex justify-content-center title_my_row">
-              <p>Choisissez votre agence</p>
-              <select onchange="finPrest()" name="agence_selected" id="agence_select">
-                  <?php foreach ($listeAgence['data'] as $result) {
-                      $result_terner = $result['idagence'] == 4?'selected':' ' ;//Sélectionner l'agence choisit
-                      echo '<option value="' . $result['idagence'] . '"' . $result_terner . '>' . $result['nom'] . " (" . $result['ville'] . ')</option>';
-                  }
-                  ?>
-              </select>
-            <h3>Mes prestataires</h3>
+              <div class="row d-flex justify-content-center title_my_row">
+                  <p>Choisissez quoi lister</p>
+                  <select onchange="finPrest()" name="type_user" id="type_user">
+                    <option value="1" selected>Prestataire</option>
+                    <option value="2">Client</option>
+                      <option value="3">Service</option>
+                  </select>
+              </div>
+              <div class="row d-flex justify-content-center title_my_row">
+                  <p>Choisissez votre agence</p>
+                  <select onchange="finPrest()" name="agence_selected" id="agence_select">
+                      <?php foreach ($listeAgence['data'] as $result) {
+                          $result_terner = $result['idagence'] == 4?'selected':' ' ;//Sélectionner l'agence choisit
+                          echo '<option value="' . $result['idagence'] . '"' . $result_terner . '>' . $result['nom'] . " (" . $result['ville'] . ')</option>';
+                      }
+                      ?>
+                  </select>
+              </div>
+            <h3 id="title_list">Mes prestataires</h3>
           </div>
 
 
