@@ -31,7 +31,7 @@ $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_service?service=" . $_GET
                     <br><input type="radio" id="statutdesac" name="okactif" value="0"<?php echo $liste_service['data'][0]['statut'] == 0?'Checked':' '; ?> > Service désactivé</input>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" class="form-control input_247px" aria-label="iduser" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['idservice']; ?>" name="iduser" />
+                    <input type="hidden" class="form-control input_247px" aria-label="iduser" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['idservice']; ?>" name="idservice" />
                 </div>
                 <div>
                     <input class="btn btn-secondary" type='submit' value="Modifier les informations du service" />
