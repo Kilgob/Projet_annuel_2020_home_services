@@ -51,7 +51,7 @@ function finPrest(){
             // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
             break;
         case '3':
-            document.getElementById('title_list').innerHTML = "Mes services";
+            document.getElementById('title_list').innerHTML = "Mes categories de services";
             // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
             break;
     }

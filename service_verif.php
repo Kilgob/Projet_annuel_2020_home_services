@@ -15,11 +15,11 @@
     $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence", false, $context);
     $listeAgence=json_decode($json, true);
 
-    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/categ_from_agence?agence=" . $_GET['idagence'];
+    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_categ_service?idcatserv=" . $_GET['folder'] ;
     $json = file_get_contents($requete, false, $context);
     $liste_categ_service = json_decode($json, true);
 
-    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/select_service_from_categ?idcategservice=" . $liste_categ_service['data'][0]['idcategservice'];
+    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/select_service_from_categ?idcatservice=" . $_GET['folder'] ;
     $json = file_get_contents($requete, false, $context);
     $liste_service = json_decode($json, true);
 
@@ -42,13 +42,13 @@
 <section class="row d-flex justify-content-center">
   <div class="col-md-5 d-flex justify-content-center">
     <div id="user_profil_form">
-      <form method="POST" action="edit_prestataire_back.php">
+      <form method="POST" action="edit_categ_service_back.php">
         <div class="d-flex justify-content-center">
           <div class="form-group row user_profil_input_row">
             <div class="mx-auto user_profil_align">
 
                 <div class="form-group">
-                    nom : <input type='text' class="form-control" placeholder="Prénom" aria-label="firstname" aria-describedby="basic-addon1" value="<?php echo $liste_categ_service['data'][0]['lb']; ?>" name="nom" />
+                    nom : <input type='text' class="form-control" placeholder="Prénom" aria-label="firstname" aria-describedby="basic-addon1" value="<?php echo $liste_categ_service['data'][0]['lb']; ?>" name="lb" />
                 </div>
                 <div class="form-group">
                     <br><i>Statut : </i>
@@ -56,7 +56,7 @@
                     <br><input type="radio" id="statutdesac" name="okactif" value="0"<?php echo $liste_categ_service['data'][0]['statut'] == 0?'Checked':' '; ?> > Catégorie de service désactivé</input>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" class="form-control input_247px" aria-label="iduser" aria-describedby="basic-addon1" value="<?php echo $liste_categ_service['data'][0]['idcategservice']; ?>" name="iduser" />
+                    <input type="hidden" class="form-control input_247px" aria-label="idcateg" aria-describedby="basic-addon1" value="<?php echo $liste_categ_service['data'][0]['idcategservice']; ?>" name="idcateg" />
                 </div>
             </div>
           </div>

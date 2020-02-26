@@ -1,6 +1,4 @@
 
-
-
 function research(iddossier){
   var xhr = new XMLHttpRequest();
   const type_user = document.getElementById('type_user').options[document.getElementById('type_user').selectedIndex].value;
@@ -42,12 +40,12 @@ function researchS(iddossier){
 }
 
 //corriger
-function searchservice(iddossier){
+function searchservice(){
     var xhr = new XMLHttpRequest();
     const idservice = document.getElementById('select_service').options[document.getElementById('select_service').selectedIndex].value;
     // const folder = document.getElementById(iddossier).id;
     console.log(idservice);
-    xhr.open('GET', 'unique_service.php?folder=' + iddossier);
+    xhr.open('GET', 'unique_service.php?folder=' + idservice);
 
 
     // Lorsqu'un réponse est émise par le serveur

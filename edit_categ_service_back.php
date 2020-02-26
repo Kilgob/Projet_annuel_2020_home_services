@@ -11,9 +11,9 @@ $context = stream_context_create(array(
 
 
 //http://54.37.153.32:6001/unique_service?lb=baysitter&price=600&idservice=1
-$requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_service?lb=" . $_POST['lb'] .
-    "&price=" . $_POST['price'] .
-    "&idservice=" . $_POST['idservice'] .
+$requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_categ_service?lb=" . $_POST['lb'] .
+    "&idcatservice=" . $_POST['idcateg'] .
+    "&idagence=" . $_POST['agence_selected'] .
     "&statut=" . $_POST['okactif'];
 $requete = str_replace(" ", "%20", $requete);
 
