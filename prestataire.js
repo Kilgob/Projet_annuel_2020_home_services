@@ -3,10 +3,10 @@
 
 function research(iddossier){
   var xhr = new XMLHttpRequest();
-
+  const type_user = document.getElementById('type_user').options[document.getElementById('type_user').selectedIndex].value;
   // const folder = document.getElementById(iddossier).id;
   console.log(iddossier);
-  xhr.open('GET', 'prestataire_verif.php?folder=' + iddossier);
+  xhr.open('GET', 'prestataire_verif.php?folder=' + iddossier + '&type_user=' + type_user);
 
 
   // Lorsqu'un réponse est émise par le serveur

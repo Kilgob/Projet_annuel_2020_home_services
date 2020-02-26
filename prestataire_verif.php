@@ -75,24 +75,35 @@
         </div>
 
         <div class="form-group">
-          <b>réattribuer le prestataire à une agence</b>
+          <b>réattribuer l'utilisateur à une agence</b>
           <select onchange="finAgence()" name="agence_selected" id="agence_select_service">
             <?php foreach ($listeAgence['data'] as $result) {
               $result_terner = $result['idagence'] == 4?'selected':' ' ;//Sélectionner l'agence choisit
               echo '<option value="' . $result['idagence'] . '"' . $result_terner . '>' . $result['nom'] . " (" . $result['ville'] . ')</option>';
             }
             ?>
+          </select>
 
-<!--            <option value="" selected>--Réassigner à une agence--</option>-->
+          <?php
+            if($_GET['type_user'] == '1'){
+              ?>
+            </div>
+            <div class="form-group">
+                <b>Puis sélectionnez une catégorie de service</b>
+                <select name="categService" id="categ_service_updt">
+                    <option value="" selected>--Selectionnez d'abord une agence--</option>
+                </select>
+            </div>
+          <?php } ?>
+
+        <div class="form-group">
+          <select name="type_user">
+            <option value='cli' <?php echo $userInfo['data'][0]['cdtype_user'] == "cli" ? "selected" : ""?>>Client</option>
+            <option value='pre' <?php echo $userInfo['data'][0]['cdtype_user'] == "pre" ? "selected" : ""?>>Prestataire</option>
           </select>
         </div>
-        <div class="form-group">
-            <b>Puis sélectionnez une catégorie de service</b>
-            <select name="categService" id="categ_service_updt">
-                <option value="" selected>--Selectionnez d'abord une agence--</option>
-            </select>
-        </div>
-        <input class="btn btn-secondary" type='submit' value="Modifier les informations du prestataire" />
+
+        <input class="btn btn-secondary" type='submit' value="Modifier les informations" />
     </div>
     </form>
   </div>
