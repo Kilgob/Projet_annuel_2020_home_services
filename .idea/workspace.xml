@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5bf5aa12-3e56-45e3-a6e8-207c6c27ac57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/service_verif.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkCategAndService.js" beforeDir="false" afterPath="$PROJECT_DIR$/checkCategAndService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prestataire.js" beforeDir="false" afterPath="$PROJECT_DIR$/prestataire.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prestataire.php" beforeDir="false" afterPath="$PROJECT_DIR$/prestataire.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prestataire_agence_verif.php" beforeDir="false" afterPath="$PROJECT_DIR$/prestataire_agence_verif.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_verif.php" beforeDir="false" afterPath="$PROJECT_DIR$/service_verif.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unique_service.php" beforeDir="false" afterPath="$PROJECT_DIR$/unique_service.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +86,7 @@
       <workItem from="1582628542478" duration="2913000" />
       <workItem from="1582653594022" duration="7773000" />
       <workItem from="1582706782655" duration="2402000" />
-      <workItem from="1582722238596" duration="658000" />
+      <workItem from="1582722238596" duration="4212000" />
     </task>
     <servers />
   </component>

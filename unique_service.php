@@ -1,6 +1,14 @@
 <?php
+session_start();
+include 'config.php';
 
-    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_service?service=" . ;
+$context = stream_context_create(array(
+    'http' => array(
+        'method' => "GET",
+        'header' => "Authorization: Basic " . base64_encode("user:pass"))
+));
+
+$requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_service?service=" . $_GET['folder'];
     $json = file_get_contents($requete, false, $context);
     $liste_service = json_decode($json, true);
 
@@ -24,6 +32,9 @@
                 </div>
                 <div class="form-group">
                     <input type="hidden" class="form-control input_247px" aria-label="iduser" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['idservice']; ?>" name="iduser" />
+                </div>
+                <div>
+                    <input class="btn btn-secondary" type='submit' value="Modifier les informations du service" />
                 </div>
             </div>
         </div>

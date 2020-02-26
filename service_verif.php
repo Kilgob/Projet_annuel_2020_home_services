@@ -15,11 +15,11 @@
     $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence", false, $context);
     $listeAgence=json_decode($json, true);
 
-    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/categ_from_agence?agence=" . $_GET['idagence'];
+    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_categ_service?idcatserv=" . $_GET['folder'] ;
     $json = file_get_contents($requete, false, $context);
     $liste_categ_service = json_decode($json, true);
 
-    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/select_service_from_categ?idcategservice=" . $liste_categ_service['data'][0]['idcategservice'];
+    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/select_service_from_categ?idcatservice=" . $_GET['folder'] ;
     $json = file_get_contents($requete, false, $context);
     $liste_service = json_decode($json, true);
 
