@@ -34,7 +34,7 @@
               <div class="row d-flex justify-content-center title_my_row">
                   <!-- <p>Choisissez votre agence</p> -->
                   <select onchange="showUserList()" name="agence_selected" id="agence_select">
-                      <option value="default" selected>Faites un choix</option>
+                      <option value="default" selected>Sélectionnez une agence</option>
                       <?php foreach ($listeAgence['data'] as $result) {
                           //$result_terner = $result['idagence'] == 4?'selected':' ' ;//Sélectionner l'agence choisit
                           echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';

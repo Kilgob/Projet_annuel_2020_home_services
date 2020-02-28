@@ -3,6 +3,11 @@
   include 'config.php';
   session_start();
 
+  if($_POST['agence_selected'] == NULL){
+    header('Location: ConnexionIndex.php?error=no_agence_selected');
+    exit;
+  }
+
 
   $context = stream_context_create(array(
     'http' => array(

@@ -99,5 +99,9 @@
     echo '<p class="p_display_error">L\'email n\'exite pas ! Si vous n\'avez pas de compte, veuillez vous incrire.</p>';
   }
 
+if(isset($_GET['error']) && $_GET['error'] == 'no_agence_selected'){
+    echo '<p class="p_display_error">Vous n\'avez pas sélectionné d\'agence !</p>';
+}
+
   include 'footer.php';
 ?>

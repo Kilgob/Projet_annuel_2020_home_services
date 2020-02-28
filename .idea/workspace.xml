@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5bf5aa12-3e56-45e3-a6e8-207c6c27ac57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_prestataire_back.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit_prestataire_back.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/Connexion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConnexionIndex.php" beforeDir="false" afterPath="$PROJECT_DIR$/ConnexionIndex.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkCategAndService.js" beforeDir="false" afterPath="$PROJECT_DIR$/checkCategAndService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prestataire.php" beforeDir="false" afterPath="$PROJECT_DIR$/prestataire.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +33,11 @@
     </option>
     <expand />
     <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="PA">
+      <favorite_root url="file://$PROJECT_DIR$/prestataire.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+    </favorites_list>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -85,7 +94,12 @@
       <workItem from="1582706782655" duration="2402000" />
       <workItem from="1582722238596" duration="5776000" />
       <workItem from="1582730305261" duration="42000" />
-      <workItem from="1582731197576" duration="1445000" />
+      <workItem from="1582731197576" duration="1484000" />
+      <workItem from="1582793710857" duration="786000" />
+      <workItem from="1582819128850" duration="62000" />
+      <workItem from="1582819394908" duration="81000" />
+      <workItem from="1582819989992" duration="225000" />
+      <workItem from="1582902269961" duration="1296000" />
     </task>
     <servers />
   </component>
@@ -120,10 +134,10 @@
     <state x="1204" y="372" key="NewPhpFileDialog/0.23.2560.1537@0.23.2560.1537" timestamp="1581002462174" />
     <state x="3124" y="124" key="NewPhpFileDialog/1920.-203.2560.1440/0.0.1920.1200@1920.-203.2560.1440" timestamp="1581257787729" />
     <state x="3726" y="20" key="NewPhpFileDialog/1920.-338.3840.1577/0.23.1920.1140@1920.-338.3840.1577" timestamp="1580736445514" />
-    <state x="2736" y="-78" key="SettingsEditor" timestamp="1581951704305">
-      <screen x="1920" y="-361" width="3840" height="1600" />
+    <state x="408" y="212" key="SettingsEditor" timestamp="1582902557038">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="408" y="212" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1581944802068" />
+    <state x="408" y="212" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1582902557038" />
     <state x="408" y="224" key="SettingsEditor/0.23.1920.1140@0.23.1920.1140" timestamp="1580315261086" />
     <state x="2736" y="-78" key="SettingsEditor/1920.-361.3840.1600/0.0.1920.1200@1920.-361.3840.1600" timestamp="1581951704305" />
     <state x="584" y="417" key="com.intellij.ide.util.TipDialog" timestamp="1580374315759">
