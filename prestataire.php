@@ -77,6 +77,7 @@
     </section>
     <script src="prestataire.js"> </script>
     <script type="text/javascript" src="checkCategAndService.js"></script>
+    <script src="history.js"></script>
   </main>
 
 

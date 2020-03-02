@@ -104,10 +104,36 @@
         </div>
 
         <input class="btn btn-secondary" type='submit' value="Modifier les informations" />
+        <input class="btn btn-secondary" data-toggle="modal" data-target="#historyModal" data-whatever="@mdo" onclick="findHistory(<?php echo $userInfo['data'][0]['iduser'];?>)" value="Afficher l'historique">
     </div>
     </form>
   </div>
 </section>
+
+    <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="iddossier_lb" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="iddossier_lb">Historique des interventions</h5>
+            <form id="interventions_statut" onchange="findHistory(<?php echo $userInfo['data'][0]['iduser'];?>)">
+              <input type="radio" id="statutAll" name="statut" value="all" checked>
+              <label for="statutAll">Tout</label>
+              <input type="radio" id="statut0" name="statut" value="0">
+              <label for="statut0">En attente</label>
+              <input type="radio" id="statut1" name="statut" value="1">
+              <label for="statut1">En cours</label>
+              <input type="radio" id="statut2" name="statut" value="2">
+              <label for="statut2">Terminé</label>
+            </form>
+          </div>
+          <div class="modal-body" id="history">
+            <!-- Display history -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="history.js"></script>
 
   <?php
 //    $file_pj_request = $bdd->prepare("SELECT nmrep,nmfic,nmfic_checksum,nmuserfic FROM tabpj,dossiers WHERE dossiers.iddossier = tabpj.iddossier AND dossiers.iddossier = ?");
