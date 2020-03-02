@@ -21,7 +21,7 @@ function showUserList(){
   const idagence = document.getElementById('agence_select').options[document.getElementById('agence_select').selectedIndex].value;
 
   if(idagence != 'default'){
-    document.getElementById('type_user_list').innerHTML = "<select onchange='finPrest()' name='type_user' id='type_user'><option value='default' selected>Faites un choix</option><option value='1'>Prestataire</option><option value='2'>Client</option><option value='3'>Service</option></select>"
+    document.getElementById('type_user_list').innerHTML = "<select onchange='finPrest()' name='type_user' id='type_user'><option value='default' selected>Sélectionner un élément</option><option value='1'>Prestataire</option><option value='2'>Client</option><option value='3'>Service</option></select>"
   }
   else{
     document.getElementById('type_user_list').innerHTML = ' ';

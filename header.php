@@ -39,17 +39,14 @@
               <a class="nav-link" href="tarifs.php">Tarifs</a>
             </li>
             <?php
-                if($_SESSION != [] && $_SESSION['cdtype_user'] == 'pat'){
+                if($_SESSION != [] && ($_SESSION['cdtype_user'] != 'cli' || $_SESSION['cdtype_user'] != 'pre')){
             ?>
             <li class="nav_item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admistration</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuAdmin">
-                <a class="dropdown-item" href="users_management.php">Clients</a>
-                <a class="dropdown-item" href="rdv_management.php">Rendez-vous</a>
-                <a class="dropdown-item" href="general_manage.php">Générale</a>
                 <a class="dropdown-item" href="create_service.php">Créer un service</a>
                 <a class="dropdown-item" href="add_prestataire.php">Nouveau presatataire</a>
-                <a class="dropdown-item" href="prestataire.php">Gérer les presatataires</a>
+                <a class="dropdown-item" href="prestataire.php">Page de gestion</a>
               </div>
             </li>
           <?php }
