@@ -112,56 +112,73 @@ include 'config.php';
                         </div>
                     </div>
                 </form>
+
+                <form method="POST" action="new_abonnement.php">
+                    <h4 class="title_my_row">Créer un nouvel abonnement</h4>
+                    <div class="d-flex justify-content-center">
+                        <div class="form-group row user_profil_input_row">
+                            <div class="mx-auto user_profil_align">
+
+                                <div class="form-group">
+                                    <input type='text' class="form-control" placeholder="Nom du nouvel abonnement" aria-label="firstname" aria-describedby="basic-addon1" value="" name="name_abonnement" />
+                                </div>
+                                <div class="form-group">
+                                    <input type='number' class="form-control" placeholder="prix" aria-describedby="basic-addon1" value="" name="price" />
+                                </div>
+                                <div class="form-group">
+                                    <input type='text' class="form-control" placeholder="description" aria-describedby="basic-addon1" value="" name="description" />
+                                </div>
+                                <div class="form-group">
+                                    <input type='number' class="form-control" placeholder="nombre de jour cumulable" aria-describedby="basic-addon1" value="" name="nbr_days_cumul" />
+                                    <i>
+                                        7 = 7/7 --> lundi au dimance<br>
+                                        6 = 6/7 --> lundi au samedi<br>
+                                        5 = 5/7 --> lundi au vendredi<br>
+                                        4 = 4/7 --> lundi - mardi, jeudi - vendredi<br>
+                                    </i>
+                                </div>
+                                <div class="form-group">
+                                    <input type='text' class="form-control" placeholder="horaire de début" aria-describedby="basic-addon1" value="00:01" name="hr_start" />
+                                    <i>
+                                        Horaire du début de prise de services compris dans l'abonnement<br>
+                                        Syntaxe : --:--<br>
+                                    </i>
+                                </div>
+                                <div class="form-group">
+                                    <input type='text' class="form-control" placeholder="horaire de fin" aria-describedby="basic-addon1" value="23:59" name="hr_end" />
+                                    <i>
+                                        Horaire de fin de prise de services compris dans l'abonnement<br>
+                                        Syntaxe : --:--<br>
+                                    </i>
+                                </div>
+                                <div class="form-group">
+                                    <input type='number' class="form-control" placeholder="durée de l'abonnement" aria-describedby="basic-addon1" value="30" name="nbr_days_abos" />
+                                    <i>
+                                        Nombre de jour avant le renouvellement de l'abonnemnt<br>
+                                        Syntaxe : nombre de jours<br>
+                                    </i>
+                                </div>
+
+                                <div class="form-group">
+                                    <select name="agence_selected" id="agence_select_abonnement">
+                                        <?php foreach ($listeAgence['data'] as $result) {
+                                            echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';
+                                        } ?>
+
+                                        <option value="" selected>--Ratacher l'abonnement à une agence--</option>
+                                    </select>
+                                </div>
+
+                                <input class="btn btn-secondary" type='submit' value="Confirmer le nouvel abonnement" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </section>
     <script type="text/javascript" src="checkCategAndService.js"></script>
-    <?php
-
-    if(isset($_GET['msg']) && $_GET['msg'] == 'password_modify_succes'){
-        echo '<p style="color:rgb(90,98,104);text-align:center;">Votre mot de passe a été modifié avec succès !</p>';
-    }
-
-    if(isset($_GET['error'])){
-
-        if($_GET['error'] == 'email_missing'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">L\'adresse mail n\'est pas renseignée !</p>';
-        }
-
-        if($_GET['error'] == 'email_format'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">L\'email n\'est pas correct !</p>';
-        }
-
-        if($_GET['error'] == 'address_num_missing'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">Le numéro de rue est manquant ou invalide !</p>';
-        }
-
-        if($_GET['error'] == 'address_missing'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">L\'adresse postal n\'est pas renseignée !</p>';
-        }
-
-        if($_GET['error'] == 'town_dont_exist'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">La ville choisie n\'exite pas !</p>';
-        }
-
-        if($_GET['error'] == 'num_tel_missing'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">Le numéro de téléphone n\'est pas renseigné !</p>';
-        }
-
-        if($_GET['error'] == 'modify_succes'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">Votre compte a été modifié avec succès !</p>';
-        }
-
-        if($_GET['error'] == 'wrong_old_password'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">Votre mot de passe actuel ne correspond pas avec celui renseigné !</p>';
-        }
-
-        if($_GET['error'] == 'password_dont_correspond'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">Les nouveaux mots de passes renseignés ne correspondent pas !</p>';
-        }
-    }
-    ?>
-
 
 </main>
 
