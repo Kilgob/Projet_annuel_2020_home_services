@@ -54,15 +54,35 @@ $infoAgence=json_decode($json, true);
                                 if ($folder['statut'] != "0") {
                                     echo '<li id=' . $folder['idcategservice'] . '  onclick="researchS(' . $folder['idcategservice'] . ')" class="d-flex justify-content-center">';
                                     echo '<div class="nav_item_position_folders">';
-                                    echo '<p>catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '</p>';
+                                    echo '<p>Catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '</p>';
                                     echo '</div></li>';
                                 }
                                 else {
                                     echo '<li class="nav-item_en_cours">';
                                     echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
-                                    echo '<p>catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '<br>(En attente de validation)</p>';
+                                    echo '<p>Catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '<br>(En attente de validation)</p>';
                                     echo '</div></li>';
                                 }
+                            }
+                            break;
+                        case '4':
+                            $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/abonnement_from_agence?idagence=" . $_GET['idagence'];
+                            $json = file_get_contents($requete, false, $context);
+                            $listeCategService = json_decode($json, true);
+                            foreach ($listeCategService['data'] as $folder) {
+                                //les abonnements ne peuvent pas être considérés non actif (pour le moment)
+//                                if ($folder['statut'] != "0") {
+                                    echo '<li id=' . $folder['idabonnement'] . '  onclick="researchA(' . $folder['idabonnement'] . ')" class="d-flex justify-content-center">';
+                                    echo '<div class="nav_item_position_folders">';
+                                    echo '<p>Abonnement (n°' . $folder['idabonnement'] . ') :<br>' . $folder['lb'] . '</p>';
+                                    echo '</div></li>';
+//                                }
+//                                else {
+//                                    echo '<li class="nav-item_en_cours">';
+//                                    echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
+//                                    echo '<p>catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '<br>(En attente de validation)</p>';
+//                                    echo '</div></li>';
+//                                }
                             }
                             break;
                     }

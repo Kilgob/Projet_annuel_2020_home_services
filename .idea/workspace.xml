@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5bf5aa12-3e56-45e3-a6e8-207c6c27ac57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/Connexion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_service.php" beforeDir="false" afterPath="$PROJECT_DIR$/create_service.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new_type_service.php" beforeDir="false" afterPath="$PROJECT_DIR$/new_type_service.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkCategAndService.js" beforeDir="false" afterPath="$PROJECT_DIR$/checkCategAndService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prestataire.js" beforeDir="false" afterPath="$PROJECT_DIR$/prestataire.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prestataire_agence_verif.php" beforeDir="false" afterPath="$PROJECT_DIR$/prestataire_agence_verif.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +106,8 @@
       <workItem from="1583281193785" duration="149000" />
       <workItem from="1583336266475" duration="5697000" />
       <workItem from="1583398144851" duration="7555000" />
+      <workItem from="1583413562200" duration="279000" />
+      <workItem from="1583436279216" duration="6534000" />
     </task>
     <servers />
   </component>
@@ -132,14 +133,15 @@
       <screen x="0" y="23" width="2560" height="1537" />
     </state>
     <state x="705" y="435" key="#com.intellij.ws.actions.HttpClientConvertFromCurlDialog/0.23.2560.1537@0.23.2560.1537" timestamp="1580999763210" />
-    <state x="903" y="273" key="NewPhpFileDialog" timestamp="1583412707702">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="3124" y="55" key="NewPhpFileDialog" timestamp="1583446068732">
+      <screen x="1920" y="-273" width="2560" height="1440" />
     </state>
-    <state x="903" y="273" key="NewPhpFileDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1583412707702" />
+    <state x="903" y="273" key="NewPhpFileDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1583436505200" />
     <state x="1204" y="364" key="NewPhpFileDialog/0.0.2560.1600@0.0.2560.1600" timestamp="1582707941456" />
     <state x="903" y="282" key="NewPhpFileDialog/0.23.1920.1140@0.23.1920.1140" timestamp="1581246978024" />
     <state x="1204" y="372" key="NewPhpFileDialog/0.23.2560.1537@0.23.2560.1537" timestamp="1581002462174" />
     <state x="3124" y="124" key="NewPhpFileDialog/1920.-203.2560.1440/0.0.1920.1200@1920.-203.2560.1440" timestamp="1581257787729" />
+    <state x="3124" y="55" key="NewPhpFileDialog/1920.-273.2560.1440/0.0.1920.1200@1920.-273.2560.1440" timestamp="1583446068732" />
     <state x="3726" y="20" key="NewPhpFileDialog/1920.-338.3840.1577/0.23.1920.1140@1920.-338.3840.1577" timestamp="1580736445514" />
     <state x="408" y="212" key="SettingsEditor" timestamp="1582902557038">
       <screen x="0" y="0" width="1920" height="1200" />

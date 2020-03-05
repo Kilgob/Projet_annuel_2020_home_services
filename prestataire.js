@@ -19,6 +19,7 @@ function research(iddossier){
   // console.log('test');
 }
 
+//fonction permettant l'affichage de la liste des services disponible
 function researchS(iddossier){
     var xhr = new XMLHttpRequest();
     const idagence = document.getElementById('agence_select').options[document.getElementById('agence_select').selectedIndex].value;
@@ -60,34 +61,55 @@ function searchservice(){
     // console.log('test');
 }
 
+//fonction permettant l'affichage de la liste des abonnements disponible
+function researchA(iddossier){
+    var xhr = new XMLHttpRequest();
+    // const idagence = document.getElementById('agence_select').options[document.getElementById('agence_select').selectedIndex].value;
+    // const folder = document.getElementById(iddossier).id;
+    // console.log(idagence);
+    xhr.open('GET', 'unique_abonnement.php?folder=' + iddossier);
+
+
+    // Lorsqu'un réponse est émise par le serveur
+    xhr.onreadystatechange = function() {
+        if (xhr.status == 200 && xhr.readyState == 4) {
+            document.getElementById('section1').innerHTML = xhr.responseText;
+            console.log(xhr.responseText);
+            // xhr.responseText contient exactement ce que la page PHP renvoi
+        }
+    };
+    xhr.send('');
+    // console.log('test');
+}
+
 
 //supprimer un fichier
-function delete_file(nmfic){
-  var delete_file_xhr = new XMLHttpRequest();
-
-  // const folder = document.getElementById(iddossier).id;
-  console.log(nmfic);
-  // const folder = document.getElementById('dosssier').innerHTML;
-  delete_file_xhr.open('GET', 'file_delete.php?file=' + nmfic);
-
-
-  // Lorsqu'un réponse est émise par le serveur
-  delete_file_xhr.onreadystatechange = function() {
-    const children = document.getElementById(nmfic);
-    const button_children = document.getElementById(nmfic + "_button");
-    const parent = children.parentNode;
-
-      if (delete_file_xhr.status == 200 && delete_file_xhr.readyState == 4) {
-          // parent.innerHTML = delete_file_xhr.responseText;
-          parent.removeChild(children);
-          parent.removeChild(button_children);
-          alert('fichier supprimé');
-
-      }
-  };
-  delete_file_xhr.send('');
-  // console.log('test');
-}
+// function delete_file(nmfic){
+//   var delete_file_xhr = new XMLHttpRequest();
+//
+//   // const folder = document.getElementById(iddossier).id;
+//   console.log(nmfic);
+//   // const folder = document.getElementById('dosssier').innerHTML;
+//   delete_file_xhr.open('GET', 'file_delete.php?file=' + nmfic);
+//
+//
+//   // Lorsqu'un réponse est émise par le serveur
+//   delete_file_xhr.onreadystatechange = function() {
+//     const children = document.getElementById(nmfic);
+//     const button_children = document.getElementById(nmfic + "_button");
+//     const parent = children.parentNode;
+//
+//       if (delete_file_xhr.status == 200 && delete_file_xhr.readyState == 4) {
+//           // parent.innerHTML = delete_file_xhr.responseText;
+//           parent.removeChild(children);
+//           parent.removeChild(button_children);
+//           alert('fichier supprimé');
+//
+//       }
+//   };
+//   delete_file_xhr.send('');
+//   // console.log('test');
+// }
 
 
 // function envoi_file(){

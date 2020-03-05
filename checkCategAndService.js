@@ -17,16 +17,24 @@ function finAgence(){
     xhr.send('');
 }
 
+//liste déroulante permettant de choisir quoi lister
 function showUserList(){
   const idagence = document.getElementById('agence_select').options[document.getElementById('agence_select').selectedIndex].value;
 
   if(idagence != 'default'){
-    document.getElementById('type_user_list').innerHTML = "<select onchange='finPrest()' name='type_user' id='type_user'><option value='default' selected>Sélectionner un élément</option><option value='1'>Prestataire</option><option value='2'>Client</option><option value='3'>Service</option></select>"
+    document.getElementById('type_user_list').innerHTML = "" +
+        "<select onchange='finPrest()' name='type_user' id='type_user'>" +
+        "<option value='default' selected>Sélectionner un élément</option>" +
+        "<option value='1'>Prestataire</option>" +
+        "<option value='2'>Client</option>" +
+        "<option value='3'>Service</option>" +
+        "<option value='4'>Abonnements</option>" +
+        "</select>"
   }
   else{
     document.getElementById('type_user_list').innerHTML = ' ';
     document.getElementById('new_prest').innerHTML = ' ';
-    document.getElementById('title_list').innerHTML = "Veuillez sélectionner une agence puis un type d'utilisateur";
+    document.getElementById('title_list').innerHTML = "Veuillez sélectionner une agence puis ce qu'il faut lister";
   }
 }
 
@@ -52,6 +60,10 @@ function finPrest(){
             break;
         case '3':
             document.getElementById('title_list').innerHTML = "Mes categories de services";
+            // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
+            break;
+        case '4':
+            document.getElementById('title_list').innerHTML = "Mes abonnements";
             // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
             break;
     }
