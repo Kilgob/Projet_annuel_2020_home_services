@@ -12,8 +12,8 @@ include 'config.php';
     $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence", false, $context);
     $listeAgence=json_decode($json, true);
 
-    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/service", false, $context);
-    $listeService=json_decode($json, true);
+//    $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/service", false, $context);
+//    $listeService=json_decode($json, true);
     /*
     $json=file_get_contents("http://172.16.69.181:6002/user_adresse?idadresse=1", false, $context);
     $user_adress=json_decode($json, true);*/

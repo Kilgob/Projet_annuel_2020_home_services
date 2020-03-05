@@ -33,6 +33,7 @@
     $_SESSION['okactif'] = $user_infos['data'][0]['okactif'];//à checker
     $_SESSION['idcategservice'] = $user_infos['data'][0]['idcategservice'];//à checker
     $_SESSION['ip_agence'] = $ip_agence;
+    $_SESSION['id_agence'] = $_POST['agence_selected'];
     //Si le client n'a pas d'abo, la prochaine fois qu'il choisira un service,
     // cette variable passera à -1 signifiant qu'il doit payer son service avant
     // dans choisir un nouveau
