@@ -21,6 +21,27 @@
   $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence", false, $context);
   $listeAgence=json_decode($json, true);
 
+
+function getNameAbonnement($id)
+{
+    $context = stream_context_create(array(
+        'http' => array(
+            'method' => "GET",
+            'header' => "Authorization: Basic " . base64_encode("user:pass"))
+    ));
+
+    $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_abonnement?idabo=" . $id;
+    $json = file_get_contents($requete, false, $context);
+    $abonnement = json_decode($json, true);
+
+    //Vérification si il y a un nom pour le service sélectionné
+    if ($abonnement != '' || $abonnement != 0){
+        return $abonnement['data'][0]['lb'] . ' (' . $abonnement['data'][0]['prix'] . '€)';
+    }
+    return '<i>Pas d\'abonnement</i>';
+}
+
+
 //    $gender = $userInfo['gender'] == 1 ? "Monsieur" : "Madame";
 
     echo '<div class="row d-flex justify-content-center title_my_row">';
@@ -101,10 +122,17 @@
             <option value='cli' <?php echo $userInfo['data'][0]['cdtype_user'] == "cli" ? "selected" : ""?>>Client</option>
             <option value='pre' <?php echo $userInfo['data'][0]['cdtype_user'] == "pre" ? "selected" : ""?>>Prestataire</option>
           </select>
+
+            <?php
+//            $nameAbo = getNameAbonnement($userInfo['data'][0]['idabonnement']);
+            ?>
+            <p>Abonnement du client : <?php echo getNameAbonnement($userInfo['data'][0]['idabonnement']);  ?></p>
+
         </div>
 
         <input class="btn btn-secondary" type='submit' value="Modifier les informations" />
-        <input class="btn btn-secondary" data-toggle="modal" data-target="#historyModal" data-whatever="@mdo" onclick="findHistory(<?php echo $userInfo['data'][0]['iduser'];?>)" value="Afficher l'historique">
+        <input class="btn btn-secondary" data-toggle="modal" data-target="#historyModal" data-whatever="@mdo" onclick="findHistory(<?php echo $userInfo['data'][0]['iduser'];?>)" value="Afficher l'historique"/>
+          <input class="btn btn-secondary" data-toggle="modal" data-target="#confirmDeleteAbo" data-whatever="@mdo" value="Supprimer l'abonneemnt"/>
     </div>
     </form>
   </div>
@@ -131,6 +159,23 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="modal fade" id="confirmDeleteAbo" tabindex="-1" role="dialog" aria-labelledby="iddossier_lb" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="iddossier_lb">Confirmer la suppression de l'abonnement ?</h5>
+                    <form method="POST" action="delete_abonnement.php">
+                        <input  type='hidden' name="delete_abo" value=<?php $userInfo['data'][0]['iduser'] ?> />
+                       <input class="btn btn-secondary" type='submit' value="Valider" />
+                    </form>
+                </div>
+                <div class="modal-body" id="history">
+                    <!-- Display history -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="history.js"></script>

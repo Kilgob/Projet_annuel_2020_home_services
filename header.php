@@ -58,6 +58,7 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                        <a class="nav-link" href="rdv_service.php">Demander un service</a>
                        <a class="nav-link" href="rdv_service_total.php">Liste des services en cours</a>
+                      <a class="nav-link" href="manage_my_account.php">Mes informations personnelles</a>
                   </div>
               </li>
             <?php
