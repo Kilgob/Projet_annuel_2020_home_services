@@ -1,5 +1,6 @@
 <?php
 
+include_once("./lang.php");
 /*date_default_timezone_set("Europe/Paris");
 
 if(!isset($_SESSION['nmuser'])){
@@ -31,5 +32,5 @@ if(!isset($_SESSION['nmuser'])){
 
   $json=file_get_contents("http://172.16.69.181:6002/user?iduser=1", false, $context);
   $user_infos=json_decode($json, true);
-  echo '<p> nom de l\'user :' . $user_infos['data'][0]['nom'] . ' </p>';
+  echo '<p> '.t("nom de l'user").' :' . $user_infos['data'][0]['nom'] . ' </p>';
 ?>

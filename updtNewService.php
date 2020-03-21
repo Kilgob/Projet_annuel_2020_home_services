@@ -1,4 +1,5 @@
 <?php
+  include_once("./lang.php");
     include 'config.php';
     $context = stream_context_create(array(
         'http' => array(
@@ -12,12 +13,12 @@
     $json = file_get_contents($requete, false, $context);
     $categ_service=json_decode($json, true);
 
-    echo '<select name="categService" id="categ-service-select">';
+    echo '<select name="categService" id="categ_service_updt">';
     foreach ($categ_service['data'] as $result) {
-        echo '<option value=\"' . $result['idcategservice'] . '">' . $result['lb'] . '</option>';
+        echo '<option value="' . $result['idcategservice'] . '">' . $result['lb'] . '</option>';
     }
 
-    echo '<option value="" selected>--Choisissez une catégorie de service--</option>
+    echo '<option value="" selected>--'.t("Choisissez une catégorie de service").'--</option>
         </select>';
 
 ?>

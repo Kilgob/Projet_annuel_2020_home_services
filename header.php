@@ -1,6 +1,3 @@
-<?php
-  session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
@@ -8,18 +5,19 @@
     <title>NextHome</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style_header.css" />
-    <!-- <link rel="stylesheet" href="css/style_main.css" />
-    <link rel="stylesheet" href="css/style_liste_dossier.css" />
-    <link rel="stylesheet" href="css/style_homePage.css"/>
-    <link rel="stylesheet" href="css/style_general_manage.css" />
+    <link rel="stylesheet" href="css/style_main.css" />
     <link rel="stylesheet" href="css/style_liste_dossier.css" />
     <link rel="stylesheet" href="css/style_inscription.css" />
-    <link rel="stylesheet" href="css/style_user_profil.css" />
-    <link rel="stylesheet" href="css/style_users_management.css" />
-    <link rel="stylesheet" href="css/style_rdv_management.css" />
-    <link rel="stylesheet" href="css/style_ConnexionIndex.css" />
-    <link rel="stylesheet" href="css/style_email_modify_password.css" />
-    <link rel="stylesheet" href="css/style_presentation.css" /> -->
+      <!-- <link rel="stylesheet" href="css/style_homePage.css"/>
+      <link rel="stylesheet" href="css/style_general_manage.css" />
+      <link rel="stylesheet" href="css/style_liste_dossier.css" />
+
+      <link rel="stylesheet" href="css/style_user_profil.css" />
+      <link rel="stylesheet" href="css/style_users_management.css" />
+      <link rel="stylesheet" href="css/style_rdv_management.css" />
+      <link rel="stylesheet" href="css/style_ConnexionIndex.css" />
+      <link rel="stylesheet" href="css/style_email_modify_password.css" />
+      <link rel="stylesheet" href="css/style_presentation.css" /> -->
     <link rel="stylesheet" href="css/style_footer.css" />
   </head>
   <body>
@@ -32,33 +30,32 @@
           <ul class="navbar-nav">
             <li class="nav-item">
 
-              <a class="nav-link" href=" <?php if(!isset($_SESSION['nmuser'])){echo 'index.php';}else{echo 'create_Service.php';}  ?>">Accueil<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href=" <?php if(!isset($_SESSION['nmuser'])){echo 'index.php';}else{echo 'create_Service.php';}  ?>"><?= t("Accueil") ?><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tarifs.php">Tarifs</a>
+              <a class="nav-link" href="tarifs.php"><?= t("Tarifs") ?></a>
             </li>
             <?php
-                if($_SESSION != [] && $_SESSION['cdtype_user'] == 'pat'){
+                if(isset($_SESSION["cdtype_user"])){}
+                if($_SESSION != [] && ($_SESSION['cdtype_user'] != 'cli' || $_SESSION['cdtype_user'] == 'pre')){
             ?>
             <li class="nav_item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admistration</a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= t("Admistration") ?></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuAdmin">
-                <a class="dropdown-item" href="users_management.php">Clients</a>
-                <a class="dropdown-item" href="rdv_management.php">Rendez-vous</a>
-                <a class="dropdown-item" href="general_manage.php">Générale</a>
-                <a class="dropdown-item" href="create_service.php">Créer un service</a>
-                  <a class="dropdown-item" href="add_prestataire.php">Nouveau presatataire</a>
+                <a class="dropdown-item" href="create_service.php"><?= t("Créer un service") ?></a>
+                <a class="dropdown-item" href="add_prestataire.php"><?= t("Nouveau presatataire") ?></a>
+                <a class="dropdown-item" href="prestataire.php"><?= t("Page de gestion") ?></a>
               </div>
             </li>
           <?php }
            if(isset($_SESSION['nmuser']) && $_SESSION['cdtype_user'] == 'cli'){ ?>
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Vos services
+                  <?= t("Vos services") ?>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
-                       <a class="nav-link" href="createService.php">Demander un service</a>
-                       <a class="nav-link" href="service.php">Liste des services en cours</a>
+                       <a class="nav-link" href="rdv_service.php"><?= t("Demander un service")?></a>
+                       <a class="nav-link" href="rdv_service_total.php"><?= t("Liste des services en cours")?></a>
                   </div>
               </li>
             <?php
@@ -75,18 +72,32 @@
               </a>
               <?php if(isset($_SESSION['nmuser']) && $_SESSION != []){ ?>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
-                  <a class="dropdown-item" href="user_profil.php">Profil</a>
-                  <a class="dropdown-item" href="disconnect.php">Deconnexion</a>
+                  <a class="dropdown-item" href="user_profil.php"><?= t("Profil") ?></a>
+                  <a class="dropdown-item" href="disconnect.php"><?= t("Deconnexion") ?></a>
                 </div>
               <?php }
               else{ ?>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="ConnexionIndex.php">Connexion</a>
-                <a class="dropdown-item" href="inscription.php">Inscription</a>
+                <a class="dropdown-item" href="ConnexionIndex.php"><?= t("Connexion") ?></a>
+                <a class="dropdown-item" href="inscription.php"><?= t("Inscription") ?></a>
               </div>
             <?php } ?>
             </li>
           </ul>
+          <!-- Dropdown pour choisir le language -->
+          <div class="nav-item">
+              <form method="get" action="changer_language.php">
+                <div class="form-inline row">
+                  <select name="lang" class="form-control col-6">
+                    <?php foreach($GLOBALS["traductions"] as $traduction){
+                      ?> <option value="<?= $traduction ?>" <?= $_SESSION["lang"] == $traduction ? "selected" : "" ?>><?= $traduction ?></option> <?php
+                    }
+                    ?>
+                  </select>
+                  <button type="submit" class="btn btn-secondary col-6">Ok</button>
+               </div>
+              </form>
+          </div>
         </div>
       </nav>
     </header>
