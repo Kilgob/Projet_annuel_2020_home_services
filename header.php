@@ -1,6 +1,3 @@
-<?php
-  session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
@@ -33,17 +30,20 @@
           <ul class="navbar-nav">
             <li class="nav-item">
 
-              <a class="nav-link" href=" <?php if(!isset($_SESSION['nmuser'])){echo 'index.php';}else{echo 'create_Service.php';}  ?>">Accueil<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href=" <?php if(!isset($_SESSION['nmuser'])){echo 'index.php';}else{echo 'create_Service.php';}  ?>"><?= t("Accueil") ?><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tarifs.php">Tarifs</a>
+              <a class="nav-link" href="tarifs.php"><?= t("Tarifs") ?></a>
             </li>
             <?php
                 if($_SESSION != [] && ($_SESSION['cdtype_user'] != 'cli' || $_SESSION['cdtype_user'] == 'pre')){
             ?>
             <li class="nav_item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admistration</a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= t("Admistration") ?></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuAdmin">
+                <a class="dropdown-item" href="create_service.php"><?= t("Créer un service") ?></a>
+                <a class="dropdown-item" href="add_prestataire.php"><?= t("Nouveau presatataire") ?></a>
+                <a class="dropdown-item" href="prestataire.php"><?= t("Page de gestion") ?></a>
                 <a class="dropdown-item" href="create_service.php">Créer un service</a>
                 <a class="dropdown-item" href="add_prestataire.php">Nouveau presatataire</a>
                 <a class="dropdown-item" href="prestataire.php">Page de gestion</a>
@@ -53,7 +53,7 @@
            if(isset($_SESSION['nmuser']) && $_SESSION['cdtype_user'] == 'cli'){ ?>
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Vos services
+                  <?= t("Vos services") ?>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                        <a class="nav-link" href="rdv_service.php">Demander un service</a>
@@ -75,18 +75,32 @@
               </a>
               <?php if(isset($_SESSION['nmuser']) && $_SESSION != []){ ?>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
-                  <a class="dropdown-item" href="user_profil.php">Profil</a>
-                  <a class="dropdown-item" href="disconnect.php">Deconnexion</a>
+                  <a class="dropdown-item" href="user_profil.php"><?= t("Profil") ?></a>
+                  <a class="dropdown-item" href="disconnect.php"><?= t("Deconnexion") ?></a>
                 </div>
               <?php }
               else{ ?>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="ConnexionIndex.php">Connexion</a>
-                <a class="dropdown-item" href="inscription.php">Inscription</a>
+                <a class="dropdown-item" href="ConnexionIndex.php"><?= t("Connexion") ?></a>
+                <a class="dropdown-item" href="inscription.php"><?= t("Inscription") ?></a>
               </div>
             <?php } ?>
             </li>
           </ul>
+          <!-- Dropdown pour choisir le language -->
+          <div class="nav-item">
+              <form method="get" action="changer_language.php">
+                <div class="form-inline row">
+                  <select name="lang" class="form-control col-6">
+                    <?php foreach($GLOBALS["traductions"] as $traduction){
+                      ?> <option value="<?= $traduction ?>" <?= $_SESSION["lang"] == $traduction ? "selected" : "" ?>><?= $traduction ?></option> <?php
+                    }
+                    ?>
+                  </select>
+                  <button type="submit" class="btn btn-secondary col-6">Ok</button>
+               </div>
+              </form>
+          </div>
         </div>
       </nav>
     </header>

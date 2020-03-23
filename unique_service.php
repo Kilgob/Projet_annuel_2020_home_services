@@ -1,4 +1,5 @@
 <?php
+  include_once("./lang.php");
 session_start();
 include 'config.php';
 
@@ -20,21 +21,21 @@ $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/unique_service?service=" . $_GET
             <div class="mx-auto user_profil_align">
 
                 <div class="form-group">
-                    nom : <input type='text' class="form-control" placeholder="Prénom" aria-label="label" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['lb']; ?>" name="lb" />
+                    <?= t("Nom") ?> : <input type='text' class="form-control" placeholder="<?= t("Prénom") ?>" aria-label="label" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['lb']; ?>" name="lb" />
                 </div>
                 <div class="form-group">
-                    nom : <input type='text' class="form-control" placeholder="prix" aria-label="price" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['prix']; ?>" name="price" />
+                    <?= t("Nom") ?> : <input type='text' class="form-control" placeholder="<?= t("Prix") ?>" aria-label="price" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['prix']; ?>" name="price" />
                 </div>
                 <div class="form-group">
-                    <br><i>Statut : </i>
-                    <br><input type="radio" id="statutac" name="okactif" value="1" <?php echo $liste_service['data'][0]['statut'] == 1?'Checked':' '; ?> > Service activé</input>
-                    <br><input type="radio" id="statutdesac" name="okactif" value="0"<?php echo $liste_service['data'][0]['statut'] == 0?'Checked':' '; ?> > Service désactivé</input>
+                    <br><i><?= t("Statut") ?> : </i>
+                    <br><input type="radio" id="statutac" name="okactif" value="1" <?php echo $liste_service['data'][0]['statut'] == 1?'Checked':' '; ?> > <?= t("Service activé")?></input>
+                    <br><input type="radio" id="statutdesac" name="okactif" value="0"<?php echo $liste_service['data'][0]['statut'] == 0?'Checked':' '; ?> > <?= t("Service désactivé")?></input>
                 </div>
                 <div class="form-group">
                     <input type="hidden" class="form-control input_247px" aria-label="iduser" aria-describedby="basic-addon1" value="<?php echo $liste_service['data'][0]['idservice']; ?>" name="idservice" />
                 </div>
                 <div>
-                    <input class="btn btn-secondary" type='submit' value="Modifier les informations du service" />
+                    <input class="btn btn-secondary" type='submit' value="<?= t("Modifier les informations du service") ?>" />
                 </div>
             </div>
         </div>

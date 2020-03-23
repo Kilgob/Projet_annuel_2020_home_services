@@ -1,4 +1,5 @@
 <?php
+include_once("./lang.php");
   include 'header.php';
   include 'config.php';
 
@@ -16,14 +17,14 @@
     <section id="page_content_connexion" class="d-flex justify-content-center">
       <section id="connexion_form">
         <form method="POST" action="Connexion.php">
-          <h3>Connexion</h3>
+          <h3><?= t("Connexion") ?></h3>
           <div id="connexion_input_row" class="form-group row">
             <div class="col-xs-2">
-              <label>Email</label><div></div>
+              <label><?= t("Email") ?></label><div></div>
               <input type="text" class="form-control connexion_input" placeholder="Identifiant" aria-label="Username" aria-describedby="basic-addon1" name="username"><div class="space"></div>
             </div>
             <div class="col-xs-2">
-              <label>Mot de passe</label><div></div>
+              <label><?= t("Mot de passe") ?></label><div></div>
               <input type="password" class="form-control connexion_input" placeholder="Mot de passe" aria-label="Username" aria-describedby="basic-addon1" name="password"><div class="space"></div>
             </div>
             <div class="form-group">
@@ -39,8 +40,8 @@
           <input type="submit" class="btn btn-primary" value="Connexion"/>
         </form>
         <div class="space"></div>
-        <a href="inscription.php"><button type="button" class="btn btn-secondary btn-sm">Inscription</button></a>
-        <button data-toggle="modal" data-target="#forgotten_password_modal" data-whatever="@mdo" type="button" class="btn btn-secondary btn-sm">Mot de passe oublié</button></a>
+        <a href="inscription.php"><button type="button" class="btn btn-secondary btn-sm"><?= t("Inscription") ?></button></a>
+        <button data-toggle="modal" data-target="#forgotten_password_modal" data-whatever="@mdo" type="button" class="btn btn-secondary btn-sm"><?= t("Mot de passe oublié") ?></button></a>
       </section>
     </section>
 
@@ -48,7 +49,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Veuillez saisir votre identifiant / email</h5>
+            <h5 class="modal-title"><?= t("Veuillez saisir votre identifiant / email") ?></h5>
 
           </div>
           <form method="POST" action="password_forgotten_verification.php">
@@ -56,8 +57,8 @@
                 <input type="text" class="form-control" placeholder="Identifiant" aria-label="Email" aria-describedby="basic-addon1" name="login" />
             </div>
             <div id="bouton_suppr" class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-              <button type="submit" class="btn btn-primary">Envoyer</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= t("Fermer") ?></button>
+              <button type="submit" class="btn btn-primary"><?= t("Envoyer") ?></button>
             </div>
           </form>
         </div>

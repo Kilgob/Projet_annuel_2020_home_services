@@ -1,5 +1,6 @@
 <?php
 
+include_once("./lang.php");
 include 'config.php';
 session_start();
 
@@ -29,12 +30,12 @@ $user_infos=json_decode($json, true);
 
 
 if(1){//chnager la condition
-    echo "prestataire créé";
+    echo t("prestataire créé");
     header('Location: add_prestataire.php');
     exit;
 }
 else{
-    echo "Erreur lors de la création du nouveau prestataire";
+    echo t("Erreur lors de la création du nouveau prestataire");
     exit;
 }
 

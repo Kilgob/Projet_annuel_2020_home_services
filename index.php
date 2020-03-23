@@ -1,8 +1,8 @@
-
 <?php
-  include('header.php');
+  include('config.php');
+  include_once("lang.php");
+  include('./header.php');
 ?>
-
 
   <main>
     <section class="container-fluid" id="accueil_banner">
@@ -16,9 +16,9 @@
 
         <div class="col-md-4" id="right_side">
           <br>
-          <h1>Bienvenue chez NextHome !</h1>
+          <h1><?= t("Bienvenue chez NextHome !") ?></h1>
           <br>
-          <p>On espère que nos services seront à la hauteur de vos attentes</p>
+          <p><?= t("On espère que nos services seront à la hauteur de vos attentes") ?></p>
           <br>
 
         </div>

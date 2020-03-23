@@ -1,4 +1,5 @@
 <?php
+  include_once("./lang.php");
 include 'config.php';
 include 'header.php';
 //
@@ -56,7 +57,7 @@ function getNameService($id)
 ?>
 
 <div class="container">
-<h1>Liste des services</h1>
+<h1><?= t("Liste des services") ?></h1>
 <ul class="list-group">
 <?php
 if($list_intervention != null){
@@ -64,7 +65,7 @@ foreach ($list_intervention['data'] as $intervention) {
     $date = new DateTime($intervention["dtcrea"]);
 ?>
     <li class="list-group-item">
-        Rendez-vous pris le <strong><?= $date->format('Y-m-d') ?></strong> pour le service suivant : <br>
+        <?= t("Rendez-vous pris le") ?> <strong><?= $date->format('Y-m-d') ?></strong> <?= t("pour le service suivant") ?> : <br>
         <strong><?php echo getNameService($intervention["idservice"]); ?></strong>
     </li>
 <?php
@@ -77,7 +78,7 @@ foreach ($list_intervention['data'] as $intervention) {
 <?php
 } else{
 ?>
-<p>Pas de services</p>
+<p><?= t("Pas de services") ?></p>
 <?php
 }
 include 'footer.php';

@@ -1,5 +1,5 @@
 <?php
-
+include_once("./lang.php");
   include 'config.php';
   session_start();
 

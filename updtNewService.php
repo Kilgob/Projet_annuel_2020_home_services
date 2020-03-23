@@ -1,4 +1,5 @@
 <?php
+  include_once("./lang.php");
     include 'config.php';
     $context = stream_context_create(array(
         'http' => array(
@@ -17,7 +18,7 @@
         echo '<option value="' . $result['idcategservice'] . '">' . $result['lb'] . '</option>';
     }
 
-    echo '<option value="" selected>--Choisissez une catégorie de service--</option>
+    echo '<option value="" selected>--'.t("Choisissez une catégorie de service").'--</option>
         </select>';
 
 ?>

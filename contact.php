@@ -1,9 +1,10 @@
 <?php
+include_once("./lang.php");
   include('header.php');
 ?>
 
 <main>
-    <h1 id="titre_contact" class="container-fluid"> Où nous sommes situés : <h1>
+    <h1 id="titre_contact" class="container-fluid"> <?= t("Où nous sommes situés :") ?> <h1>
     <!-- <h3>À la place de ce texte il y aura l'adresse</h3> -->
 
     <?php

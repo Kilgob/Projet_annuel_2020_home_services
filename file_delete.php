@@ -1,4 +1,5 @@
 <?php
+  include_once("./lang.php");
   session_start();
   include 'config.php';
 
@@ -12,6 +13,6 @@
   // $suppr_request = $bdd->prepare("SET SQL_SAFE_UPDATES = 1;");
   // $suppr_request->execute();
   unlink('fichier/' . $_GET['file']);
-  echo 'fichier supprimé';
+  echo t('fichier supprimé');
   exit;
 ?>

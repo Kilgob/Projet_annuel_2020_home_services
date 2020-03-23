@@ -1,4 +1,5 @@
 <?php
+include_once("./lang.php");
 session_start();
 include 'config.php';
 
@@ -22,7 +23,7 @@ $infoAgence=json_decode($json, true);
                 <ul id="display_users" class="nav nav-pills flex-column ">
 
                     <?php
-                    $name = $_GET['type_user']== 1 ?"Prestataire":"Client";
+                    $name = $_GET['type_user']== 1 ?t("Prestataire"):t("Client");
                     switch($_GET['type_user']){
                         case '1':
                         case '2':
@@ -41,7 +42,7 @@ $infoAgence=json_decode($json, true);
                                 else {
                                     echo '<li class="nav-item_en_cours">';
                                     echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
-                                    echo '<p>' . $name . ' (n°' . $folder['iduser'] . ') :<br>' . $folder['mail'] . '<br>(En attente de validation)</p>';
+                                    echo '<p>' . $name . ' (n°' . $folder['iduser'] . ') :<br>' . $folder['mail'] . '<br>('.t("En attente de validation").'</p>';
                                     echo '</div></li>';
                                 }
                             }
@@ -54,35 +55,15 @@ $infoAgence=json_decode($json, true);
                                 if ($folder['statut'] != "0") {
                                     echo '<li id=' . $folder['idcategservice'] . '  onclick="researchS(' . $folder['idcategservice'] . ')" class="d-flex justify-content-center">';
                                     echo '<div class="nav_item_position_folders">';
-                                    echo '<p>Catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '</p>';
+                                    echo '<p>'.t("catégorie").' (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '</p>';
                                     echo '</div></li>';
                                 }
                                 else {
                                     echo '<li class="nav-item_en_cours">';
                                     echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
-                                    echo '<p>Catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '<br>(En attente de validation)</p>';
+                                    echo '<p>'.t("catégorie").' (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '<br>('.t("En attente de validation").')</p>';
                                     echo '</div></li>';
                                 }
-                            }
-                            break;
-                        case '4':
-                            $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/abonnement_from_agence?idagence=" . $_GET['idagence'];
-                            $json = file_get_contents($requete, false, $context);
-                            $listeCategService = json_decode($json, true);
-                            foreach ($listeCategService['data'] as $folder) {
-                                //les abonnements ne peuvent pas être considérés non actif (pour le moment)
-//                                if ($folder['statut'] != "0") {
-                                    echo '<li id=' . $folder['idabonnement'] . '  onclick="researchA(' . $folder['idabonnement'] . ')" class="d-flex justify-content-center">';
-                                    echo '<div class="nav_item_position_folders">';
-                                    echo '<p>Abonnement (n°' . $folder['idabonnement'] . ') :<br>' . $folder['lb'] . '</p>';
-                                    echo '</div></li>';
-//                                }
-//                                else {
-//                                    echo '<li class="nav-item_en_cours">';
-//                                    echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
-//                                    echo '<p>catégorie (n°' . $folder['idcategservice'] . ') :<br>' . $folder['lb'] . '<br>(En attente de validation)</p>';
-//                                    echo '</div></li>';
-//                                }
                             }
                             break;
                     }
