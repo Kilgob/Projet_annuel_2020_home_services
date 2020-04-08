@@ -17,7 +17,7 @@ $categ = json_decode($json, true);
 ?>
  <div class="ml-4"><strong>Création service</strong></div>
 
- <form class="row container mx-auto mt-4" method="get" action="rdv_new_intervention_back.php">
+ <form class="row container mx-auto mt-4" method="post" action="create_devis.php">
      <input type="text" id="date" name="date" hidden />
      <div class="col-8">
          <p><ins>Choisissez une catégorie de services</ins></p>
@@ -49,8 +49,7 @@ $categ = json_decode($json, true);
 
                 </select>
             </div>
-                <button class="btn btn-primary w-100" >Suivant</button>
-
+                <input type="submit" class="btn btn-primary w-100" value="Suivant">
         </div>
     </div>
 </form>

@@ -39,7 +39,7 @@
               <a class="nav-link" href="tarifs.php">Tarifs</a>
             </li>
             <?php
-                if($_SESSION != [] && ($_SESSION['cdtype_user'] != 'cli' || $_SESSION['cdtype_user'] != 'pre')){
+                if(isset($_SESSION['cdtype_user']) && $_SESSION['cdtype_user'] == 'pat'){
             ?>
             <li class="nav_item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admistration</a>
@@ -58,6 +58,8 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                        <a class="nav-link" href="rdv_service.php">Demander un service</a>
                        <a class="nav-link" href="rdv_service_total.php">Liste des services en cours</a>
+                       <a class="nav-link" href="devis.php">Devis</a>
+                       <a class="nav-link" href="facture_client.php">Mes factures</a>
                   </div>
               </li>
             <?php

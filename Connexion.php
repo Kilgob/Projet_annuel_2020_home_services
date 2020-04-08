@@ -13,12 +13,12 @@
     'http' => array(
         'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
   ));
-  $json=file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence_get_ip?idagence=" . $_POST['agence_selected'], false, $context);
-  $user_infos=json_decode($json, true);
+  $json = file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/agence_get_ip?idagence=" . $_POST['agence_selected'], false, $context);
+  $user_infos = json_decode($json, true);
   $ip_agence = $user_infos['data'][0]['ip'] . ":" . $user_infos['data'][0]['port'];
 //  echo "http://" . $ip_agence . "/mysql2?email=" . $_POST['username'] . "&password=" . $_POST['password'];
-  $json=file_get_contents("http://" . $ip_agence . "/client?email=" . $_POST['username'] . "&password=" . $_POST['password'], false, $context);
-  $user_infos=json_decode($json, true);
+  $json = file_get_contents("http://" . $ip_agence . "/client?email=" . $_POST['username'] . "&password=" . $_POST['password'], false, $context);
+  $user_infos = json_decode($json, true);
 //echo $user_infos['data'][0]['mail'];
 
 // ['data'][0]['iduser']

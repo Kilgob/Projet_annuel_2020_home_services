@@ -23,3 +23,16 @@ function findHistory(iduser){
   };
   xhr.send('');
 }
+
+function displayFacture(iduser) {
+  var xhr = new XMLHttpRequest;
+
+  xhr.open('GET', 'facture/index.php?iduser=' + iduser);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.status == 200 & xhr.readyState == 4) {
+
+    }
+  };
+  xhr.send('');
+}

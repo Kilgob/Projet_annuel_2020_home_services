@@ -102,7 +102,7 @@
             <option value='pre' <?php echo $userInfo['data'][0]['cdtype_user'] == "pre" ? "selected" : ""?>>Prestataire</option>
           </select>
         </div>
-
+        <input type="hidden" name="id" value=<?php echo $id; ?>>
         <input class="btn btn-secondary" type='submit' value="Modifier les informations" />
         <input class="btn btn-secondary" data-toggle="modal" data-target="#historyModal" data-whatever="@mdo" onclick="findHistory(<?php echo $userInfo['data'][0]['iduser'];?>)" value="Afficher l'historique">
     </div>

@@ -9,13 +9,13 @@ $context = stream_context_create(array(
         'header' => "Authorization: Basic " . base64_encode("user:pass"))
 ));
 
-$ampm = $_GET['clock'] <10?'0':'';
+$ampm = $_POST['clock'] <10?'0':'';
 
-$clock = $_GET['date'] . '%20' . $ampm . $_GET['clock'] .  ':00';
+$clock = $_POST['date'] . '%20' . $ampm . $_POST['clock'] .  ':00';
 
 
 $requete = "http://" . $_SESSION['ip_agence'] . "/intervention?iduser=" . $_SESSION['nmuser'] .
-    "&idservice=" . $_GET['service'] .
+    "&idservice=" . $_POST['service'] .
     '&dtcrea=' . $clock;
 
 $json = file_get_contents($requete, false, $context);

@@ -9,10 +9,10 @@ $context = stream_context_create(array(
         'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
 ));
 
-if($_POST['categService'] == 'cli') {
+if(!isset($_POST['categService'])) {
 
-    $requete = "http://" . $_SESSION['ip_agence'] . "/prestataire?nom=" . $_POST['nom'] .
-        "&iduser=" . $_SESSION['nmuser'] .
+    $requete = "http://" . $_SESSION['ip_agence'] . "/user?nom=" . $_POST['nom'] .
+        "&iduser=" . $_POST['id'] .
         "&prenom=" . $_POST['prenom'] .
         "&mail=" . $_POST['mail'] .
         "&notel=" . $_POST['notel'] .
@@ -21,12 +21,11 @@ if($_POST['categService'] == 'cli') {
         "&adresse=" . $_POST['adresse'] .
         "&ville=" . $_POST['ville'] .
         "&cdtype_user=" . $_POST['type_user'] .
-        "&okactif=" . $_POST['okactif'] .
-        "&idabonnement=0";
+        "&okactif=" . $_POST['okactif'];
     $requete = str_replace(" ", "%20", $requete);
 }
 else{
-    $requete = "http://" . $_SESSION['ip_agence'] . "/prestataire?nom=" . $_POST['nom'] .
+    $requete = "http://" . $_SESSION['ip_agence'] . "/user?nom=" . $_POST['nom'] .
         "&iduser=" . $_SESSION['nmuser'] .
         "&prenom=" . $_POST['prenom'] .
         "&mail=" . $_POST['mail'] .
@@ -36,8 +35,7 @@ else{
         "&adresse=" . $_POST['adresse'] .
         "&ville=" . $_POST['ville'] .
         "&cdtype_user=" . $_POST['type_user'] .
-        "&okactif=" . $_POST['okactif'] .
-        "&idabonnement=0";
+        "&okactif=" . $_POST['okactif'];
     $requete = str_replace(" ", "%20", $requete);
 }
 $json=file_get_contents($requete, false, $context);
