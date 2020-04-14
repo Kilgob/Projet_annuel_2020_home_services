@@ -60,6 +60,7 @@
                        <a class="nav-link" href="rdv_service_total.php">Liste des services en cours</a>
                        <a class="nav-link" href="devis.php">Devis</a>
                        <a class="nav-link" href="facture_client.php">Mes factures</a>
+                       <a class="dropdown-item" href="paiement.php">Page de paiement</a>
                   </div>
               </li>
             <?php

@@ -9,13 +9,18 @@ $context = stream_context_create(array(
         'header' => "Authorization: Basic " . base64_encode("user:pass"))
 ));
 
+//Récupération de toutes les interventions du mois faites par ce même client
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/interventions_between_date?iduser=" . $_POST['iduser'] . "&dtdebut=" . $_POST['dtdebut'] . "&dtfin=" . $_POST['dtfin'], false, $context);
+$interventions = json_decode($json, true);
+
+//Récupération du Prix
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/facture_via_id?idfacture=" . $_POST['idfacture'], false, $context);
+$price = json_decode($json, true);
+
 //Récupération des informations de l'utilisateur
 $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_POST['iduser'], false, $context);
 $user_infos = json_decode($json, true);
 
-//Récupération de toutes les interventions du mois faites par ce même client
-$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/interventions_between_date?iduser=" . $_POST['iduser'] . "&dtdebut=" . $_POST['dtdebut'] . "&dtfin=" . $_POST['dtfin'], false, $context);
-$interventions = json_decode($json, true);
 
 // #1 initialise les informations de base
 //
@@ -24,15 +29,15 @@ $adresse = "HomeService\n242 rue du Faubourg Saint-Antoine\n75012 Paris\n\nhome.
 // adresse du client
 $adresseClient = $user_infos['data'][0]['prenom'] . " " . $user_infos['data'][0]['nom'] . "\n" . $user_infos['data'][0]['adresse'] . "\n" . $user_infos['data'][0]['ville'];
 // initialise l'objet facturePDF
-$pdf = new facturePDF($adresse, $adresseClient, "HomeService SA - 242 rue du Faubourg Saint-Antoine - 75012 Paris - home.service@gmail.com - (+33) 3 89 68 27 54\nLes produits livrés demeurent la propriété exclusive de notre entreprise jusqu'au paiement complet de la présente facture.\nRCS : 245-532-578- NANCY / TVA Intracomunautaire : FR 02 4578 1455 5578 3254 / SIRET 887 547 259 974 125");
+$pdf = new facturePDF($adresse, $adresseClient, "HomeService SA - 242 rue du Faubourg Saint-Antoine - 75012 Paris - home.service@gmail.com - (+33) 3 89 68 27 54\nTous services demandés est expressement dûs à l'entreprise. En cas de non paiement, aucunes autres demandes de services ne sera acceptées.\nRCS : 245-532-578- NANCY / TVA Intracomunautaire : FR 02 4578 1455 5578 3254 / SIRET 887 547 259 974 125");
 // défini le logo
 $pdf->setLogo('logo.png');
 // entete des produits
-$pdf->productHeaderAddRow('Produit', 75, 'L');
-$pdf->productHeaderAddRow('Date de début', 40, 'C');
-$pdf->productHeaderAddRow('Date de fin', 25, 'C');
-$pdf->productHeaderAddRow('QTE', 15, 'C');
-$pdf->productHeaderAddRow('Prix HT', 25, 'R');
+$pdf->productHeaderAddRow('Service', 60, 'L');
+$pdf->productHeaderAddRow('Date de début', 45, 'C');
+$pdf->productHeaderAddRow('Date de fin', 45, 'C');
+$pdf->productHeaderAddRow(' ', 0, 'C');
+$pdf->productHeaderAddRow('Prix HT', 30, 'R');
 
 // entete des totaux
 $pdf->totalHeaderAddRow(40, 'L');
@@ -44,22 +49,19 @@ $pdf->elementAdd('', 'traitBas', 'footer');
 // #2 Créer une facture
 //
 // numéro de facture, date, texte avant le numéro de page
-$pdf->initFacture("Facture n° ".mt_rand(1, 99999), "Paris le " . date('d/m/yy') , "Page ");
+$pdf->initFacture("Facture n° " . $_POST['idfacture'], "Paris le " . strftime("%d/%m/%Y", strtotime('+1 month', strtotime($price['data'][0]['dtcrea']))) , "Page 1");
 // produit
 foreach ($interventions['data'] as $intervention) {
-  $pdf->productAdd(array($intervention['description'], 'ICI DATE DEBUT', 'ICI DATE FIN', '', $intervention['montantpresta']));
+  $pdf->productAdd(array($intervention['description'], strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtdeb'])), strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtfin'])), '', $intervention['montantpresta'] + $intervention['montantsurplus']));
 }
-$pdf->productAdd(array('Scotch', 'COUCOU', '10.00', '100', '1000.00'));
-$pdf->productAdd(array('Bouche', 'BOUUUUCHE', '5.00', '7', '35.00'));
-$pdf->productAdd(array('FRED', 'NOOOOB', '0.01', '1', '0.01'));
 
 // ligne des totaux
-$pdf->totalAdd(array('Total HT', '1035.01 EUR'));
-$pdf->totalAdd(array('TVA', '10.99 EUR'));
-$pdf->totalAdd(array('Sous total TTC', '71.94 EUR'));
-$pdf->totalAdd(array('Livraison', '100.00 EUR'));
-$pdf->totalAdd(array('Remise', '-5.94 EUR'));
-$pdf->totalAdd(array('Total TTC', '165.00 EUR'));
+$pdf->totalAdd(array('Total HT', number_format($price['data'][0]['montant'] * 100/120,2)));
+$pdf->totalAdd(array('TVA', number_format($price['data'][0]['montant'],2) - number_format($price['data'][0]['montant'] * 100/120,2)));
+$pdf->totalAdd(array('Sous total TTC', number_format($price['data'][0]['montant'],2)));
+//$pdf->totalAdd(array('Livraison', '100.00 EUR'));
+//$pdf->totalAdd(array('Remise', '-5.94 EUR'));
+//$pdf->totalAdd(array('Total TTC', '165.00 EUR'));
 
 // #3 Importe le gabarit
 //
