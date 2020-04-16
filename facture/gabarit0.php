@@ -25,8 +25,8 @@ $pdf->template['footer']['margin'] = array(265, 10, 5, 10);
 $pdf->template['footer']['padding'] = array(4, 5, 0, 5);
 // entete de produit
 $pdf->template['productHead']['fontFace'] = 'B';
-$pdf->template['productHead']['backgroundColor'] = array('r'=>50, 'g'=>50, 'b'=>50);
-$pdf->template['productHead']['color'] = array('r'=>230, 'g'=>230, 'b'=>230);
+$pdf->template['productHead']['backgroundColor'] = array('r'=>239, 'g'=>130, 'b'=>71);
+$pdf->template['productHead']['color'] = array('r'=>255, 'g'=>255, 'b'=>255);
 $pdf->template['productHead']['margin'] = array(20, 0, 0, 10);
 $pdf->template['productHead']['padding'] = array(0, 4, 0, 4);
 // liste des produit

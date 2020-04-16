@@ -21,6 +21,13 @@ $price = json_decode($json, true);
 $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_POST['iduser'], false, $context);
 $user_infos = json_decode($json, true);
 
+//Récupération du prix de l'abonnement dans la table siège
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/abonnement?idabo=" . $user_infos['data'][0]['idabonnement'], false, $context);
+$id_abo_siege = json_decode($json, true);
+
+$json = file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/unique_abonnement?idabo=" . $id_abo_siege['data'][0]['idabonnement'], false, $context);
+$abonnement_siege = json_decode($json, true);
+
 
 // #1 initialise les informations de base
 //
@@ -31,7 +38,7 @@ $adresseClient = $user_infos['data'][0]['prenom'] . " " . $user_infos['data'][0]
 // initialise l'objet facturePDF
 $pdf = new facturePDF($adresse, $adresseClient, "HomeService SA - 242 rue du Faubourg Saint-Antoine - 75012 Paris - home.service@gmail.com - (+33) 3 89 68 27 54\nTous services demandés est expressement dûs à l'entreprise. En cas de non paiement, aucunes autres demandes de services ne sera acceptées.\nRCS : 245-532-578- NANCY / TVA Intracomunautaire : FR 02 4578 1455 5578 3254 / SIRET 887 547 259 974 125");
 // défini le logo
-$pdf->setLogo('logo.png');
+$pdf->setLogo('logo.png',15,15);
 // entete des produits
 $pdf->productHeaderAddRow('Service', 60, 'L');
 $pdf->productHeaderAddRow('Date de début', 45, 'C');
@@ -54,6 +61,9 @@ $pdf->initFacture("Facture n° " . $_POST['idfacture'], "Paris le " . strftime("
 foreach ($interventions['data'] as $intervention) {
   $pdf->productAdd(array($intervention['description'], strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtdeb'])), strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtfin'])), '', $intervention['montantpresta'] + $intervention['montantsurplus']));
 }
+
+//Ajout de l'abonnement en fin de page
+$pdf->productAdd(array($abonnement_siege['data'][0]['lb'], "", "", "       " . $abonnement_siege['data'][0]['prix']));
 
 // ligne des totaux
 $pdf->totalAdd(array('Total HT', number_format($price['data'][0]['montant'] * 100/120,2)));
