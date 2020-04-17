@@ -19,7 +19,8 @@
   $ip_agence = $agence_infos['data'][0]['ip'] . ":" . $agence_infos['data'][0]['port'];
 
   //Récupération des informations de connexion
-  $json = file_get_contents("http://" . $ip_agence . "/client?email=" . $_POST['username'] . "&password=" . $_POST['password'], false, $context);
+
+  $json = file_get_contents("http://" . $ip_agence . "/client?email=" . $_POST['username'] . "&password=" . hash("sha256", $_POST['password']), false, $context);
   $connection_infos = json_decode($json, true);
 
   //Récupération des informations personnelles de l'utilisateur
@@ -37,6 +38,7 @@
     $_SESSION['okactif'] = $connection_infos['data'][0]['okactif'];//à checker
     $_SESSION['idcategservice'] = $connection_infos['data'][0]['idcategservice'];//à checker
     $_SESSION['ip_agence'] = $ip_agence;
+    $_SESSION['pass'] = $user_infos['data'][0]['password'];
     $_SESSION['idTabAbonnement'] = $connection_infos['data'][0]['idtababonnement'];
     //Si le client n'a pas d'abo, la prochaine fois qu'il choisira un service,
     // cette variable passera à 2 signifiant qu'il doit payer son service avant
