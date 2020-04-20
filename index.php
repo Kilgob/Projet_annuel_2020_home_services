@@ -1,6 +1,8 @@
 
 <?php
   include('header.php');
+  include('config.php');
+  echo strftime("%d/%m/%Y %H:%M:%S");
 ?>
 
 

@@ -7,16 +7,8 @@ include 'config.php';
             'header'  => "Authorization: Basic " . base64_encode("user:pass")   )
     ));
 
-    $json=file_get_contents("http://" . $_SESSION['ip_agence'] . "/user?iduser=" . $_SESSION['nmuser'], false, $context);
+    $json=file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_SESSION['nmuser'], false, $context);
     $user_compl=json_decode($json, true);
-
-/*
-    $json=file_get_contents("http://172.16.69.181:6002/user_adresse?idadresse=1", false, $context);
-    $user_adress=json_decode($json, true);
-*/
-
-
-// SELECT num_rue,nom_rue,lbville FROM tabadresses INNER JOIN tabvilles WHERE idadresse = :idadresse AND tabvilles.idville = tabadresses.idville
 ?>
 
 <main>
@@ -39,11 +31,11 @@ include 'config.php';
                                 </div>
 
                                 <div id="user_profil_address_and_num_div" class="form-group">
-                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $_SESSION['adresse']; ?>" name="nom_rue" />
+                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['adresse']; ?>" name="nom_rue" />
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $_SESSION['ville']; ?>" name="lbville" />
+                                    <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['ville']; ?>" name="lbville" />
                                 </div>
 
                                 <div class="form-group">
