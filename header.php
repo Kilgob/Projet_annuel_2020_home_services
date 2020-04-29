@@ -57,6 +57,7 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                        <a class="nav-link" href="rdv_service.php">Demander un service</a>
+                       <a class="nav-link" href="abonnement.php">Abonnement</a>
                        <a class="nav-link" href="rdv_service_total.php">Liste des services en cours</a>
                        <a class="nav-link" href="devis.php">Devis</a>
                        <a class="nav-link" href="facture_client.php">Mes factures</a>

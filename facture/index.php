@@ -10,22 +10,27 @@ $context = stream_context_create(array(
 ));
 
 //Récupération de toutes les interventions du mois faites par ce même client
-$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/interventions_between_date?iduser=" . $_POST['iduser'] . "&dtdebut=" . $_POST['dtdebut'] . "&dtfin=" . $_POST['dtfin'], false, $context);
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/interventions_between_date?iduser=" . $_SESSION['nmuser'] . "&dtdebut=" . $_POST['dtdebut'] . "&dtfin=" . $_POST['dtfin'], false, $context);
 $interventions = json_decode($json, true);
 
-//Récupération du Prix
+//Récupération des infos de la facture actuelle
 $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/facture_via_id?idfacture=" . $_POST['idfacture'], false, $context);
-$price = json_decode($json, true);
+$facture_infos = json_decode($json, true);
 
 //Récupération des informations de l'utilisateur
-$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_POST['iduser'], false, $context);
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_SESSION['nmuser'], false, $context);
 $user_infos = json_decode($json, true);
 
-//Récupération du prix de l'abonnement dans la table siège
-$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/abonnement?idabo=" . $user_infos['data'][0]['idabonnement'], false, $context);
-$id_abo_siege = json_decode($json, true);
+//Récupération de l'id de l'abonnement correspondant aux dates de la facture
+$request = str_replace(' ', '%20', "http://" . $_SESSION['ip_agence'] . "/prix_abonnement_facture?dtdebut=" . strftime("%Y-%m-%d %H:%M:%S", strtotime($facture_infos['data'][0]['dtdeb'])) . "&dtfin=" . strftime("%Y-%m-%d %H:%M:%S", strtotime($facture_infos['data'][0]['dtfin'])) . "&iduser=" . $_POST['iduser']);
+$json = file_get_contents($request, false, $context);
+$id_abo_actual_facture = json_decode($json, true);
 
-$json = file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/unique_abonnement?idabo=" . $id_abo_siege['data'][0]['idabonnement'], false, $context);
+//Récupération du prix de l'abonnement dans la table siège
+// $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/abonnement?idabo=" . $user_infos['data'][0]['idabonnement'], false, $context);
+// $id_abo_siege = json_decode($json, true);
+
+$json = file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/unique_abonnement?idabo=" . $id_abo_actual_facture['data'][0]['idabonnement'], false, $context);
 $abonnement_siege = json_decode($json, true);
 
 
@@ -56,19 +61,21 @@ $pdf->elementAdd('', 'traitBas', 'footer');
 // #2 Créer une facture
 //
 // numéro de facture, date, texte avant le numéro de page
-$pdf->initFacture("Facture n° " . $_POST['idfacture'], "Paris le " . strftime("%d/%m/%Y", strtotime('+1 month', strtotime($price['data'][0]['dtcrea']))) , "Page 1");
+$pdf->initFacture("Facture n° " . $_POST['idfacture'], "Paris le " . strftime("%d/%m/%Y", strtotime($facture_infos['data'][0]['dtfin'])) , "Page 1");
 // produit
-foreach ($interventions['data'] as $intervention) {
-  $pdf->productAdd(array($intervention['description'], strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtdeb'])), strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtfin'])), '', $intervention['montantpresta'] + $intervention['montantsurplus']));
+if ($interventions != []) {
+  foreach ($interventions['data'] as $intervention) {
+    $pdf->productAdd(array($intervention['description'], strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtdeb'])), strftime("%d/%m/%Y %H:%M", strtotime($intervention['dtfin'])), '', $intervention['montantpresta'] + $intervention['montantsurplus']));
+  }
 }
 
 //Ajout de l'abonnement en fin de page
 $pdf->productAdd(array($abonnement_siege['data'][0]['lb'], "", "", "       " . $abonnement_siege['data'][0]['prix']));
 
 // ligne des totaux
-$pdf->totalAdd(array('Total HT', number_format($price['data'][0]['montant'] * 100/120,2)));
-$pdf->totalAdd(array('TVA', number_format($price['data'][0]['montant'],2) - number_format($price['data'][0]['montant'] * 100/120,2)));
-$pdf->totalAdd(array('Sous total TTC', number_format($price['data'][0]['montant'],2)));
+$pdf->totalAdd(array('Total HT', number_format($facture_infos['data'][0]['montant'] * 100/120,2)));
+$pdf->totalAdd(array('TVA', number_format($facture_infos['data'][0]['montant'],2) - number_format($facture_infos['data'][0]['montant'] * 100/120,2)));
+$pdf->totalAdd(array('Sous total TTC', number_format($facture_infos['data'][0]['montant'],2)));
 //$pdf->totalAdd(array('Livraison', '100.00 EUR'));
 //$pdf->totalAdd(array('Remise', '-5.94 EUR'));
 //$pdf->totalAdd(array('Total TTC', '165.00 EUR'));
