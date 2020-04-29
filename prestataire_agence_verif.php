@@ -39,7 +39,7 @@ $infoAgence=json_decode($json, true);
                                     echo '</div></li>';
                                 }
                                 else {
-                                    echo '<li class="nav-item_en_cours">';
+                                    echo '<li  onclick="research(' . $folder['iduser'] . ')" class="d-flex justify-content-center,nav-item_en_cours">';
                                     echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
                                     echo '<p>' . $name . ' (n°' . $folder['iduser'] . ') :<br>' . $folder['mail'] . '<br>(En attente de validation)</p>';
                                     echo '</div></li>';

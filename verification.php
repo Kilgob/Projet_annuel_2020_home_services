@@ -143,7 +143,7 @@
       "&prenom=" . $firstname .
       "&mail=" . $email .
       "&notel=" . $num_tel .
-      "&password=" . $password .
+      "&password=" . hash("sha256", $password) .
       "&adresse=" . $address .
       "&ville=" . $town .
       "&cdtype_user=cli" .

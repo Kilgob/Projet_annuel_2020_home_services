@@ -149,12 +149,6 @@
 //      header("Content-Type: application/download");
 //      echo '<div><a id="' . $file_pj['nmfic'] . '" href="' . $file_pj['nmrep'].$file_pj['nmfic'] . ' " download="' . $file_pj['nmuserfic'] . '">' . $file_pj['nmuserfic'] . '</a> <input class="btn btn-secondary" type="button" id="' . $file_pj['nmfic'] . '_button" value="Suppression du fichier" onclick="delete_file(\'' .  $file_pj['nmfic'] . '\')" /><div></div><div>';
 //    }
-    echo '</div>';
-    echo '<div class="form-group">';
-    echo '<p>Envoyer un fichier : '; include 'envoi_file.php';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
 
 
 

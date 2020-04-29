@@ -22,8 +22,8 @@ include 'config.php';
                             <div class="mx-auto user_profil_align">
 
                                 <div class="form-group display_input_inline_block">
-                                    <input type='text' class="form-control" placeholder="Prénom" aria-label="firstname" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['prenom']; ?>" name="prenom" />
-                                    <input type='text' class="form-control" placeholder="Nom" aria-label="lastname" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['nom']; ?>" name="nom" />
+                                    <input type='text' class="form-control" placeholder="Prénom" aria-label="firstname" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['prenom']; ?>" name="firstName" />
+                                    <input type='text' class="form-control" placeholder="Nom" aria-label="lastname" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['nom']; ?>" name="lastName" />
                                 </div>
 
                                 <div class="form-group">
@@ -31,11 +31,11 @@ include 'config.php';
                                 </div>
 
                                 <div id="user_profil_address_and_num_div" class="form-group">
-                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['adresse']; ?>" name="nom_rue" />
+                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="Adresse" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['adresse']; ?>" name="name_rue" />
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['ville']; ?>" name="lbville" />
+                                    <input type="text" class="form-control input_247px" placeholder="Ville" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['ville']; ?>" name="lbcity" />
                                 </div>
 
                                 <div class="form-group">
@@ -43,7 +43,6 @@ include 'config.php';
                                 </div>
 
                                 <input class="btn btn-secondary" type="submit" value="Valider les changements" />
-                                <a href="user_account_delete.php"><input class="btn btn-secondary" type="button" value="Supprimer son compte" /></a>
                                 <input type='hidden' value="<?php echo $_SESSION['nmuser']; ?>" /><br><br>
 
                             </div>
@@ -112,12 +111,15 @@ include 'config.php';
             echo '<p style="color:rgb(90,98,104);text-align:center;">Votre compte a été modifié avec succès !</p>';
         }
 
-        if($_GET['error'] == 'wrong_old_password'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">Votre mot de passe actuel ne correspond pas avec celui renseigné !</p>';
+        if($_GET['error'] == 'empty'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Vous n\'avez saisi aucun mdp!</p>';
         }
 
         if($_GET['error'] == 'password_dont_correspond'){
             echo '<p style="color:rgb(90,98,104);text-align:center;">Les nouveaux mots de passes renseignés ne correspondent pas !</p>';
+        }
+        if($_GET['error'] == 'notok'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Il y a eu une erreure</p>';
         }
     }
     ?>

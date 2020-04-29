@@ -8,12 +8,12 @@
           'header' => "Authorization: Basic " . base64_encode("user:pass"))
   ));
 
-  $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/devis?iduser=" . $_SESSION['nmuser'], false, $context);
+  $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/deviscli?iduser=" . $_SESSION['nmuser'], false, $context);
   $listing_devis = json_decode($json, true);
 
   $json = file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/service", false, $context);
   $listing_service = json_decode($json, true);
-  echo $listing_devis['data'][0]['iduser'];
+  //echo $listing_devis['data'][0]['iduser'];
   ?>
 
   <div class="container">

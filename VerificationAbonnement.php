@@ -5,7 +5,7 @@
     private int $iduser;
     private float $price;
 
-    function __construct($idAbonnement, $iduser) {
+    function __construct(int $idAbonnement, int $iduser) {
       $this->idAbonnement = $idAbonnement;
       $this->iduser = $iduser;
     }

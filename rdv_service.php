@@ -34,8 +34,12 @@ $categ = json_decode($json, true);
     </div>
     <p class=""><ins>Choisissez un service puis definissez un rendez vous</ins></p>
 
+
     <div class="col-8" id="section_service">
     </div>
+     <div class="col-8">
+         <input type="text" placeholder="Description" name="description"></div>
+     </div>
 
     <div class="col-4" id="calendar">
         <h3>Choisir une date</h3>

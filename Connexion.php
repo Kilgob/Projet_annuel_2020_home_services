@@ -45,12 +45,8 @@
     $_SESSION['idcategservice'] = $connection_infos['data'][0]['idcategservice'];//à checker
     $_SESSION['ip_agence'] = $ip_agence;
     $_SESSION['pass'] = $user_infos['data'][0]['password'];
-    $_SESSION['idTabAbonnement'] = $connection_infos['data'][0]['idtababonnement'];
-    //Si le client n'a pas d'abo, la prochaine fois qu'il choisira un service,
-    // cette variable passera à 2 signifiant qu'il doit payer son service avant
-    // dans choisir un nouveau
-
-    //include 'checkSpent.php';
+    $_SESSION['idTabAbonnement'] = $user_infos['data'][0]['idabonnement'];
+    $_SESSION['id_agence'] = $_POST['agence_selected'];
 
     //Vérifier le statut de l'abonnement
     if ($user_infos['data'][0]['statutabo'] == 1) {
