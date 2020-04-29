@@ -23,9 +23,11 @@
   $json = file_get_contents("http://" . $ip_agence . "/client?email=" . $_POST['username'] . "&password=" . hash("sha256", $_POST['password']), false, $context);
   $connection_infos = json_decode($json, true);
 
-  //Récupération des informations personnelles de l'utilisateur
-  $json = file_get_contents("http://" . $ip_agence . "/SelectClient?iduser=" . $connection_infos['data'][0]['iduser'], false, $context);
-  $user_infos = json_decode($json, true);
+  if($connection_infos == []) {
+    header('Location: ConnexionIndex.php?error=account_missing');
+    exit;
+  }
+
 
   if($connection_infos != NULL && $connection_infos['data'][0]['okactif'] == 0){
    header('Location: ConnexionIndex.php?error=disabled');
@@ -33,6 +35,10 @@
   }
 
   if($connection_infos['data'][0]['iduser'] != NULL){
+    //Récupération des informations personnelles de l'utilisateur
+    $json = file_get_contents("http://" . $ip_agence . "/SelectClient?iduser=" . $connection_infos['data'][0]['iduser'], false, $context);
+    $user_infos = json_decode($json, true);
+
     $_SESSION['nmuser'] = $connection_infos['data'][0]['iduser'];
     $_SESSION['cdtype_user'] = $connection_infos['data'][0]['cdtype_user'];
     $_SESSION['okactif'] = $connection_infos['data'][0]['okactif'];//à checker
@@ -47,14 +53,15 @@
     //include 'checkSpent.php';
 
     //Vérifier le statut de l'abonnement
-    $user_abonnement = new VerificationAbonnement($_SESSION['idTabAbonnement'], $_SESSION['nmuser']);
+    if ($user_infos['data'][0]['statutabo'] == 1) {
+      $user_abonnement = new VerificationAbonnement($_SESSION['idTabAbonnement'], $_SESSION['nmuser']);
 
-    if ($user_abonnement->checkEndDate() == true && $user_infos['data'][0]['statutabo'] == 1) {
-      $user_abonnement->updateStatut();
-      $user_abonnement->calculPrix();
-      $user_abonnement->generateFacture();
+      if ($user_abonnement->checkEndDate() == true) {
+          $user_abonnement->updateStatut();
+          $user_abonnement->calculPrix();
+          $user_abonnement->generateFacture();
+      }
     }
-
 
     header('Location: index.php');
     exit;

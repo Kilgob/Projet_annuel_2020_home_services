@@ -10,7 +10,7 @@ $context = stream_context_create(array(
 ));
 
 //Récupération de toutes les interventions du mois faites par ce même client
-$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/interventions_between_date?iduser=" . $_POST['iduser'] . "&dtdebut=" . $_POST['dtdebut'] . "&dtfin=" . $_POST['dtfin'], false, $context);
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/interventions_between_date?iduser=" . $_SESSION['nmuser'] . "&dtdebut=" . $_POST['dtdebut'] . "&dtfin=" . $_POST['dtfin'], false, $context);
 $interventions = json_decode($json, true);
 
 //Récupération des infos de la facture actuelle
@@ -18,7 +18,7 @@ $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/facture_via_id?
 $facture_infos = json_decode($json, true);
 
 //Récupération des informations de l'utilisateur
-$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_POST['iduser'], false, $context);
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_SESSION['nmuser'], false, $context);
 $user_infos = json_decode($json, true);
 
 //Récupération de l'id de l'abonnement correspondant aux dates de la facture
