@@ -46,8 +46,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="iddossier_lb">Historique des interventions</h5>
-                <form method="POST" action="rdv_service_pre_back.php" id="form_devis">
+                <h5 class="modal-title" id="iddossier_lb">Devis en attente de validation</h5>
+                <form method="POST" action="crea_intervention.php" id="form_devis" >
                     <p value="" id="timer" name="timer">temps de l'intervention : </p>
                     <p value="" id="price" name="price">prix de l'intervention : </p>
                     <input type="hidden" value="" name="idpresta">
