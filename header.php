@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/style_main.css" />
     <link rel="stylesheet" href="css/style_liste_dossier.css" />
     <link rel="stylesheet" href="css/style_inscription.css" />
+      <link rel="stylesheet" href="css/rdv_service.css" />
       <!-- <link rel="stylesheet" href="css/style_homePage.css"/>
       <link rel="stylesheet" href="css/style_general_manage.css" />
       <link rel="stylesheet" href="css/style_liste_dossier.css" />
@@ -34,9 +35,6 @@
             <li class="nav-item">
 
               <a class="nav-link" href=" <?php if(!isset($_SESSION['nmuser'])){echo 'index.php';}else{echo 'create_Service.php';}  ?>">Accueil<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="tarifs.php">Tarifs</a>
             </li>
             <?php
                 if(isset($_SESSION['cdtype_user']) && $_SESSION['cdtype_user'] == 'pat'){
@@ -67,6 +65,17 @@
             <?php
             }
           ?>
+          <?php
+          if(isset($_SESSION['cdtype_user']) && $_SESSION['cdtype_user'] == 'pre'){
+          ?>
+          <li class="nav_item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rendez-vous</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuAdmin">
+                  <a class="dropdown-item" href="rdv_service_pre.php">Devis</a>
+                  <a class="dropdown-item" href="create_service.php">Intervention</a>
+              </div>
+          </li>
+          <?php } ?>
             <li class="nav-item">
               <a class="nav-link" href="contact.php" id="navbarDropdownMenuLink">
                 <img src="image/Symboles/position.png">

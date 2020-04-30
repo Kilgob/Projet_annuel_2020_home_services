@@ -7,7 +7,7 @@ $context = stream_context_create(array(
         'method' => "GET",
         'header' => "Authorization: Basic " . base64_encode("user:pass"))
 ));
-$requete = 'http://' . $_SESSION['ip_agence'] . '/intervention?iduser=' . $_SESSION['nmuser'];
+$requete = 'http://' . $_SESSION['ip_agence'] . '/devispre?iduser=' . $_SESSION['nmuser'];
 $json = file_get_contents($requete, false, $context);
 $list_intervention = json_decode($json, true);
 
@@ -34,15 +34,15 @@ function getNameService($id)
 ?>
 
 <div class="container">
-<h1>Liste des services</h1>
+<h1>Liste des devis des clients en attente</h1>
 <ul class="list-group">
 <?php
 if($list_intervention != null){
 foreach ($list_intervention['data'] as $intervention) {
     $date = new DateTime($intervention["dtcrea"]);
 ?>
-    <li class="list-group-item" data-toggle="modal" data-target="#devismodal" data-whatever="@mdo">
-        Rendez-vous pris le <strong><?= $date->format('Y-m-d') ?></strong> pour le service suivant : <br>
+    <li class="list-group-item" data-toggle="modal" data-target="#devismodal" data-whatever="@mdo" onclick="devis(<?php echo $intervention["iddevis"];?>)">
+        Devis pris le <strong><?= $date->format('Y-m-d') ?></strong> pour le service suivant : <br>
         <strong><?php echo getNameService($intervention["idservice"]); ?></strong>
     </li>
 <?php
@@ -56,13 +56,20 @@ foreach ($list_intervention['data'] as $intervention) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="iddossier_lb">Information sur le devis</h5>
-                    <form id="interventions_statut">
-                        <p>Fixer un montant pour le devis</p>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                        <input type="hidden" value="" id="idcli" name="idcli">
-                        <input type="hidden" value="" id="idcateg" name="idcateg">
-                        <input type="hidden" value="" id="descri" name="descri">
+                    <h5 class="modal-title" id="iddossier_lb">Historique des interventions</h5>
+                    <form method="POST" action="rdv_service_pre_back.php">
+                        <div>
+                            <p>Fixer un montant pour l'intervention</p>
+                            <input type="range" min="0" max="2000" value="50" class="slider" id="myRange" name="price">
+                            <p id="demo"></p>
+                        </div>
+                        <div>
+                            <p>Fixer la durée du projet </p>
+                            <input type="range" min="1" max="60" value="1" class="slider" id="timer" name="timer">
+                            <p id="timer_label"></p>
+                        </div>
+                        <input type="hidden" id="iddevis" name="iddevis" value="">
+                        <input type="submit" value="Valider l'intervention"/>
                     </form>
                 </div>
                 <div class="modal-body" id="history">
@@ -71,6 +78,7 @@ foreach ($list_intervention['data'] as $intervention) {
             </div>
         </div>
     </div>
+<script src="rdv_service.js"></script>
 
 <?php
 } else{
