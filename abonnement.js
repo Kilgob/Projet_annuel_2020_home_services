@@ -5,7 +5,9 @@ function displayModal(idAbo) {
   let duration = document.getElementById('abo_duration' + idAbo).innerHTML;
   let price = document.getElementById('abo_price' + idAbo).innerHTML;
 
-  alert.innerHTML = "<div id='subscribe_modal' class='modal fade show' id='subscribe_alert_modal' tabindex='-1' role='dialog' aria-labelledby='subscribe_alert_modal' style='display: block;'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><h5 class='modal-title' id='subscribe_alert_modal'>Souhaitez-vous prendre cet abonnement ?</h5><button type='button' class='btn' data-dismiss='modal' aria-label='Close' onclick='exitModal()'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><h5>" + lb + "</h5><p>" + days + "</p><p>" + duration + "</p><p>" + price + "</p></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal' onclick='exitModal()'>Annuler</button><button type='button' class='btn btn-primary' onclick='selectAbonnement(" + idAbo + ")'>Confirmer</button></div></div></div></div>";
+  let duration_number = duration.split(" ");
+
+  alert.innerHTML = "<div id='subscribe_modal' class='modal fade show' id='subscribe_alert_modal' tabindex='-1' role='dialog' aria-labelledby='subscribe_alert_modal' style='display: block;'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><h5 class='modal-title' id='subscribe_alert_modal'>Souhaitez-vous prendre cet abonnement ?</h5><button type='button' class='btn' data-dismiss='modal' aria-label='Close' onclick='exitModal()'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><h5>" + lb + "</h5><p>" + days + "</p><p>" + duration + "</p><p>" + price + "</p></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal' onclick='exitModal()'>Annuler</button><button type='button' class='btn btn-primary' onclick='selectAbonnement(" + idAbo + "," + duration_number[5] + ")'>Confirmer</button></div></div></div></div>";
 
   document.body.className += "modal-open";
 
@@ -24,6 +26,18 @@ function exitModal() {
   document.body.className = "";
 }
 
-function selectAbonnement(idAbo) {
+function selectAbonnement(idAbo, duration) {
+  var xhr = new XMLHttpRequest();
 
+  xhr.open('GET', 'select_abonnement.php?idAbonnement=' + idAbo + '&duration=' + duration);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.status == 200 && xhr.readyState == 4) {
+      exitModal();
+      alert(xhr.responseText);
+      location.reload();
+    }
+  };
+
+  xhr.send('');
 }

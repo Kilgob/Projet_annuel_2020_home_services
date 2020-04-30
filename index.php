@@ -2,7 +2,10 @@
 <?php
   include('header.php');
   include('config.php');
+  require_once 'VerificationAbonnement.php';
   echo strftime("%d/%m/%Y %H:%M:%S");
+
+  
 ?>
 
 

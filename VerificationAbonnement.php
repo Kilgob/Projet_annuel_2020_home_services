@@ -60,8 +60,10 @@
       $abonnement_siege = json_decode($json, true);
 
       //Calcul des prix totaux des interventions (pour ajouter d'éventuels surplus)
-      foreach ($interventions['data'] as $intervention) {
-        $this->price += $intervention['montantpresta'] + $intervention['montantsurplus'];
+      if ($interventions != []) {
+        foreach ($interventions['data'] as $intervention) {
+          $this->price += $intervention['montantpresta'] + $intervention['montantsurplus'];
+        }
       }
 
       //Ajout du prix de l'abonnement

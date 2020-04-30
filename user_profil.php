@@ -9,6 +9,7 @@ include 'config.php';
 
     $json=file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_SESSION['nmuser'], false, $context);
     $user_compl=json_decode($json, true);
+
 ?>
 
 <main>

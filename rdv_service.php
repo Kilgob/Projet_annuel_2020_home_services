@@ -1,19 +1,39 @@
 <?php
-include_once  'config.php';
-include_once 'header.php';
-include_once  "calendar/calendar.php";
-//include_once  "calendar/calendar.php";
+include_once 'config.php';
+include 'header.php';
+
+require_once 'VerificationAbonnement.php';
 
 $context = stream_context_create(array(
     'http' => array(
         'method' => "GET",
         'header' => "Authorization: Basic " . base64_encode("user:pass"))
 ));
+
 $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/categ_from_agence?agence=" . $_SESSION['id_agence'];
 $json = file_get_contents($requete, false, $context);
 $categ = json_decode($json, true);
 
+$json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_SESSION['nmuser'], false, $context);
+$user_infos = json_decode($json, true);
 
+if ($user_infos['data'][0]['statutabo'] == 1 && $_SESSION['idTabAbonnement'] != null) {
+  $user_abonnement = new VerificationAbonnement($_SESSION['idTabAbonnement'], $_SESSION['nmuser']);
+
+  if ($user_abonnement->checkEndDate() == true) {
+      $user_abonnement->updateStatut();
+      $user_abonnement->calculPrix();
+      $user_abonnement->generateFacture();
+      $_SESSION['idTabAbonnement'] = null;
+  }
+}
+
+if ($_SESSION['idTabAbonnement'] == null) {
+  header('Location: index.php');
+  exit;
+}
+
+include_once  "calendar/calendar.php";
 ?>
  <div class="ml-4"><strong>Création service</strong></div>
 
@@ -47,7 +67,7 @@ $categ = json_decode($json, true);
             <div class="col-12 mt-3">
                 <p>Choisir une date pour votre service</p>
                 <select name="clock">
-                    <?php for($i = 0 ; $i < 25; $i++){
+                    <?php for($i = 0 ; $i < 24; $i++){
                         echo '<option value="'. $i . ':00">' . $i . ':00</option>';
                     }?>
 

@@ -1,6 +1,7 @@
 <?php
   session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
@@ -34,7 +35,7 @@
           <ul class="navbar-nav">
             <li class="nav-item">
 
-              <a class="nav-link" href=" <?php if(!isset($_SESSION['nmuser'])){echo 'index.php';}else{echo 'create_Service.php';}  ?>">Accueil<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.php">Accueil<span class="sr-only">(current)</span></a>
             </li>
             <?php
                 if(isset($_SESSION['cdtype_user']) && $_SESSION['cdtype_user'] == 'pat'){
@@ -54,9 +55,12 @@
                       Vos services
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
-                       <a class="nav-link" href="rdv_service.php">Demander un service</a>
+                    <?php if ($_SESSION['idTabAbonnement'] != null) {
+                      ?>
+                      <a class="nav-link" href="rdv_service.php">Demander un service</a>
+                      <a class="nav-link" href="rdv_service_total.php">Liste des services en cours</a>
+                  <?php } ?>
                        <a class="nav-link" href="abonnement.php">Abonnement</a>
-                       <a class="nav-link" href="rdv_service_total.php">Liste des services en cours</a>
                        <a class="nav-link" href="devis.php">Devis</a>
                        <a class="nav-link" href="facture_client.php">Mes factures</a>
                        <a class="dropdown-item" href="paiement.php">Page de paiement</a>
