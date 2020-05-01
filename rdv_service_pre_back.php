@@ -14,6 +14,11 @@ if ($_POST['price'] != NULL
             "&prix=" . $_POST['price'] .
             "&temps=" . $_POST['timer'])
         , false, $context);
+
+    $json = file_get_contents(str_replace(" ", "%20","http://" . $_SESSION['ip_agence'] .
+            "/devis?iddevis=" . $_POST['iddevis'] .
+            "&statutdevis=2")
+        , false, $context);
     header('Location: rdv_service_pre.php?error=ok');
     exit;
 }

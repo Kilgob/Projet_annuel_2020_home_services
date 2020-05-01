@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5bf5aa12-3e56-45e3-a6e8-207c6c27ac57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/crea_intervention.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intervention.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rdv_service_total_pre.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upt_intervention.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upt_intervention_pre.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/Connexion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/devis.php" beforeDir="false" afterPath="$PROJECT_DIR$/devis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/devis_back.php" beforeDir="false" afterPath="$PROJECT_DIR$/devis_back.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdv_service.js" beforeDir="false" afterPath="$PROJECT_DIR$/rdv_service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdv_service_pre.php" beforeDir="false" afterPath="$PROJECT_DIR$/rdv_service_pre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdv_service_total.php" beforeDir="false" afterPath="$PROJECT_DIR$/rdv_service_total.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdv_service_pre_back.php" beforeDir="false" afterPath="$PROJECT_DIR$/rdv_service_pre_back.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +111,7 @@
       <workItem from="1587139118289" duration="568000" />
       <workItem from="1588167960589" duration="6827000" />
       <workItem from="1588249757732" duration="12255000" />
+      <workItem from="1588336163892" duration="507000" />
     </task>
     <servers />
   </component>
