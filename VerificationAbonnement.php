@@ -8,6 +8,7 @@
     function __construct(int $idAbonnement, int $iduser) {
       $this->idAbonnement = $idAbonnement;
       $this->iduser = $iduser;
+      $this->price = 0;
     }
 
     public function checkEndDate():bool {

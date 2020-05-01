@@ -1,6 +1,7 @@
 <?php
-include_once 'config.php';
 include 'header.php';
+include_once 'config.php';
+include_once  "calendar/calendar.php";
 
 require_once 'VerificationAbonnement.php';
 
@@ -17,23 +18,27 @@ $categ = json_decode($json, true);
 $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_SESSION['nmuser'], false, $context);
 $user_infos = json_decode($json, true);
 
-if ($user_infos['data'][0]['statutabo'] == 1 && $_SESSION['idTabAbonnement'] != null) {
-  $user_abonnement = new VerificationAbonnement($_SESSION['idTabAbonnement'], $_SESSION['nmuser']);
+// Vérification du statut de l'abonnement
+// if ($user_infos['data'][0]['statutabo'] == 1 && $_SESSION['idTabAbonnement'] != NULL) {
+//   $user_abonnement = new VerificationAbonnement($_SESSION['idTabAbonnement'], $_SESSION['nmuser']);
+//
+//   if ($user_abonnement->checkEndDate() == true) {
+//     $_SESSION['idTabAbonnement'] = NULL;
+//     $user_abonnement->updateStatut();
+//     $user_abonnement->calculPrix();
+//     $user_abonnement->generateFacture();
+//
+//   }
+// }
+//
+// if ($_SESSION['idTabAbonnement'] == NULL) {
+//   header('Location: index.php');
+//   exit;
+// }
+//
+//   echo $_SESSION['idTabAbonnement'];
 
-  if ($user_abonnement->checkEndDate() == true) {
-      $user_abonnement->updateStatut();
-      $user_abonnement->calculPrix();
-      $user_abonnement->generateFacture();
-      $_SESSION['idTabAbonnement'] = null;
-  }
-}
 
-if ($_SESSION['idTabAbonnement'] == null) {
-  header('Location: index.php');
-  exit;
-}
-
-include_once  "calendar/calendar.php";
 ?>
  <div class="ml-4"><strong>Création service</strong></div>
 

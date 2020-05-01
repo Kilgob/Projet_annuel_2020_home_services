@@ -34,6 +34,9 @@
    exit;
   }
 
+  if($connection_infos['data'][0]['iduser'] != NULL){
+    $json = file_get_contents("http://" . $ip_agence . "/SelectClient?iduser=" . $connection_infos['data'][0]['iduser'], false, $context);
+    $user_infos = json_decode($json, true);
 
     $_SESSION['nmuser'] = $connection_infos['data'][0]['iduser'];
     $_SESSION['cdtype_user'] = $connection_infos['data'][0]['cdtype_user'];
@@ -42,20 +45,8 @@
     $_SESSION['ip_agence'] = $ip_agence;
     $_SESSION['pass'] = $user_infos['data'][0]['password'];
     $_SESSION['idTabAbonnement'] = $user_infos['data'][0]['idabonnement'];
+    $_SESSION['id_agence'] = $_POST['agence_selected'];
 
-
-    //Si le client n'a pas d'abo, la prochaine fois qu'il choisira un service,
-    // cette variable passera à 2 signifiant qu'il doit payer son service avant
-    // d'en choisir un nouveau
-
-  $_SESSION['nmuser'] = $connection_infos['data'][0]['iduser'];
-  $_SESSION['cdtype_user'] = $connection_infos['data'][0]['cdtype_user'];
-  $_SESSION['okactif'] = $connection_infos['data'][0]['okactif'];//à checker
-  $_SESSION['idcategservice'] = $connection_infos['data'][0]['idcategservice'];//à checker
-  $_SESSION['ip_agence'] = $ip_agence;
-  $_SESSION['pass'] = $user_infos['data'][0]['password'];
-  $_SESSION['idTabAbonnement'] = $user_infos['data'][0]['idabonnement'];
-  $_SESSION['id_agence'] = $_POST['agence_selected'];
     //Vérifier le statut de l'abonnement
     if ($user_infos['data'][0]['statutabo'] == 1 && $_SESSION['idTabAbonnement'] != null) {
       $user_abonnement = new VerificationAbonnement($_SESSION['idTabAbonnement'], $_SESSION['nmuser']);
@@ -65,9 +56,10 @@
         $user_abonnement->calculPrix();
         $user_abonnement->generateFacture();
       }
+    }
+      header('Location: index.php');
+      exit;
 
-    header('Location: index.php');
-    exit;
   }
   else{
     header('Location: ConnexionIndex.php?error=account_missing');
