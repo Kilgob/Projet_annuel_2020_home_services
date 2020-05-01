@@ -42,7 +42,7 @@ if($list_intervention != null){
 foreach ($list_intervention['data'] as $intervention) {
     $date = new DateTime($intervention["dtcrea"]);
 ?>
-    <li class="list-group-item" data-toggle="modal" data-target="#devismodal" data-whatever="@mdo">
+    <li class="list-group-item" data-toggle="modal" data-target="#devismodal" data-whatever="@mdo" onclick="upd_devis(<?php echo $intervention['idintervention']; ?>)">
          <?= t("Rendez-vous pris le") ?> <strong><?= $date->format('Y-m-d') ?></strong> <?= t("pour le service suivant") ?> : <br>
         <strong><?php echo getNameService($intervention["idservice"]); ?></strong>
     </li>
@@ -70,7 +70,7 @@ foreach ($list_intervention['data'] as $intervention) {
 <?php
 } else{
 ?>
-<p>Pas d'intervention</p>
+<p><?php =t("Pas d'intervention"); ?></p>
 <?php
 }
 include 'footer.php';
