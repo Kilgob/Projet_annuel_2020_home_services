@@ -75,7 +75,7 @@
           <li class="nav_item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=("Rendez-vous")?></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuAdmin">
-                  <a class="dropdown-item" href="rdv_service_pre.php"><?=("Devis") ?></a>
+                  <a class="dropdown-item" href="rdv_service_pre.php"><?= t("Devis") ?></a>
                   <a class="dropdown-item" href="create_service.php"><?= t("Intervention") ?></a>
               </div>
           </li>
