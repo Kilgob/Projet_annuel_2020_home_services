@@ -1,5 +1,29 @@
 <?php
   session_start();
+  $page_actuelle = explode("/", $_SERVER['PHP_SELF'])[2];
+
+  if ($_SESSION != [] && $page_actuelle != 'paiement.php' && $page_actuelle != 'paiement_accepted.php') {
+    $context = stream_context_create(array(
+        'http' => array(
+            'method' => "GET",
+            'header' => "Authorization: Basic " . base64_encode("user:pass"))
+    ));
+
+    $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/facture_np?iduser=" . $_SESSION['nmuser'], false, $context);
+    $facture_np = json_decode($json, true);
+
+    if ($facture_np != []) {
+      header('Location: paiement.php?error=pay');
+      exit;
+    }
+
+    if ($_SESSION['idTabAbonnement'] == null && explode("/", $_SERVER['PHP_SELF'])[2] == 'rdv_service.php') {
+      header('Location: abonnement.php');
+      exit;
+    }
+  }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -57,12 +81,12 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                     <?php if ($_SESSION['idTabAbonnement'] != null) {
                       ?>
-                      <a class="nav-link" href="rdv_service.php">Demander un service</a>
-                      <a class="nav-link" href="rdv_service_total.php">Liste des services en cours</a>
+                      <a class="dropdown-item" href="rdv_service.php">Demander un service</a>
+                      <a class="dropdown-item" href="rdv_service_total.php">Services en cours</a>
                   <?php } ?>
-                       <a class="nav-link" href="abonnement.php">Abonnement</a>
-                       <a class="nav-link" href="devis.php">Devis</a>
-                       <a class="nav-link" href="facture_client.php">Mes factures</a>
+                       <a class="dropdown-item" href="abonnement.php">Abonnement</a>
+                       <a class="dropdown-item" href="devis.php">Devis</a>
+                       <a class="dropdown-item" href="facture_client.php">Mes factures</a>
                        <a class="dropdown-item" href="paiement.php">Page de paiement</a>
                   </div>
               </li>
