@@ -38,7 +38,7 @@ function deviscli(id) {
     // Lorsqu'un réponse est émise par le serveur
     xhr.onreadystatechange = function() {
         if (xhr.status == 200 && xhr.readyState == 4) {
-            document.getElementById('interventions_statut').innerHTML = xhr.responseText;
+            document.getElementById('form_devis').innerHTML = xhr.responseText;
             console.log(xhr.responseText);
             // xhr.responseText contient exactement ce que la page PHP renvoi
         }

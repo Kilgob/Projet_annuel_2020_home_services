@@ -36,6 +36,7 @@
   }
 
   if($connection_infos['data'][0]['iduser'] != NULL){
+    //Récupération des informations personnelles de l'utilisateur
     $json = file_get_contents("http://" . $ip_agence . "/SelectClient?iduser=" . $connection_infos['data'][0]['iduser'], false, $context);
     $user_infos = json_decode($json, true);
 
@@ -53,9 +54,9 @@
       $user_abonnement = new VerificationAbonnement($_SESSION['idTabAbonnement'], $_SESSION['nmuser']);
 
       if ($user_abonnement->checkEndDate() == true) {
-        $user_abonnement->updateStatut();
-        $user_abonnement->calculPrix();
-        $user_abonnement->generateFacture();
+          $user_abonnement->updateStatut();
+          $user_abonnement->calculPrix();
+          $user_abonnement->generateFacture();
       }
     }
       header('Location: index.php');

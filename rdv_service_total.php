@@ -8,7 +8,7 @@ $context = stream_context_create(array(
         'method' => "GET",
         'header' => "Authorization: Basic " . base64_encode("user:pass"))
 ));
-$requete = 'http://' . $_SESSION['ip_agence'] . '/intervention?iduser=' . $_SESSION['nmuser'];
+$requete = 'http://' . $_SESSION['ip_agence'] . '/intervention_fin?iduser=' . $_SESSION['nmuser'];
 $json = file_get_contents($requete, false, $context);
 $list_intervention = json_decode($json, true);
 
@@ -50,33 +50,27 @@ foreach ($list_intervention['data'] as $intervention) {
 }
 ?>
 
-</ul>
+    </ul>
 </div>
 
     <div class="modal fade" id="devismodal" tabindex="-1" role="dialog" aria-labelledby="iddossier_lb" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="iddossier_lb"><?("Information sur le devis")?></h5>
-                    <form id="interventions_statut">
-                        <p><?("Fixer un montant pour le devis")?></p>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                        <input type="hidden" value="" id="idcli" name="idcli">
-                        <input type="hidden" value="" id="idcateg" name="idcateg">
-                        <input type="hidden" value="" id="descri" name="descri">
+                    <h5 class="modal-title">Mettre fin à l'intervention</h5>
+                    <form id="interventions_statut" method="POST" action="upt_intervention.php">
+                        <input type="hidden" value="" name="idintervention" id="value_updt_id">
+                        <input type="submit" value="Mettre fin à l'intervention"/>
                     </form>
-                </div>
-                <div class="modal-body" id="history">
-                    <!-- Display history -->
                 </div>
             </div>
         </div>
     </div>
-
+<script src="intervention.js"></script>
 <?php
 } else{
 ?>
-<p><?= t("Pas de services") ?></p>
+<p>Pas d'intervention</p>
 <?php
 }
 include 'footer.php';

@@ -69,7 +69,7 @@ foreach ($list_intervention['data'] as $intervention) {
                             <p id="timer_label"></p>
                         </div>
                         <input type="hidden" id="iddevis" name="iddevis" value="">
-                        <input type="submit" value="Valider l'intervention"/>
+                        <input type="submit" value="Valider le devis"/>
                     </form>
                 </div>
                 <div class="modal-body" id="history">

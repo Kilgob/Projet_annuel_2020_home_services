@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5bf5aa12-3e56-45e3-a6e8-207c6c27ac57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/css/rdv_service.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/devis_back.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rdv_service.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rdv_service_pre.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rdv_service_pre_back.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/Connexion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/devis.php" beforeDir="false" afterPath="$PROJECT_DIR$/devis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdv_service_total.php" beforeDir="false" afterPath="$PROJECT_DIR$/rdv_service_total.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdv_service_pre_back.php" beforeDir="false" afterPath="$PROJECT_DIR$/rdv_service_pre_back.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +110,8 @@
       <workItem from="1587120779141" duration="2675000" />
       <workItem from="1587139118289" duration="568000" />
       <workItem from="1588167960589" duration="6827000" />
-      <workItem from="1588249757732" duration="7971000" />
+      <workItem from="1588249757732" duration="12255000" />
+      <workItem from="1588336163892" duration="507000" />
     </task>
     <servers />
   </component>
@@ -148,7 +141,7 @@
       <screen x="0" y="23" width="2560" height="1537" />
     </state>
     <state x="705" y="435" key="#com.intellij.ws.actions.HttpClientConvertFromCurlDialog/0.23.2560.1537@0.23.2560.1537" timestamp="1580999763210" />
-    <state x="3124" y="55" key="NewPhpFileDialog" timestamp="1588260510882">
+    <state x="3124" y="55" key="NewPhpFileDialog" timestamp="1588265528217">
       <screen x="1920" y="-273" width="2560" height="1440" />
     </state>
     <state x="903" y="273" key="NewPhpFileDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1583412707702" />
@@ -156,7 +149,7 @@
     <state x="903" y="282" key="NewPhpFileDialog/0.23.1920.1140@0.23.1920.1140" timestamp="1581246978024" />
     <state x="1204" y="372" key="NewPhpFileDialog/0.23.2560.1537@0.23.2560.1537" timestamp="1581002462174" />
     <state x="3124" y="124" key="NewPhpFileDialog/1920.-203.2560.1440/0.0.1920.1200@1920.-203.2560.1440" timestamp="1581257787729" />
-    <state x="3124" y="55" key="NewPhpFileDialog/1920.-273.2560.1440/0.0.1920.1200@1920.-273.2560.1440" timestamp="1588260510882" />
+    <state x="3124" y="55" key="NewPhpFileDialog/1920.-273.2560.1440/0.0.1920.1200@1920.-273.2560.1440" timestamp="1588265528217" />
     <state x="3726" y="20" key="NewPhpFileDialog/1920.-338.3840.1577/0.23.1920.1140@1920.-338.3840.1577" timestamp="1580736445514" />
     <state x="408" y="212" key="SettingsEditor" timestamp="1582902557038">
       <screen x="0" y="0" width="1920" height="1200" />
