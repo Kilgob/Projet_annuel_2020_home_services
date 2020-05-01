@@ -1,5 +1,4 @@
 <?php
-include_once("./lang.php");
   include('header.php');
 ?>
 

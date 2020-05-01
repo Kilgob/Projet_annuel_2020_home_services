@@ -1,6 +1,7 @@
 <?php
-include_once("./lang.php");
+
 session_start();
+include_once("./lang.php");
 include 'config.php';
 
 $context = stream_context_create(array(

@@ -1,5 +1,5 @@
 <?php
-  include_once("./lang.php");
+
 include 'header.php';
 include 'config.php';
     // SELECT nom,prenom,addrmail,notel FROM tabusers WHERE nmuser = ?
@@ -32,12 +32,12 @@ include 'config.php';
                                     <input type='text' class="form-control" placeholder="<?= t("Email") ?>" aria-label="email" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['mail']; ?>" size="30" name="addrmail" />
                                 </div>
 
-                                <div id="user_profil_address_and_num_div" class="form-group">
-                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="<?= t("Adresse") ?>" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $_SESSION['adresse']; ?>" name="nom_rue" />
+                               <div id="user_profil_address_and_num_div" class="form-group">
+                                    <input id="user_profil_address_input" type="text" class="form-control" placeholder="<?= t("Adresse") ?>" aria-label="address" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['adresse']; ?>" name="name_rue" />
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control input_247px" placeholder="<?= t("Ville") ?>" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $_SESSION['ville']; ?>" name="lbville" />
+                                    <input type="text" class="form-control input_247px" placeholder="<?= t("Ville") ?>" aria-label="town" aria-describedby="basic-addon1" value="<?php echo $user_compl['data'][0]['ville']; ?>" name="lbcity" />
                                 </div>
 
                                 <div class="form-group">
