@@ -1,5 +1,6 @@
 <?php
 
+include_once("./lang.php");
 include 'config.php';
 session_start();
 
@@ -52,13 +53,12 @@ shell_exec("/home/fred/qrcode/qrcode " . $connection_infos['data'][0]['iduser'] 
 
 
 if(1){//chnager la condition
-    echo "prestataire créé";
+    echo t("prestataire créé");
     header('Location: add_prestataire.php');
     exit;
 }
 else{
-    echo "Erreur lors de la création du nouveau prestataire";
+    echo t("Erreur lors de la création du nouveau prestataire");
     exit;
 }
-
 ?>

@@ -1,6 +1,7 @@
 <?php
   session_start();
   include 'config.php';
+  include_once("./lang.php");
   require_once 'VerificationAbonnement.php';
 
   if($_POST['agence_selected'] == NULL){

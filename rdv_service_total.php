@@ -1,4 +1,5 @@
 <?php
+  include_once("./lang.php");
 include 'config.php';
 include 'header.php';
 
@@ -42,7 +43,7 @@ foreach ($list_intervention['data'] as $intervention) {
     $date = new DateTime($intervention["dtcrea"]);
 ?>
     <li class="list-group-item" data-toggle="modal" data-target="#devismodal" data-whatever="@mdo">
-        Rendez-vous pris le <strong><?= $date->format('Y-m-d') ?></strong> pour le service suivant : <br>
+         <?= t("Rendez-vous pris le") ?> <strong><?= $date->format('Y-m-d') ?></strong> <?= t("pour le service suivant") ?> : <br>
         <strong><?php echo getNameService($intervention["idservice"]); ?></strong>
     </li>
 <?php
@@ -56,9 +57,9 @@ foreach ($list_intervention['data'] as $intervention) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="iddossier_lb">Information sur le devis</h5>
+                    <h5 class="modal-title" id="iddossier_lb"><?("Information sur le devis")?></h5>
                     <form id="interventions_statut">
-                        <p>Fixer un montant pour le devis</p>
+                        <p><?("Fixer un montant pour le devis")?></p>
                         <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
                         <input type="hidden" value="" id="idcli" name="idcli">
                         <input type="hidden" value="" id="idcateg" name="idcateg">
@@ -75,7 +76,7 @@ foreach ($list_intervention['data'] as $intervention) {
 <?php
 } else{
 ?>
-<p>Pas de services</p>
+<p><?= t("Pas de services") ?></p>
 <?php
 }
 include 'footer.php';
