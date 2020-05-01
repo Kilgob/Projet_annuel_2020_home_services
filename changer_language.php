@@ -1,9 +1,6 @@
 <?php
     include_once("lang.php");
-    //Detecter si la session est deja etablie
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+
 
     //Detecter la langue choisit
     if(isset($_GET["lang"])){
