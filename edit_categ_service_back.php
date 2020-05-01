@@ -1,5 +1,6 @@
 <?php
 
+include_once("./lang.php");
 include 'config.php';
 session_start();
 
@@ -22,12 +23,12 @@ $user_infos=json_decode($json, true);
 
 
 if(1){//chnager la condition
-    echo "modification du service effectué !";
+    echo t("modification du service effectué !");
     header('Location: prestataire.php');
     exit;
 }
 else{
-    echo "Erreur lors de la modification du service !";
+    echo t("Erreur lors de la modification du service !");
     header('Location: prestataire.php');
     exit;
 }

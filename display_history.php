@@ -1,5 +1,6 @@
 <?php
   session_start();
+    include_once("./lang.php");
   include 'config.php';
 
   $context = stream_context_create(array(
@@ -97,7 +98,7 @@
                       echo '</div>';
                     }
                     else {
-                      echo "<p>Rien à afficher !</p>";
+                       echo "<p>".t("Rien à afficher !")."</p>";
                     }
                     ?>
                 </ul>

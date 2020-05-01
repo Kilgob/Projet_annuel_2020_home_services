@@ -1,8 +1,9 @@
 <?php
+
     include 'header.php';
     include 'config.php';
-
-    if($_SESSION['cdtype_user'] == 'cli' && $_SESSION['cdtype_user'] == 'pre'){
+    
+ if($_SESSION['cdtype_user'] == 'cli' && $_SESSION['cdtype_user'] == 'pre'){
     header('Location: homePage.php');
     exit;
     }
@@ -34,7 +35,7 @@
               <div class="row d-flex justify-content-center title_my_row">
                   <!-- <p>Choisissez votre agence</p> -->
                   <select onchange="showUserList()" name="agence_selected" id="agence_select">
-                      <option value="default" selected>Sélectionnez une agence</option>
+                      <option value="default" selected><?= t("Sélectionnez une agence") ?></option>
                       <?php foreach ($listeAgence['data'] as $result) {
                           //$result_terner = $result['idagence'] == 4?'selected':' ' ;//Sélectionner l'agence choisit
                           echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';
@@ -53,7 +54,7 @@
                   </select> -->
               </div>
 
-            <h3 id="title_list">Veuillez sélectionner une agence puis un type d'utilisateur</h3>
+            <h3 id="title_list"><?= t("Veuillez sélectionner une agence puis un type d'utilisateur") ?></h3>
           </div>
 
 

@@ -1,4 +1,5 @@
 <?php
+  include_once("./lang.php");
   session_start();
   include 'config.php';
 
@@ -62,11 +63,11 @@
                     <input type="text" class="form-control input_247px" placeholder="Numéro de téléphone" aria-label="num_tel" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['notel']; ?>" name="notel" />
                 </div>
                 <div>
-                    <br><i>Statut : </i>
-                    <br><input type="radio" id="statutac" name="okactif" value="1" <?php echo $userInfo['data'][0]['okactif'] == 1?'Checked':' '; ?> > Compte activé</input>
-                    <br><input type="radio" id="statutdesac" name="okactif" value="0"<?php echo $userInfo['data'][0]['okactif'] == 0?'Checked':' '; ?> > Compte désactivé</input>
+                    <br><i><?= t("Statut") ?> : </i>
+                    <br><input type="radio" id="statutac" name="okactif" value="1" <?php echo $userInfo['data'][0]['okactif'] == 1?'Checked':' '; ?> > <?= t("Compte activé") ?></input>
+                    <br><input type="radio" id="statutdesac" name="okactif" value="0"<?php echo $userInfo['data'][0]['okactif'] == 0?'Checked':' '; ?> > <?= t("Compte désactivé") ?></input>
                 </div>
-                <i>Ajouter de quoi changer le mdp</i>
+               <i><?= t("Ajouter de quoi changer le mdp") ?></i>
                 <div class="form-group">
                     <input type="hidden" class="form-control input_247px" aria-label="iduser" aria-describedby="basic-addon1" value="<?php echo $userInfo['data'][0]['iduser']; ?>" name="iduser" />
                 </div>
@@ -75,7 +76,7 @@
         </div>
 
         <div class="form-group">
-          <b>réattribuer l'utilisateur à une agence</b>
+          <b><?= t("réattribuer l'utilisateur à une agence") ?></b>
           <select onchange="finAgence()" name="agence_selected" id="agence_select_service">
             <?php foreach ($listeAgence['data'] as $result) {
               $result_terner = $result['idagence'] == 4?'selected':' ' ;//Sélectionner l'agence choisit
@@ -88,18 +89,18 @@
             if($_GET['type_user'] == '1'){
               ?>
             </div>
-            <div class="form-group">
-                <b>Puis sélectionnez une catégorie de service</b>
+           <div class="form-group">
+                <b><?= t("Puis sélectionnez une catégorie de service") ?></b>
                 <select name="categService" id="categ_service_updt">
-                    <option value="" selected>--Selectionnez d'abord une agence--</option>
+                    <option value="" selected>--<?= t("Selectionnez d'abord une agence") ?>--</option>
                 </select>
             </div>
           <?php } ?>
 
-        <div class="form-group">
+       <div class="form-group">
           <select name="type_user">
-            <option value='cli' <?php echo $userInfo['data'][0]['cdtype_user'] == "cli" ? "selected" : ""?>>Client</option>
-            <option value='pre' <?php echo $userInfo['data'][0]['cdtype_user'] == "pre" ? "selected" : ""?>>Prestataire</option>
+            <option value='cli' <?php echo $userInfo['data'][0]['cdtype_user'] == "cli" ? "selected" : ""?>><?= t("Client") ?></option>
+            <option value='pre' <?php echo $userInfo['data'][0]['cdtype_user'] == "pre" ? "selected" : ""?>><?= t("Prestataire") ?></option>
           </select>
         </div>
         <input type="hidden" name="id" value=<?php echo $id; ?>>
@@ -114,7 +115,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="iddossier_lb">Historique des interventions</h5>
+            <h5 class="modal-title" id="iddossier_lb"<?= t("Historique des interventions") ?></h5>
             <form id="interventions_statut" onchange="findHistory(<?php echo $userInfo['data'][0]['iduser'];?>)">
               <input type="radio" id="statutAll" name="statut" value="all" checked>
               <label for="statutAll">Tout</label>

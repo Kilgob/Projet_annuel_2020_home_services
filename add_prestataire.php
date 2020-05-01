@@ -1,4 +1,5 @@
 <?php
+
     include 'header.php';
     include 'config.php';
     // SELECT nom,prenom,addrmail,notel FROM tabusers WHERE nmuser = ?
@@ -23,7 +24,7 @@
         <div class="col-md-5 d-flex justify-content-center">
             <div id="user_profil_form">
                 <form method="POST" action="add_prestataire_back.php">
-                    <h3 class="title_my_row">Nouveau prestataire</h3>
+                    <h3 class="title_my_row"><?= t("Nouveau prestataire") ?></h3>
                     <div class="d-flex justify-content-center">
                         <div class="form-group row user_profil_input_row">
                             <div class="mx-auto user_profil_align">
@@ -56,13 +57,13 @@
                                 echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';
                             } ?>
 
-                            <option value="" selected>--Assignez à une agence--</option>
+                            <option value="" selected>--<?= t("Assignez à une agence") ?>--</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <select name="categService" id="categ_service_updt">
-                            <option value="" selected>--Selectionnez d'abord une agence--</option>
+                            <option value="" selected>--<?= t("Selectionnez d'abord une agence") ?>--</option>
                         </select>
                     </div>
                     <input class="btn btn-secondary" type='submit' value="Confirmer la création du nouveau Prestataire" />

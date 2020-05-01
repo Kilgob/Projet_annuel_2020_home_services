@@ -1,5 +1,6 @@
 <?php
 
+include_once("./lang.php");
 /*date_default_timezone_set("Europe/Paris");
 
 if(!isset($_SESSION['nmuser'])){
