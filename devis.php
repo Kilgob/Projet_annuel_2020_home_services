@@ -48,15 +48,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="iddossier_lb">Devis en attente de validation</h5>
                 <form method="POST" action="crea_intervention.php" id="form_devis" >
-                    <p value="" id="timer" name="timer">temps de l'intervention : </p>
-                    <p value="" id="price" name="price">prix de l'intervention : </p>
-                    <input type="hidden" value="" name="idpresta">
-                    <input type="hidden" value="" name="idservice">
-                    <input type="hidden" value="" name="dtcrea">
-                    <input type="hidden" value="" id="montanhf" name="montanthf">
-                    <input type="hidden" value="" id="description" name="description">
-                    <input type="hidden" id="iddevis" name="iddevis" value="">
-                    <input type="submit" value="Valider l'intervention"/>
+
                 </form>
             </div>
             <div class="modal-body" id="history">
@@ -65,4 +57,13 @@
         </div>
     </div>
 </div>
+
+<?php
+
+  if (isset($_GET['error']) && $_GET['error'] == 'succes') {
+    echo '<p>Le devis a bien été validé !</p>';
+  }
+
+?>
+
 <script src="rdv_service.js"></script>

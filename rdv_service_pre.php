@@ -42,7 +42,7 @@ foreach ($list_intervention['data'] as $intervention) {
     $date = new DateTime($intervention["dtcrea"]);
 ?>
     <li class="list-group-item" data-toggle="modal" data-target="#devismodal" data-whatever="@mdo" onclick="devis(<?php echo $intervention["iddevis"];?>)">
-        Devis pris le <strong><?= $date->format('Y-m-d') ?></strong> pour le service suivant : <br>
+        Devis pris pour le <strong><?= $date->format('Y-m-d') ?></strong> pour le service suivant : <br>
         <strong><?php echo getNameService($intervention["idservice"]); ?></strong>
     </li>
 <?php
@@ -56,11 +56,11 @@ foreach ($list_intervention['data'] as $intervention) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="iddossier_lb">Historique des interventions</h5>
+                    <h5 class="modal-title" id="iddossier_lb">Ajustement du devis</h5>
                     <form method="POST" action="rdv_service_pre_back.php">
                         <div>
                             <p>Fixer un montant pour l'intervention</p>
-                            <input type="range" min="0" max="2000" value="50" class="slider" id="myRange" name="price">
+                            <input type="range" min="0" max="2000" value="0" class="slider" id="myRange" name="price">
                             <p id="demo"></p>
                         </div>
                         <div>

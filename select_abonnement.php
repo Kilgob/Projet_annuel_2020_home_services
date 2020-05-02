@@ -13,6 +13,17 @@
   $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/user_abonnement?iduser=" . $_SESSION['nmuser'] . "&idabonnement=" . $_GET['idAbonnement'] . "&dtfin=" . $dtfin, false, $context);
   $isOk = json_decode($json, true);
 
+  $context = stream_context_create(array(
+      'http' => array(
+          'method' => "GET",
+          'header' => "Authorization: Basic " . base64_encode("user:pass"))
+  ));
+
+  $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $_SESSION['nmuser'], false, $context);
+  $user_infos = json_decode($json, true);
+
+  $_SESSION['idTabAbonnement'] = $user_infos['data'][0]['idabonnement'];
+
   echo 'Abonnement souscrit avec succès !';
 
 ?>

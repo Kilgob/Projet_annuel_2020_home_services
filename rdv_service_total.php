@@ -70,7 +70,7 @@ foreach ($list_intervention['data'] as $intervention) {
 <?php
 } else{
 ?>
-<p><?php =t("Pas d'intervention"); ?></p>
+<p><?php t("Pas d'intervention"); ?></p>
 <?php
 }
 include 'footer.php';

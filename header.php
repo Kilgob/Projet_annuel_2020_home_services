@@ -1,9 +1,9 @@
 <?php
-  session_start();
+  //session_start();
      include_once("lang.php");
   $page_actuelle = explode("/", $_SERVER['PHP_SELF'])[2];
 
-  if ($_SESSION != [] && $page_actuelle != 'paiement.php' && $page_actuelle != 'paiement_accepted.php') {
+  if (isset($_SESSION['nmuser']) && $page_actuelle != 'paiement.php' && $page_actuelle != 'paiement_accepted.php') {
     $context = stream_context_create(array(
         'http' => array(
             'method' => "GET",
@@ -82,13 +82,13 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                     <?php if ($_SESSION['idTabAbonnement'] != null) {
                       ?>
-                      <a class="nav-link" href="rdv_service.php"><?= t("Demander un service")?></a>
-                      <a class="nav-link" href="rdv_service_total.php"><?= t("Liste des services en cours")?></a>
+                      <a class="dropdown-item" href="rdv_service.php"><?= t("Demander un service")?></a>
+                      <a class="dropdown-item" href="rdv_service_total.php"><?= t("Liste des services en cours")?></a>
                   <?php } ?>
-                       <a class="nav-link" href="abonnement.php"><?=("Abonnement") ?></a>
-                       <a class="nav-link" href="devis.php"><?=("Devis")?></a>
-                       <a class="nav-link" href="facture_client.php"><?=("Mes factures")?></a>
-                       <a class="dropdown-item" href="paiement.php"><?("Page de paiement")?></a>
+                       <a class="dropdown-item" href="abonnement.php"><?=t("Abonnement") ?></a>
+                       <a class="dropdown-item" href="devis.php"><?=t("Devis")?></a>
+                       <a class="dropdown-item" href="facture_client.php"><?=t("Mes factures")?></a>
+                       <a class="dropdown-item" href="paiement.php"><?=t("Page de paiement")?></a>
                   </div>
               </li>
             <?php

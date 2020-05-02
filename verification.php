@@ -19,7 +19,7 @@
   $town = $_POST['town'];
   $address = trim($_POST['address']);
   $verif_captcha = $_POST['verif_captcha'];
-  $token = 'CFQ' . hash('sha256',$email);
+  //$token = 'CFQ' . hash('sha256',$email);
 
   // Verification de l'email dans le POST
   if(!isset($email) || empty($email)){

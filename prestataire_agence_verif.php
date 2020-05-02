@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+
 include_once("./lang.php");
 include 'config.php';
 
@@ -28,25 +28,37 @@ $infoAgence=json_decode($json, true);
                     switch($_GET['type_user']){
                         case '1':
                         case '2':
+                          if ($infoAgence['data'][0]['ip'] != null) {
                             $type_user = $_GET['type_user'] == 1 ? 'pre' : 'cli';
                             $requete = "http://" . $infoAgence['data'][0]['ip'] . ":" . $infoAgence['data'][0]['port'] . "/gestion_user?type_user=" . $type_user;
                             $json = file_get_contents($requete, false, $context);
                             $liste_prestataire = json_decode($json, true);
 
-                            foreach ($liste_prestataire['data'] as $folder) {
-                                if ($folder['okactif'] != "0") {
-                                    echo '<li  onclick="research(' . $folder['iduser'] . ')" class="d-flex justify-content-center">';
-                                    echo '<div class="nav_item_position_folders">';
-                                    echo '<p>' . $name . ' (n°' . $folder['iduser'] . ') :<br>' . $folder['mail'] . '</p>';
-                                    echo '</div></li>';
-                                }
-                                else {
-                                    echo '<li  onclick="research(' . $folder['iduser'] . ')" class="d-flex justify-content-center,nav-item_en_cours">';
-                                    echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
-                                    echo '<p>' . $name . ' (n°' . $folder['iduser'] . ') :<br>' . $folder['mail'] . '<br>(En attente de validation)</p>';
-                                    echo '</div></li>';
-                                }
+                            if ($liste_prestataire != []) {
+                              foreach ($liste_prestataire['data'] as $folder) {
+                                  if ($folder['okactif'] != "0") {
+                                      echo '<li  onclick="research(' . $folder['iduser'] . ')" class="d-flex justify-content-center">';
+                                      echo '<div class="nav_item_position_folders">';
+                                      echo '<p>' . $name . ' (n°' . $folder['iduser'] . ') :<br>' . $folder['mail'] . '</p>';
+                                      echo '</div></li>';
+                                  }
+                                  else {
+                                      echo '<li  onclick="research(' . $folder['iduser'] . ')" class="d-flex justify-content-center,nav-item_en_cours">';
+                                      echo '<div id="en_cours" class="nav_item_position_folders_yellow">';
+                                      echo '<p>' . $name . ' (n°' . $folder['iduser'] . ') :<br>' . $folder['mail'] . '<br>(En attente de validation)</p>';
+                                      echo '</div></li>';
+                                  }
+                              }
                             }
+                            else {
+                              echo 'Aucun prestataire à afficher !';
+                            }
+                          }
+                          else {
+                            echo 'L\'agence n\'a pas encore été configurée !';
+                          }
+
+
                             break;
                         case '3':
                             $requete = "http://" . $GLOBALS['IP_SIEGE'] . "/categ_from_agence?agence=" . $_GET['idagence'];
@@ -74,4 +86,3 @@ $infoAgence=json_decode($json, true);
         </div>
     </div>
 </div>
-
