@@ -18,14 +18,17 @@
 
   $history = json_decode($json, true);
 
-  $json = file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/service", false, $context);
-  $list_services = json_decode($json, true);
+  if ($history != []) {
+    $json = file_get_contents("http://" . $GLOBALS['IP_SIEGE'] . "/service", false, $context);
+    $list_services = json_decode($json, true);
 
-  $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectPrestataire?iduser=" . $history['data'][0]['idprestataire'], false, $context);
-  $infos_prestataire = json_decode($json, true);
+    $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectPrestataire?iduser=" . $history['data'][0]['idprestataire'], false, $context);
+    $infos_prestataire = json_decode($json, true);
 
-  $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $history['data'][0]['iduser'], false, $context);
-  $infos_client = json_decode($json, true);
+    $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/SelectClient?iduser=" . $history['data'][0]['iduser'], false, $context);
+    $infos_client = json_decode($json, true);
+  }
+
 
 ?>
 
@@ -90,7 +93,6 @@
                             echo '</form>';
                           }
 
-                          echo '</div>';
                           echo '</div>';
                           echo '</div>';
                         }

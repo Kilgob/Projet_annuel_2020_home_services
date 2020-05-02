@@ -10,7 +10,7 @@
 }
 
 header{
-  background-color: #490189;
+  background-color: rgb(239,130,71);
   /* height: 60px; */
 }
 
@@ -29,17 +29,17 @@ body{
 #navbarNavDropdown{
 	position: relative;
 	z-index: 1;
-	background-color: #490189;
+	background-color: rgb(239,130,71);
 	color: #FFFFFF;
 }
 
 #navbarNavDropdown > ul > li:hover{
-	background-color: #C7B4EF;
+	background-color: rgb(255,255,255);
 	transition: 0.5s;
 }
 
 .dropdown-menu{
-	background-color: #490189;
+	background-color: rgb(239,130,71);
 	padding: 0px;
 	width: 185px;
 }

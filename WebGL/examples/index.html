@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>MY PROJECT - WebGL CONNECTED HOUSE</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+
+	</head>
+	<body>
+		<div id="blocker">
+
+			<div id="instructions">
+				<span style="font-size:36px">Click to play</span>
+				<br /><br />
+				Move: ZQSD<br/>
+				Jump: SPACE<br/>
+				Look: MOUSE<br/>
+				Enter: PHONE
+			</div>
+
+		</div>
+
+		<div id="phone">
+			<div id="phone_slidebar"> 00:00 </div>
+			<div id="phone_instructions">
+			 <p id="bedroom_light">BEDROOM LIGHTS: OFF</p> <p class="key"> [P] </p> <br><br>
+			 <p id="diningroom_light">DINING ROOM LIGHTS: OFF</p> <p class="key"> [M] </p> <br><br>
+			 <p id="sound">SOUND : OFF</p> <p class="key"> [N] </p> <br><br>
+			 <p id="shutter">SHUTTERS: OPEN </p> <p class="key"> [B]</p> <br><br>
+			 <!--<p id="season">TIME: DAY </p> <p class="key"> [3]</p>	-->
+		 </div>
+
+		<script type="module">
+
+			import * as THREE from '../build/three.module.js';
+
+			import { GUI } from './jsm/libs/dat.gui.module.js';
+
+			import Stats from './jsm/libs/stats.module.js';
+
+			import { ColladaLoader } from './jsm/loaders/ColladaLoader.js';
+			import { FBXLoader } from './jsm/loaders/FBXLoader.js';
+
+			import { PointerLockControls } from './jsm/controls/PointerLockControls.js';
+
+			var camera, scene, renderer, controls;
+			var clock = new THREE.Clock();
+
+			var container, stats;
+
+			var bed, tv_furniture_bedroom, carpet_saloon_bedroom, sofa_saloon_bedroom_1, sofa_saloon_bedroom_2, coffee_table_bedroom, clothes_furniture, bedroom_light_1, bedroom_tv, applique_murs_bedroom_1, applique_murs_bedroom_2;
+
+			var kitchen, kitchen_dining_table, kitchen_chair_1, kitchen_chair_2;
+
+			var carpet_saloon, coffee_table_saloon, tv_furniture_saloon, sofa_saloon, livingroom_tv, dining_table, chaine_hifi, lustre_dining_room;
+			var dining_table_chair_1, dining_table_chair_2, dining_table_chair_3, dining_table_chair_4, dining_table_chair_5, dining_table_chair_6, dining_table_chair_7, dining_table_chair_8;
+
+			var volet_right_side_1, volet_right_side_2, volet_back_1, volet_back_2, volet_left_side_1, volet_left_side_2;
+
+			var objects = [];
+
+			var raycaster;
+			var mixer;
+
+			var moveForward = false;
+			var moveBackward = false;
+			var moveLeft = false;
+			var moveRight = false;
+			var canJump = false;
+
+			var prevTime = performance.now();
+			var velocity = new THREE.Vector3();
+			var direction = new THREE.Vector3();
+			var vertex = new THREE.Vector3();
+			var color = new THREE.Color();
+
+			var house_group = new THREE.Group();
+
+			var volet_group = new THREE.Group();
+
+			var audioLoader = new THREE.AudioLoader();
+
+			var listener = new THREE.AudioListener();
+
+			var chaine_hifi_sound = new THREE.PositionalAudio( listener );
+
+     		var child1,child2;
+
+
+
+
+			//----------------//
+			//DECLARATION DES STRUCTURES
+			//----------------//
+
+			//TEXTURE SOL EXTERIEUR
+			var ground_texture = new THREE.TextureLoader().load( 'textures/snow.jpg' );
+			ground_texture.wrapS = ground_texture.wrapT = THREE.RepeatWrapping;
+			ground_texture.repeat.set( 10, 10 );
+
+			//TEXTURE SOL INTERIEUR
+			var house_ground_texture = new THREE.TextureLoader().load( 'textures/house_ground.jpg' );
+			house_ground_texture.wrapS = house_ground_texture.wrapT = THREE.RepeatWrapping;
+			house_ground_texture.repeat.set( 8, 8 );
+
+			//TEXTURE MURS
+			var wall_texture = new THREE.TextureLoader().load('textures/base_wall.jpg');
+			wall_texture.wrapS = wall_texture.wrapT = THREE.RepeatWrapping;
+			wall_texture.repeat.set( 1, 1 );
+
+			//TEXTURE TOIT
+			var roof_texture = new THREE.TextureLoader().load('textures/roof.jpg');
+			roof_texture.wrapS = roof_texture.wrapT = THREE.RepeatWrapping;
+			roof_texture.repeat.set( 10, 10 );
+
+			//TEXTURE VOLETS
+
+			var volet_texture = new THREE.TextureLoader().load( 'textures/volet.jpg' );
+			//volet_texture.wrapS = volet_texture.wrapT = THREE.RepeatWrapping;
+			//volet_texture.repeat.set( 1, 5);
+
+
+
+			//----------------//
+			//FIN DECLARATION DES STRUCTURES
+			//----------------//
+
+			//----------------//
+			//DEBUT AJOUT LUMIERES
+			//----------------//
+
+			var activated = 0;
+			var activated_dining_room = 0;
+			var activated_sound = 0;
+			var activated_volet = 0;
+
+			var geometry_sphere_light = new THREE.SphereBufferGeometry( 2.6, 32, 32 );
+			var geometry_sphere_light_2 = new THREE.SphereBufferGeometry( 1.5, 32, 32 );
+			var material_sphere_light = new THREE.MeshBasicMaterial( {color: 0xffbd00} );
+			var sphere_light_bedroom_1 = new THREE.Mesh( geometry_sphere_light, material_sphere_light );
+			var sphere_light_bedroom_2 = new THREE.Mesh( geometry_sphere_light, material_sphere_light );
+			var sphere_dining_room_light = new THREE.Mesh( geometry_sphere_light_2, material_sphere_light );
+			sphere_light_bedroom_1.position.set( 258.5, 24.1, 131.8 );
+			sphere_light_bedroom_2.position.set( 358.5, 24.1, 131.8 );
+			sphere_dining_room_light.position.set( 285, 28, 245 );
+
+
+			var applique_murs_bedroom_1_light = new THREE.PointLight( 0xffbd00, 2, 25 );
+			applique_murs_bedroom_1_light.position.set( 258.2, 24.1, 131.8 );
+			applique_murs_bedroom_1_light.castShadow = true;
+
+			var applique_murs_bedroom_2_light = new THREE.PointLight( 0xffbd00, 2, 25 );
+			applique_murs_bedroom_2_light.position.set( 358.2, 24.1, 131.8 );
+			applique_murs_bedroom_2_light.castShadow = true;
+
+			var dining_room_light = new THREE.PointLight(  0xffbd00, 1.5, 150 );
+			dining_room_light.position.set( 285, 28, 245 );
+			dining_room_light.castShadow = true;
+
+			//----------------//
+			//FIN AJOUT LUMIERES
+			//----------------//
+
+
+			function activatedLights(){
+				if ( activated == 0 ){
+					// scene.remove(applique_murs_bedroom_1_light);
+					// scene.remove(sphere_light);
+
+					scene.remove(applique_murs_bedroom_1_light);
+					scene.remove(applique_murs_bedroom_2_light);
+					scene.remove(sphere_light_bedroom_1);
+					scene.remove(sphere_light_bedroom_2);
+					console.log('ACTIVATED 0');
+
+				}
+
+				if ( activated == 1 ){
+					scene.add(applique_murs_bedroom_1_light);
+					scene.add(applique_murs_bedroom_2_light);
+					scene.add(sphere_light_bedroom_1);
+					scene.add(sphere_light_bedroom_2);
+
+				}
+
+				if ( activated_dining_room == 0 ){
+
+					scene.remove(dining_room_light);
+					scene.remove(sphere_dining_room_light);
+
+				}
+
+				if ( activated_dining_room == 1 ){
+
+					scene.add(dining_room_light);
+					scene.add(sphere_dining_room_light);
+
+				}
+			}
+
+			function activatedSound(){
+				if( activated_sound == 0 ) chaine_hifi_sound.stop();
+				else chaine_hifi_sound.play();
+			}
+
+			function activatedVolet(){
+				if ( activated_volet == 0 ) scene.remove(volet_group);
+				else scene.add(volet_group);
+			}
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+			 	stats = new Stats();
+			 	container.appendChild( stats.dom );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera.position.y = 30;
+
+
+				camera.add( listener );
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xffffff );
+				scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
+
+				var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
+				light.position.set( 0.5, 1, 0.75 );
+				scene.add( light );
+
+
+
+				// AJOUT PERSONNAGE
+
+				var loader_personnage = new FBXLoader();
+				var loader_personnage2 = new FBXLoader();
+
+
+				loader_personnage.load( 'models/fbx/Sitting.fbx', function ( object ) {
+
+					object.scale.set(0.28,0.28,0.28);
+					object.position.set(340,-2,105);
+					object.rotation.set(-Math.PI/2,Math.PI/2,Math.PI/2);
+
+
+					mixer = new THREE.AnimationMixer( object );
+
+					var action = mixer.clipAction( object.animations[ 0 ] );
+					action.play();
+
+					object.traverse( function ( child ) {
+
+						if ( child.isMesh ) {
+
+							child.castShadow = true;
+							child.receiveShadow = true;
+
+						}
+
+					} );
+
+
+					child1  = object
+
+					scene.add(child1)
+
+				
+
+				} );
+
+				loader_personnage2.load( 'models/fbx/Sleeping Idle.fbx', function ( object ) {
+
+					object.scale.set(0.09,0.09,0.09);
+					object.position.set(310,12,105);
+					object.rotation.set(-Math.PI/2,Math.PI/2,Math.PI/2);
+
+					mixer = new THREE.AnimationMixer( object );
+
+					var action = mixer.clipAction( object.animations[ 0 ] );
+					action.play();
+
+					object.traverse( function ( child ) {
+
+						if ( child.isMesh ) {
+
+							child.castShadow = true;
+							child.receiveShadow = true;
+
+						}
+
+					} );
+
+
+					child2  = object
+
+					scene.add(child2)
+
+				
+
+				} );
+			
+
+
+				// SON CHAINE HIFI
+
+
+
+				audioLoader.load( 'sounds/interstellar.mp3', function ( buffer ) {
+
+					chaine_hifi_sound.setBuffer( buffer );
+					chaine_hifi_sound.setRefDistance( 3 );
+					chaine_hifi_sound.setLoop(true);
+					chaine_hifi_sound.setVolume(1);
+
+
+				} );
+
+
+				//AJOUT MODELS
+
+				var loadingManager = new THREE.LoadingManager( function () {
+					scene.add( bed );
+					scene.add(tv_furniture_bedroom);
+					scene.add(carpet_saloon_bedroom);
+					scene.add(sofa_saloon_bedroom_1);
+					scene.add(sofa_saloon_bedroom_2);
+					scene.add(coffee_table_bedroom);
+					scene.add(clothes_furniture);
+					scene.add(bedroom_light_1);
+					scene.add(kitchen);
+					scene.add(kitchen_dining_table);
+					scene.add(kitchen_chair_1);
+					scene.add(kitchen_chair_2);
+					scene.add(carpet_saloon);
+					scene.add(coffee_table_saloon);
+					scene.add(tv_furniture_saloon);
+					scene.add(sofa_saloon);
+					scene.add(bedroom_tv);
+					scene.add(livingroom_tv);
+					scene.add(dining_table);
+					scene.add(dining_table_chair_1);
+					scene.add(dining_table_chair_2);
+					scene.add(dining_table_chair_3);
+					scene.add(dining_table_chair_4);
+					scene.add(dining_table_chair_5);
+					scene.add(dining_table_chair_6);
+					scene.add(dining_table_chair_7);
+					scene.add(dining_table_chair_8);
+					scene.add(chaine_hifi);
+					scene.add(lustre_dining_room);
+					scene.add(applique_murs_bedroom_1);
+					scene.add(applique_murs_bedroom_2);
+
+				} );
+
+				var loader = new ColladaLoader( loadingManager );
+
+				loader.load( './models/collada/bed/bed.dae', function ( collada ) {
+					bed = collada.scene;
+				} );
+
+				loader.load('./models/collada/tv_furniture_bedroom/tv_furniture_bedroom.dae', function ( collada ) {
+					tv_furniture_bedroom = collada.scene;
+				} );
+
+				loader.load('./models/collada/carpet_saloon_bedroom/carpet_saloon_bedroom.dae', function ( collada ) {
+					carpet_saloon_bedroom = collada.scene;
+				} );
+
+				loader.load('./models/collada/sofa_saloon_bedroom/sofa_saloon_bedroom.dae', function ( collada ) {
+					sofa_saloon_bedroom_1 = collada.scene;
+				} );
+
+				loader.load('./models/collada/sofa_saloon_bedroom/sofa_saloon_bedroom.dae', function ( collada ) {
+					sofa_saloon_bedroom_2 = collada.scene;
+				} );
+
+				loader.load('./models/collada/coffee_table_bedroom/coffee_table_bedroom.dae', function ( collada ) {
+					coffee_table_bedroom = collada.scene;
+				} );
+
+				loader.load('./models/collada/clothes_furniture/clothes_furniture.dae', function ( collada ) {
+					clothes_furniture = collada.scene;
+				} );
+
+				loader.load('./models/collada/bedroom_light_1/bedroom_light_1.dae', function ( collada ) {
+					bedroom_light_1 = collada.scene;
+				} );
+
+				loader.load('./models/collada/kitchen/kitchen.dae', function ( collada ) {
+					kitchen = collada.scene;
+				} );
+
+				loader.load('./models/collada/kitchen_dining_table/model.dae', function ( collada ) {
+					kitchen_dining_table = collada.scene;
+				} );
+
+				loader.load('./models/collada/kitchen_dining_table/chairs/model.dae', function ( collada ) {
+					kitchen_chair_1 = collada.scene;
+
+				} );
+
+				loader.load('./models/collada/kitchen_dining_table/chairs/model.dae', function ( collada ) {
+					kitchen_chair_2 = collada.scene;
+				} );
+
+				loader.load('./models/collada/carpet_saloon/carpet_saloon.dae', function ( collada ) {
+					carpet_saloon = collada.scene;
+				} );
+
+				loader.load('./models/collada/coffee_table_saloon/coffee_table_saloon.dae', function ( collada ) {
+					coffee_table_saloon = collada.scene;
+				} );
+
+				loader.load('./models/collada/tv_furniture_saloon/tv_furniture_saloon.dae', function ( collada ) {
+					tv_furniture_saloon = collada.scene;
+				} );
+
+				loader.load('./models/collada/sofa_saloon/sofa_saloon.dae', function ( collada ) {
+					sofa_saloon = collada.scene;
+				} );
+
+				loader.load('./models/collada/bedroom_tv/bedroom_tv.dae', function ( collada ) {
+					bedroom_tv = collada.scene;
+				} );
+
+				loader.load('./models/collada/bedroom_tv/bedroom_tv.dae', function ( collada ) {
+					livingroom_tv = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/dining_table.dae', function ( collada ) {
+					dining_table = collada.scene;
+					dining_table.traverse( function ( child ) {
+
+						if ( child.isMesh ) {
+
+							child.castShadow = true;
+							child.receiveShadow = true;
+
+						}
+
+					}
+					);
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_1 = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_2 = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_3 = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_4 = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_5 = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_6 = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_7 = collada.scene;
+				} );
+
+				loader.load('./models/collada/dining_table/chairs/model.dae', function ( collada ) {
+					dining_table_chair_8 = collada.scene;
+				} );
+
+				loader.load('./models/collada/chaine_hifi/chaine_hifi.dae', function ( collada ) {
+					chaine_hifi = collada.scene;
+					chaine_hifi.add(chaine_hifi_sound);
+				} );
+
+				loader.load('./models/collada/lustre_dining_room/lustre_dining_room.dae', function ( collada ) {
+					lustre_dining_room = collada.scene;
+				} );
+
+				loader.load('./models/collada/applique_murs/applique_murs.dae', function ( collada ) {
+					applique_murs_bedroom_1 = collada.scene;
+				} );
+
+				loader.load('./models/collada/applique_murs/applique_murs.dae', function ( collada ) {
+					applique_murs_bedroom_2 = collada.scene;
+				} );
+
+
+				//FIRST PERSON
+
+				controls = new PointerLockControls( camera );
+
+				var blocker = document.getElementById( 'blocker' );
+				var instructions = document.getElementById( 'instructions' );
+
+				instructions.addEventListener( 'click', function () {
+
+					controls.lock();
+
+				}, false );
+
+				controls.addEventListener( 'lock', function () {
+
+					instructions.style.display = 'none';
+					blocker.style.display = 'none';
+
+				} );
+
+				controls.addEventListener( 'unlock', function () {
+
+					blocker.style.display = 'block';
+					instructions.style.display = '';
+
+				} );
+
+				scene.add( controls.getObject() );
+
+				var onKeyDown = function ( event ) {
+
+					switch ( event.keyCode ) {
+
+						case 38: // up
+						case 90: // z
+							moveForward = true;
+							break;
+
+						case 37: // left
+						case 81: // q
+							moveLeft = true;
+							break;
+
+						case 40: // down
+						case 83: // s
+							moveBackward = true;
+							break;
+
+						case 39: // right
+						case 68: // d
+							moveRight = true;
+							break;
+
+						case 32: // space
+							if ( canJump === true ) velocity.y += 350;
+							canJump = false;
+							break;
+
+						case 80: //p
+							if ( activated == 0 ) {
+								activated = 1;
+								activatedLights();
+								document.getElementById('bedroom_light').innerHTML = "BEDROOM LIGHTS ON";
+							}
+							else{
+								activated = 0;
+								activatedLights();
+								document.getElementById('bedroom_light').innerHTML = "BEDROOM LIGHTS: OFF";
+							}
+							break;
+
+						case 77: //m
+							if( activated_dining_room == 0 ){
+								activated_dining_room = 1;
+								activatedLights();
+								document.getElementById('diningroom_light').innerHTML = "DINING ROOM LIGHTS: ON";
+							}
+							else {
+								activated_dining_room = 0;
+								activatedLights();
+								document.getElementById('diningroom_light').innerHTML = "DINING ROOM LIGHTS: OFF";
+							}
+							break;
+
+						case 78:	//n
+							if(activated_sound == 0){
+								activated_sound = 1;
+								activatedSound();
+								document.getElementById('sound').innerHTML = "SOUND : ON";
+							}
+							else{
+								activated_sound = 0;
+								activatedSound();
+								document.getElementById('sound').innerHTML = "SOUND : OFF";
+							}
+							break;
+
+						case 66:	//b
+							if(activated_volet == 0){
+								activated_volet = 1;
+								activatedVolet();
+								document.getElementById('shutter').innerHTML = "SHUTTERS : CLOSE";
+							}
+							else{
+								activated_volet = 0;
+								activatedVolet();
+								document.getElementById('shutter').innerHTML = "SHUTTERS : OPEN";
+							}
+							break;
+					}
+
+				};
+
+				var onKeyUp = function ( event ) {
+
+					switch ( event.keyCode ) {
+
+						case 38: // up
+						case 90: // z
+							moveForward = false;
+							break;
+
+						case 37: // left
+						case 81: // q
+							moveLeft = false;
+							break;
+
+						case 40: // down
+						case 83: // s
+							moveBackward = false;
+							break;
+
+						case 39: // right
+						case 68: // d
+							moveRight = false;
+							break;
+
+					}
+
+				};
+
+				document.addEventListener( 'keydown', onKeyDown, false );
+				document.addEventListener( 'keyup', onKeyUp, false );
+
+				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
+
+				//END FIRST PERSON
+
+				// SOL EXTERIEUR
+
+				var ground_material = new THREE.MeshPhongMaterial( { map: ground_texture , dithering: true } );
+				var ground_geometry = new THREE.PlaneBufferGeometry( 2000, 2000 );
+				var ground = new THREE.Mesh( ground_geometry, ground_material );
+				ground.position.set(0,-6,0);
+				ground.rotation.set(-(Math.PI/2),0,0);
+				scene.add(ground);
+
+				// SOL INTERIEUR
+
+				var house_ground_material = new THREE.MeshPhongMaterial( { map: house_ground_texture, dithering: true } );
+				var house_ground_geometry = new THREE.PlaneBufferGeometry( 374, 430 );
+				var house_ground = new THREE.Mesh( house_ground_geometry, house_ground_material );
+				house_ground.position.set(190,-5.99,115);
+				house_ground.rotation.set(-(Math.PI/2),0,0);
+				house_ground.receiveShadow = true;
+				scene.add(house_ground);
+
+				// PLAFOND MAISON
+
+				var ceiling_material = new THREE.MeshPhongMaterial( { color: 0xffffff } );
+				var ceiling_geometry = new THREE.PlaneBufferGeometry(374,430);
+				var ceiling = new THREE.Mesh( ceiling_geometry, ceiling_material );
+				ceiling.rotation.set(Math.PI/2,0,0);
+				ceiling.position.set(190,49.9,115);
+				scene.add(ceiling);
+
+				// TOIT MAISON
+
+				var roof_geometry = new THREE.ConeGeometry( 325, 70, 4 );
+				var roof_material = new THREE.MeshBasicMaterial( { map: roof_texture, dithering: true } );
+				var roof = new THREE.Mesh( roof_geometry, roof_material );
+				roof.position.set(190,85,115);
+				roof.rotation.set(0,172,0);
+				scene.add( roof );
+
+
+
+				//----------------//
+				//MURS MAISON
+				//----------------//
+
+				var base_wall_1_geometry = new THREE.BoxGeometry(6,80,50);				//
+				var base_wall_2_geometry = new THREE.BoxGeometry(6,80,56);
+				var base_wall_3_geometry = new THREE.BoxGeometry(6,80,20);
+				var base_wall_1_material = new THREE.MeshPhongMaterial( { map: wall_texture , dithering: true } );
+
+				// DECLARATION MURS
+
+				var base_wall_front_1 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_2 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_3 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_4 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_5 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_6 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_7 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_8 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_front_9 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+
+				var base_wall_right_side_1 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_right_side_2 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_right_side_3 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+
+				var base_wall_back_1 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_back_2 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_back_3 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_back_4 = new THREE.Mesh(base_wall_2_geometry , base_wall_1_material );
+
+				var base_wall_left_side_1 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_left_side_2 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+				var base_wall_left_side_3 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material );
+
+				var bedroom_wall_1 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var bedroom_wall_2 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var bedroom_wall_3 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var bedroom_wall_4 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var bedroom_wall_5 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var bedroom_wall_6 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var bedroom_wall_7 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+
+				var hall_wall_1 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var hall_wall_2 = new THREE.Mesh(base_wall_3_geometry , base_wall_1_material);
+				var hall_wall_3 = new THREE.Mesh(base_wall_1_geometry , base_wall_1_material);
+				var hall_wall_4 = new THREE.Mesh(base_wall_3_geometry , base_wall_1_material);
+
+				//POSITIONNEMENT MURS
+
+				base_wall_front_1.position.set(0,10,-75);
+				base_wall_front_2.position.set(0,10,305);
+				base_wall_front_3.position.set(0,10,-75);
+				base_wall_front_4.position.set(0,10,-25);
+				base_wall_front_5.position.set(0,10,25);
+				base_wall_front_6.position.set(0,10,75);
+				base_wall_front_7.position.set(0,10,255);
+				base_wall_front_8.position.set(0,10,205);
+				base_wall_front_9.position.set(0,10,155);
+
+				base_wall_right_side_1.position.set(28,10,333)
+				base_wall_right_side_2.position.set(190,10,333);
+				base_wall_right_side_3.position.set(352,10,333);
+
+				base_wall_back_1.position.set(380,10,305);
+				base_wall_back_2.position.set(380,10,143);
+				base_wall_back_3.position.set(380,10,-19);
+				base_wall_back_4.position.set(380,10,-72);
+
+				base_wall_left_side_1.position.set(28,10,-103);
+				base_wall_left_side_2.position.set(190,10,-103);
+				base_wall_left_side_3.position.set(352,10,-103);
+
+				bedroom_wall_1.position.set(352,10,143);
+				bedroom_wall_2.position.set(190,10,-75);
+				bedroom_wall_3.position.set(190,10,-25);
+				bedroom_wall_4.position.set(302,10,143);
+				bedroom_wall_5.position.set(190,10,25);
+				bedroom_wall_6.position.set(190,10,75);
+				bedroom_wall_7.position.set(252,10,143);
+
+				hall_wall_1.position.set(28,10,80);
+				hall_wall_2.position.set(120,10,80);
+				hall_wall_3.position.set(28,10,150);
+				hall_wall_4.position.set(120,10,150);
+
+				//ROTATION MURS
+
+				base_wall_right_side_1.rotation.set(0,Math.PI/2,0);
+				base_wall_right_side_2.rotation.set(0,Math.PI/2,0);
+				base_wall_right_side_3.rotation.set(0,Math.PI/2,0);
+
+				base_wall_left_side_1.rotation.set(0,Math.PI/2,0);
+				base_wall_left_side_2.rotation.set(0,Math.PI/2,0);
+				base_wall_left_side_3.rotation.set(0,Math.PI/2,0);
+
+				bedroom_wall_1.rotation.set(0,Math.PI/2,0);
+				bedroom_wall_4.rotation.set(0,Math.PI/2,0);
+				bedroom_wall_7.rotation.set(0,Math.PI/2,0);
+
+				hall_wall_1.rotation.set(0,Math.PI/2,0);
+				hall_wall_2.rotation.set(0,Math.PI/2,0);
+				hall_wall_3.rotation.set(0,Math.PI/2,0);
+				hall_wall_4.rotation.set(0,Math.PI/2,0);
+
+				//AJOUT SCENE MURS
+
+				house_group.add(base_wall_front_1);
+				house_group.add(base_wall_front_2);
+				house_group.add(base_wall_front_3);
+				house_group.add(base_wall_front_4);
+				house_group.add(base_wall_front_5);
+				house_group.add(base_wall_front_6);
+				house_group.add(base_wall_front_7);
+				house_group.add(base_wall_front_8);
+				house_group.add(base_wall_front_9);
+
+				house_group.add(base_wall_right_side_1);
+				house_group.add(base_wall_right_side_2);
+				house_group.add(base_wall_right_side_3);
+
+				house_group.add(base_wall_back_1);
+				house_group.add(base_wall_back_2);
+				house_group.add(base_wall_back_3);
+				house_group.add(base_wall_back_4);
+
+				house_group.add(base_wall_left_side_1);
+				house_group.add(base_wall_left_side_2);
+				house_group.add(base_wall_left_side_3);
+
+				house_group.add(bedroom_wall_1);
+				house_group.add(bedroom_wall_2);
+				house_group.add(bedroom_wall_3);
+				house_group.add(bedroom_wall_4);
+				house_group.add(bedroom_wall_5);
+				house_group.add(bedroom_wall_6);
+				house_group.add(bedroom_wall_7);
+
+				house_group.add(hall_wall_1);
+				house_group.add(hall_wall_2);
+				house_group.add(hall_wall_3);
+				house_group.add(hall_wall_4);
+
+				//----------------//
+				//END MURS MAISON
+				//----------------//
+
+				//----------------//
+				//FENETRES MAISON
+				//----------------//
+
+				var base_window_geometry = new THREE.BoxGeometry(2,80,112);
+				var base_window_material = new THREE.MeshPhongMaterial( { color: 0x003aff, opacity: 0.5, transparent: true } );
+
+				//DECLARATION FENETRES
+
+				var base_window_right_1 = new THREE.Mesh(base_window_geometry,base_window_material);
+				var base_window_right_2 = new THREE.Mesh(base_window_geometry,base_window_material);
+				var base_window_back_1 = new THREE.Mesh(base_window_geometry,base_window_material);
+				var base_window_back_2 = new THREE.Mesh(base_window_geometry,base_window_material);
+				var base_window_left_1 = new THREE.Mesh(base_window_geometry,base_window_material);
+				var base_window_left_2 = new THREE.Mesh(base_window_geometry,base_window_material);
+
+				//POSITIONNEMENT FENETRES
+
+				base_window_right_1.position.set(109,10,331);
+				base_window_right_2.position.set(271,10,331);
+				base_window_back_1.position.set(378,10,224);
+				base_window_back_2.position.set(378,10,62);
+				base_window_left_1.position.set(109,10,-101);
+				base_window_left_2.position.set(271,10,-101);
+
+				//ROTATION FENETRES
+
+				base_window_right_1.rotation.set(0,Math.PI/2,0);
+				base_window_right_2.rotation.set(0,Math.PI/2,0);
+				base_window_left_1.rotation.set(0,Math.PI/2,0);
+				base_window_left_2.rotation.set(0,Math.PI/2,0);
+
+				//AJOUT FENETRE SCENE
+
+				house_group.add(base_window_right_1);
+				house_group.add(base_window_right_2);
+				house_group.add(base_window_back_1);
+				house_group.add(base_window_back_2);
+				house_group.add(base_window_left_1);
+				house_group.add(base_window_left_2);
+
+				scene.add(house_group);
+
+				//----------------//
+				//END FENETRES MAISON
+				//----------------//
+
+				//----------------//
+				//VOLETS MAISON
+				//----------------//
+
+				var volet_geometry = new THREE.BoxGeometry(2,80,112);
+				var volet_material = new THREE.MeshBasicMaterial( { map: volet_texture, dithering: true} );
+
+				var volet_right_side_1 = new THREE.Mesh( volet_geometry, volet_material );
+				var volet_right_side_2 = new THREE.Mesh( volet_geometry, volet_material );
+				var volet_back_1 = new THREE.Mesh( volet_geometry, volet_material );
+				var volet_back_2 = new THREE.Mesh( volet_geometry, volet_material );
+				var volet_left_side_1 = new THREE.Mesh( volet_geometry, volet_material );
+				var volet_left_side_2 = new THREE.Mesh( volet_geometry, volet_material );
+
+				//POSITIONNEMENT VOLETS
+
+				volet_right_side_1.position.set( 109, 10, 332 );
+				volet_right_side_2.position.set( 271, 10, 332 );
+				volet_back_1.position.set( 379, 10, 224 );
+				volet_back_2.position.set( 379, 10, 62 );
+				volet_left_side_1.position.set( 109, 10, -102 );
+				volet_left_side_2.position.set( 271, 10, -102);
+
+				//POSITIONNEMENT VOLETS
+
+				 volet_right_side_1.rotation.set(0,Math.PI/2,0);
+				 volet_right_side_2.rotation.set(0,Math.PI/2,0);
+				 volet_left_side_1.rotation.set(0,Math.PI/2,0);
+				 volet_left_side_2.rotation.set(0,Math.PI/2,0);
+
+				 //AJOUT FENETRE SCENE
+
+				 volet_group.add(volet_right_side_1);
+				 volet_group.add(volet_right_side_2);
+				 volet_group.add(volet_back_1);
+				 volet_group.add(volet_back_2);
+				 volet_group.add(volet_left_side_1);
+				 volet_group.add(volet_left_side_2);
+
+
+				//----------------//
+				//END VOLETS MAISON
+				//----------------//
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+				renderer.shadowMap.enabled = true;
+				renderer.shadowMap.type = THREE.PCFShadowMap;
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+
+				if ( controls.isLocked === true ) {
+
+					raycaster.ray.origin.copy( controls.getObject().position );
+					raycaster.ray.origin.y -= 20;
+
+					var intersections = raycaster.intersectObjects( objects );
+
+					var onObject = intersections.length > 0;
+
+					var time = performance.now();
+					var delta = ( time - prevTime ) / 1000;
+
+					velocity.x -= velocity.x * 10.0 * delta;
+					velocity.z -= velocity.z * 10.0 * delta;
+
+					velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mas
+
+					direction.z = Number( moveForward ) - Number( moveBackward );
+					direction.x = Number( moveRight ) - Number( moveLeft );
+					direction.normalize(); // this ensures consistent movements in all direction
+
+					if ( moveForward || moveBackward ) velocity.z -= direction.z * 3000.0 * delta;
+					if ( moveLeft || moveRight ) velocity.x -= direction.x * 3000.0 * delta;
+
+					if ( onObject === true ) {
+
+						velocity.y = Math.max( 0, velocity.y );
+						canJump = true;
+
+					}
+
+					controls.moveRight( - velocity.x * delta );
+					controls.moveForward( - velocity.z * delta );
+
+					controls.getObject().position.y += ( velocity.y * delta ); // new behavior
+
+					if ( controls.getObject().position.y < 30 ) {
+
+						velocity.y = 0;
+						controls.getObject().position.y = 30;
+
+						canJump = true;
+
+					}
+
+					prevTime = time;
+
+				}
+
+
+				render();
+
+			}
+
+			function render(){
+
+				var delta = clock.getDelta();
+
+				if ( mixer ) mixer.update( delta );
+
+				if(bed !== undefined){
+					bed.position.set(360,-6,70);
+					bed.rotation.set(-Math.PI/2,0,-Math.PI);
+					bed.scale.set(0.8,0.8,0.8);
+					bed.castShadow = true;
+					bed.receiveShadow = true;
+				}
+
+				if ( tv_furniture_bedroom !== undefined ){
+					tv_furniture_bedroom.position.set(275,-5,20);
+					tv_furniture_bedroom.scale.set(1,1,1);
+				}
+
+				if ( bedroom_tv !== undefined ){
+					bedroom_tv.position.set(282,17,30);
+					bedroom_tv.scale.set(0.01,0.01,0.01);
+				}
+
+				if ( carpet_saloon_bedroom !== undefined ){
+					carpet_saloon_bedroom.position.set(230,-6,-40);
+					carpet_saloon_bedroom.scale.set(1.2,1.2,1.2);
+				}
+
+				if ( sofa_saloon_bedroom_1 !== undefined ){
+					sofa_saloon_bedroom_1.position.set(260,-6,0);
+					sofa_saloon_bedroom_1.scale.set(0.8,0.8,0.8);
+					sofa_saloon_bedroom_1.rotation.set(-Math.PI/2,0,4*Math.PI/3);
+				}
+
+				if ( sofa_saloon_bedroom_2 !== undefined ){
+					sofa_saloon_bedroom_2.position.set(260,-6,-80);
+					sofa_saloon_bedroom_2.scale.set(0.8,0.8,0.8);
+					sofa_saloon_bedroom_2.rotation.set(-Math.PI/2,0,-Math.PI/3);
+				}
+
+				if ( coffee_table_bedroom !== undefined ){
+					coffee_table_bedroom.position.set(210,-6,-20);
+					coffee_table_bedroom.scale.set(1,0.9,0.9);
+				}
+
+				if ( clothes_furniture !== undefined ){
+					clothes_furniture.position.set(375,-6,-90);
+					clothes_furniture.scale.set(0.9,0.9,0.9);
+					clothes_furniture.rotation.set(-Math.PI/2,0,-Math.PI/2);
+				}
+
+				if ( bedroom_light_1 !== undefined ){
+					bedroom_light_1.position.set(370,-6,-20);
+					bedroom_light_1.scale.set(0.8,0.8,0.8);
+					bedroom_light_1.rotation.set(-Math.PI/2,0,-4*Math.PI/4);
+				}
+
+				if ( kitchen !== undefined ){
+					kitchen.position.set(3,-6,50);
+					kitchen.scale.set(0.6,0.6,0.6);
+				}
+
+				if ( kitchen_dining_table !== undefined ){
+					kitchen_dining_table.position.set(130,-6,-80);
+					kitchen_dining_table.scale.set(0.7,0.7,0.7);
+					kitchen_dining_table.rotation.set(-Math.PI/2,0,-Math.PI/2);
+				}
+
+				if ( kitchen_chair_1 !== undefined ){
+					kitchen_chair_1.position.set(140,-6,-75);
+					kitchen_chair_1.scale.set(0.8,0.8,0.8);
+				}
+
+				if ( kitchen_chair_2 !== undefined ){
+					kitchen_chair_2.position.set(153,-6,-12);
+					kitchen_chair_2.scale.set(0.8,0.8,0.8);
+					kitchen_chair_2.rotation.set(-Math.PI/2,0,Math.PI);
+				}
+
+				if ( carpet_saloon !== undefined ){
+					carpet_saloon.position.set(10,-6,320);
+					carpet_saloon.scale.set(2,2,2);
+				}
+
+				if ( coffee_table_saloon !== undefined ){
+					coffee_table_saloon.position.set(80,-5.5,280);
+					coffee_table_saloon.scale.set(1.1,1.1,1.1);
+					coffee_table_saloon.rotation.set(-Math.PI/2,0,Math.PI/2);
+				}
+
+				if ( tv_furniture_saloon !== undefined ){
+					tv_furniture_saloon.position.set(6,-5,300);
+					tv_furniture_saloon.scale.set(0.9,0.9,0.9);
+					tv_furniture_saloon.rotation.set(-Math.PI/2,0,Math.PI/2);
+				}
+
+				if ( livingroom_tv !== undefined ){
+					livingroom_tv.position.set(15,14,280);
+					livingroom_tv.scale.set(0.01,0.01,0.01);
+					livingroom_tv.rotation.set(-Math.PI/2,0,Math.PI/2);
+				}
+
+				if ( sofa_saloon !== undefined ){
+					sofa_saloon.position.set(70,-5.5,185);
+					sofa_saloon.scale.set(0.8,0.8,0.8);
+					sofa_saloon.rotation.set(-Math.PI/2,0,-Math.PI/2);
+				}
+
+				if ( dining_table !== undefined ){
+					dining_table.position.set(220,-6,260);
+					dining_table.scale.set(1.2,0.75,0.75);
+					dining_table.castShadow = true;
+					dining_table.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_1 !== undefined ){
+					dining_table_chair_1.position.set(250,-6,230);
+					dining_table_chair_1.scale.set(0.8,0.8,0.8);
+					dining_table_chair_1.castShadow = true;
+					dining_table_chair_1.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_2 !== undefined ){
+					dining_table_chair_2.position.set(280,-6,230);
+					dining_table_chair_2.scale.set(0.8,0.8,0.8);
+					dining_table_chair_2.castShadow = true;
+					dining_table_chair_2.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_3 !== undefined ){
+					dining_table_chair_3.position.set(310,-6,230);
+					dining_table_chair_3.scale.set(0.8,0.8,0.8);
+					dining_table_chair_3.castShadow = true;
+					dining_table_chair_3.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_4 !== undefined ){
+					dining_table_chair_4.position.set(265,-6,260);
+					dining_table_chair_4.scale.set(0.8,0.8,0.8);
+					dining_table_chair_4.rotation.set(-Math.PI/2,0,Math.PI);
+					dining_table_chair_4.castShadow = true;
+					dining_table_chair_4.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_5 !== undefined ){
+					dining_table_chair_5.position.set(295,-6,260);
+					dining_table_chair_5.scale.set(0.8,0.8,0.8);
+					dining_table_chair_5.rotation.set(-Math.PI/2,0,Math.PI);
+					dining_table_chair_5.castShadow = true;
+					dining_table_chair_5.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_6 !== undefined ){
+					dining_table_chair_6.position.set(325,-6,260);
+					dining_table_chair_6.scale.set(0.8,0.8,0.8);
+					dining_table_chair_6.rotation.set(-Math.PI/2,0,Math.PI);
+					dining_table_chair_6.castShadow = true;
+					dining_table_chair_6.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_7 !== undefined ){
+					dining_table_chair_7.position.set(225,-6,250);
+					dining_table_chair_7.scale.set(0.8,0.8,0.8);
+					dining_table_chair_7.rotation.set(-Math.PI/2,0,Math.PI/2);
+					dining_table_chair_7.castShadow = true;
+					dining_table_chair_7.receiveShadow = true;
+				}
+
+				if ( dining_table_chair_8 !== undefined ){
+					dining_table_chair_8.position.set(340,-6,235);
+					dining_table_chair_8.scale.set(0.8,0.8,0.8);
+					dining_table_chair_8.rotation.set(-Math.PI/2,0,-Math.PI/2);
+					dining_table_chair_8.castShadow = true;
+					dining_table_chair_8.receiveShadow = true;
+				}
+
+				if ( chaine_hifi !== undefined ){
+					chaine_hifi.position.set(10,8,183);
+					chaine_hifi.scale.set(0.78,0.78,0.78);
+					chaine_hifi.rotation.set(-Math.PI/2,0,-Math.PI/2);
+				}
+
+				if ( lustre_dining_room !== undefined ){
+					lustre_dining_room.position.set(285,27,245);
+					lustre_dining_room.scale.set(0.4,0.4,0.4);
+					//chaine_hifi.rotation.set(-Math.PI/2,0,-Math.PI/2);
+				}
+
+				if ( applique_murs_bedroom_1 !== undefined ){
+					applique_murs_bedroom_1.position.set(265,15,124);
+					applique_murs_bedroom_1.scale.set(0.8,0.8,0.8);
+					applique_murs_bedroom_1.rotation.set(-Math.PI/2,0,Math.PI);
+				}
+
+				if ( applique_murs_bedroom_2 !== undefined ){
+					applique_murs_bedroom_2.position.set(365,15,124);
+					applique_murs_bedroom_2.scale.set(0.8,0.8,0.8);
+					applique_murs_bedroom_2.rotation.set(-Math.PI/2,0,Math.PI);
+				}
+
+
+				renderer.render( scene, camera );
+				stats.update();
+
+			}
+
+			//PHONE
+
+
+			//ECRAN
+			setInterval(function(){
+				var hours = new Date().getHours();         // Get the hour (0-23)
+				var min = new Date().getMinutes();         // Get the hour (0-23)
+
+				document.getElementById("phone_slidebar").innerHTML = hours + ":" + min ;
+
+			}, 10000);
+
+
+			document.addEventListener('keypress', function(e){
+
+				if(e.key === 'Enter'){
+
+						if(phone == 1){
+							hide();
+							phone = 0;
+							console.log("OFF");
+
+						}else{
+							display();
+							phone = 1;
+							console.log("ON");
+
+						}
+				}
+
+			});
+
+			function hide(){
+				var elem = document.getElementById("phone");
+				var pos = 0;
+				var id = setInterval(frame, 0.01);
+
+				function frame() {
+					if (pos == 600) {
+						clearInterval(id);
+
+					} else {
+						if(pos == 550){
+							elem.style.display="none";
+						}
+						pos++;
+						elem.style.top = pos + 'px';
+					}
+				}
+
+			}
+
+
+			function display(){
+				var elem = document.getElementById("phone");
+				var pos = 600;
+				var id = setInterval(frame, 0.01);
+				elem.style.display="block";
+
+				function frame() {
+					if (pos == 0) {
+						clearInterval(id);
+					} else {
+						if(pos == 1){
+						}
+						pos--;
+						elem.style.top = pos + 'px';
+					}
+				}
+			}
+
+		</script>
+	</body>
+</html>

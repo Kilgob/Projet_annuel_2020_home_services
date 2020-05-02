@@ -26,7 +26,7 @@ function showUserList(){
   else{
     document.getElementById('type_user_list').innerHTML = ' ';
     document.getElementById('new_prest').innerHTML = ' ';
-    document.getElementById('title_list').innerHTML = "Veuillez sélectionner une agence puis un type d'utilisateur";
+    //document.getElementById('title_list').innerHTML = "Veuillez sélectionner une agence puis un type d'utilisateur";
   }
 }
 
@@ -41,20 +41,20 @@ function finPrest(){
     const type = document.getElementById('type_user').options[document.getElementById('type_user').selectedIndex].value;
     console.log("type de requete : " + type);
 
-    switch(type){
-        case '1':
-            document.getElementById('title_list').innerHTML = "Mes prestataires";
-            // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
-            break;
-        case '2':
-            document.getElementById('title_list').innerHTML = "Mes clients";
-            // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
-            break;
-        case '3':
-            document.getElementById('title_list').innerHTML = "Mes categories de services";
-            // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
-            break;
-    }
+    // switch(type){
+    //     case '1':
+    //         document.getElementById('title_list').innerHTML = "Mes prestataires";
+    //         // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
+    //         break;
+    //     case '2':
+    //         document.getElementById('title_list').innerHTML = "Mes clients";
+    //         // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
+    //         break;
+    //     case '3':
+    //         document.getElementById('title_list').innerHTML = "Mes categories de services";
+    //         // xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type_user);
+    //         break;
+    // }
     xhr.open('GET', 'prestataire_agence_verif.php?idagence=' + idagence + '&type_user=' + type);
     // Lorsqu'un réponse est émise par le serveur
     xhr.onreadystatechange = function () {

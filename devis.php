@@ -17,15 +17,23 @@
   ?>
 
   <div class="container">
-    <div class="list-group">
+    <div class="list-group justify-content-center">
+      <div class="row d-flex justify-content-center">
+        <section id="form-elegant-devis">
+          <div class="card">
+            <nav>
+              <ul class="nav nav-pills flex-column">
       <?php
         if($listing_devis != []){
           foreach ($listing_devis['data'] as $devis) {
             ?>
-            <li class="list-group-item"  data-toggle="modal" data-target="#devismodal" data-whatever="@mdo" onclick="deviscli(<?php echo $devis['iddevis'];?>)">
+            <li class="list-group-item d-flex"  data-toggle="modal" data-target="#devismodal" data-whatever="@mdo" onclick="deviscli(<?php echo $devis['iddevis'];?>)">
               <?php foreach ($listing_service['data'] as $service) {
                 if($service['idservice'] == $devis['idservice']) {
-                  echo 'Nom du service : ' . $service['lb'] . '<br>';
+                  echo '<p><b>Nom du service : </b>' . $service['lb'] . '</p><br>';
+                  echo '<p><b>Date du service : </b>' . strftime("%d/%m/%Y %H:%M", strtotime($devis['dtcrea'])) . '</p><br>';
+                  echo $devis['prix'] == 0 ? '<p><b>Montant :</b> Non défini </p><br>' : '<p><b>Montant :</b> ' . $devis['prix'] . '</p></br>';
+                  echo $devis['statutdevis'] == 0 ? "<p id='waiting_message_prest'>En attente de validation par le prestataire</p>" : "<p id='waiting_message_cli'>En attente de votre validation</p>";
                 }
               } ?>
             </li>
@@ -33,9 +41,14 @@
           }
         }
         else{
-          echo 'Aucun devis en cours';
+          echo '<h3>Aucun devis en cours</h3>';
         }
         ?>
+              </ul>
+            </nav>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 
@@ -51,9 +64,6 @@
 
                 </form>
             </div>
-            <div class="modal-body" id="history">
-                <!-- Display history -->
-            </div>
         </div>
     </div>
 </div>
@@ -64,6 +74,14 @@
     echo '<p>Le devis a bien été validé !</p>';
   }
 
+  if (isset($_GET['error']) && $_GET['error'] == 'no_valide') {
+    echo "<p> Le devis n'a pas encore été validé par le prestataire !";
+  }
+
 ?>
 
 <script src="rdv_service.js"></script>
+
+<?php
+  include 'footer.php';
+?>

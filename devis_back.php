@@ -6,9 +6,9 @@ session_start();
             'header' => "Authorization: Basic " . base64_encode("user:pass"))
     ));
 
-    $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/deviscli?iduser=" . $_SESSION['nmuser'], false, $context);
-    $devis = json_decode($json, true);
 
+    $json = file_get_contents("http://" . $_SESSION['ip_agence'] . "/unique_devis?iddevis=" . $_GET['id'], false, $context);
+    $devis = json_decode($json, true);
 ?>
 
 

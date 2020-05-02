@@ -4,9 +4,9 @@
   include('config.php');
   include_once("lang.php");
   require_once 'VerificationAbonnement.php';
-  echo strftime("%d/%m/%Y %H:%M:%S");
+  //echo strftime("%d/%m/%Y %H:%M:%S");
 
-  
+
 ?>
 
 

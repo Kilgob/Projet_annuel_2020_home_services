@@ -24,14 +24,17 @@ include 'config.php';
 ?>
 
 <main>
-    <section class="row d-flex justify-content-center">
-        <div class="col-md-5 d-flex justify-content-center">
-            <div id="user_profil_form">
-
+  <section class="container_fluid container_fluid_homePage">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-3 col_homePage">
+            <!-- <div id="user_profil_form"> -->
+              <div class="row d-flex justify-content-center title_my_row">
+                <h3> <?= t("Créer une nouvelle agence locale")?> </h3>
+              </div>
+              <div class="space"></div>
                 <form method="POST" action="new_agence.php"><!--http://172.16.69.181:6001/create_type_service?lb=service1-->
-                    <h4 class="title_my_row"><?= t("Créer une nouvelle agence locale")?></h4>
                     <div class="d-flex justify-content-center">
-                        <div class="form-group row user_profil_input_row">
+                        <!-- <div class="form-group row user_profil_input_row"> -->
                             <div class="mx-auto user_profil_align">
 
                                 <div class="form-group">
@@ -50,14 +53,19 @@ include 'config.php';
 
                                 <input class="btn btn-secondary" type='submit' value="<?= t("Confirmer la nouvelle agence") ?>" />
                             </div>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </form>
+            </div>
 
+            <div class="col-md-3 col_homePage">
+              <div class="row d-flex justify-content-center title_my_row">
+                <h3> <?= t("Créer un type de service") ?> </h3>
+              </div>
+              <div class="space"></div>
                 <form method="POST" action="new_type_service.php"><!--http://172.16.69.181:6001/create_type_service?lb=service1-->
-                    <h4 class="title_my_row"><?= t("Créer un type de service") ?></h4>
                     <div class="d-flex justify-content-center">
-                        <div class="form-group row user_profil_input_row">
+                        <!-- <div class="form-group row user_profil_input_row"> -->
                             <div class="mx-auto user_profil_align">
 
                                 <div class="form-group">
@@ -76,14 +84,19 @@ include 'config.php';
 
                                 <input class="btn btn-secondary" type='submit' value="<?= t("Confirmer le nouveau type de service") ?>" />
                             </div>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </form>
+            </div>
 
+            <div class="col-md-3 col_homePage">
+              <div class="row d-flex justify-content-center title_my_row">
+                <h3><?= t("Créer un service") ?></h3>
+              </div>
+              <div class="space"></div>
                 <form method="POST" action="new_service.php">
-                    <h4 class="title_my_row"><?= t("Créer un service") ?></h4>
                     <div class="d-flex justify-content-center">
-                        <div class="form-group row user_profil_input_row">
+                        <!-- <div class="form-group row user_profil_input_row"> -->
                             <div class="mx-auto user_profil_align">
 
                                 <div class="form-group">
@@ -110,13 +123,16 @@ include 'config.php';
 
                                 <input class="btn btn-secondary" type='submit' value="<?= t("Confirmer la création du nouveau service") ?>" />
                             </div>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </form>
             </div>
         </div>
+      </div>
     </section>
     <script type="text/javascript" src="checkCategAndService.js"></script>
+    <div class="space"></div>
+    <div class="space"></div>
     <?php
 
     if(isset($_GET['msg']) && $_GET['msg'] == 'password_modify_succes'){
@@ -149,16 +165,28 @@ include 'config.php';
             echo '<p style="color:rgb(90,98,104);text-align:center;">'. t("Le numéro de téléphone n'est pas renseigné !").'</p>';
         }
 
-        if($_GET['error'] == 'modify_succes'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">'. t("Votre compte a été modifié avec succès !").'</p>';
+        if($_GET['error'] == 'succes_service'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Votre service a bien été créé !</p>';
         }
 
-        if($_GET['error'] == 'wrong_old_password'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">'. t("Votre mot de passe actuel ne correspond pas avec celui renseigné !").'</p>';
+        if($_GET['error'] == 'no_creation_service'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Erreur dans la création du service !</p>';
         }
 
-        if($_GET['error'] == 'password_dont_correspond'){
-            echo '<p style="color:rgb(90,98,104);text-align:center;">'. t("Les nouveaux mots de passes renseignés ne correspondent pas !").'</p>';
+        if($_GET['error'] == 'no_creation_agence'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Erreur dans la création de l\'agence</p>';
+        }
+
+        if($_GET['error'] == 'succes_agence'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Votre agence a bien été créée !</p>';
+        }
+
+        if($_GET['error'] == 'no_creation_categ'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Erreur dans la création d\'une catégorie</p>';
+        }
+
+        if($_GET['error'] == 'succes_categ'){
+            echo '<p style="color:rgb(90,98,104);text-align:center;">Votre catégorie a bien été créée !</p>';
         }
     }
     ?>

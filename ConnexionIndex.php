@@ -16,32 +16,32 @@ include_once("./lang.php");
     <section id="page_content_connexion" class="d-flex justify-content-center">
       <section id="connexion_form">
         <form method="POST" action="Connexion.php">
-          <h3><?= t("Connexion") ?></h3>
+          <h3 id="connexion_title"><?= t("Connexion") ?></h3>
           <div id="connexion_input_row" class="form-group row">
             <div class="col-xs-2">
-              <label><?= t("Email") ?></label><div></div>
+              <!-- <label><?= t("Email") ?></label><div></div> -->
               <input type="text" class="form-control connexion_input" placeholder="Identifiant" aria-label="Username" aria-describedby="basic-addon1" name="username"><div class="space"></div>
             </div>
             <div class="col-xs-2">
-              <label><?= t("Mot de passe") ?></label><div></div>
+              <!-- <label><?= t("Mot de passe") ?></label><div></div> -->
               <input type="password" class="form-control connexion_input" placeholder="Mot de passe" aria-label="Username" aria-describedby="basic-addon1" name="password"><div class="space"></div>
             </div>
-            <div class="form-group">
-                <select name="agence_selected" id="agence-select_agence">
+            <div class="form-group col-xs-3">
+                <select class="form-control" name="agence_selected" id="agence-select_agence">
                     <?php foreach ($listeAgence['data'] as $result) {
                         echo '<option value="' . $result['idagence'] . '">' . $result['nom'] . " (" . $result['ville'] . ')</option>';
                     } ?>
 
-                    <option value="" selected>--<?= t("Sélectionner une agence") ?>--</option>
+                    <option value="" selected><?= t("Sélectionner une agence") ?>--</option>
                 </select>
             </div>
           </div>
           <input type="submit" class="btn btn-primary" value="Connexion"/>
         </form>
-        <div class="space"></div>
+        <!-- <div class="space"></div>
         <a href="inscription.php"><button type="button" class="btn btn-secondary btn-sm"><?= t("Inscription") ?></button></a>
         <button data-toggle="modal" data-target="#forgotten_password_modal" data-whatever="@mdo" type="button" class="btn btn-secondary btn-sm"><?= t("Mot de passe oublié") ?></button></a>
-      </section>
+      </section> -->
     </section>
 
     <div class="modal fade" id="forgotten_password_modal" tabindex="-1" role="dialog" aria-labelledby="password" aria-hidden="true">
@@ -77,10 +77,6 @@ include_once("./lang.php");
 
   if(isset($_GET['msg']) && $_GET['msg'] == 'disconnect'){
     echo '<p class="p_display_error">Vous êtes déconnecté !</p>';
-  }
-
-  if(isset($_GET['msg']) && $_GET['msg'] == 'account_deleted'){
-    echo '<p class="p_display_error">Votre compte a bien été supprimé !</p>';
   }
 
   if(isset($_GET['error']) && $_GET['error'] == 'email_format'){

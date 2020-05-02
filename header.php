@@ -37,20 +37,20 @@
     <link rel="stylesheet" href="css/style_main.css" />
     <link rel="stylesheet" href="css/style_liste_dossier.css" />
     <link rel="stylesheet" href="css/style_inscription.css" />
-      <link rel="stylesheet" href="css/rdv_service.css" />
-      <!-- <link rel="stylesheet" href="css/style_homePage.css"/>
-      <link rel="stylesheet" href="css/style_general_manage.css" />
-      <link rel="stylesheet" href="css/style_liste_dossier.css" />
-
-      <link rel="stylesheet" href="css/style_user_profil.css" />
-      <link rel="stylesheet" href="css/style_users_management.css" />
-      <link rel="stylesheet" href="css/style_rdv_management.css" />
-      <link rel="stylesheet" href="css/style_ConnexionIndex.css" />
-      <link rel="stylesheet" href="css/style_email_modify_password.css" />
-      <link rel="stylesheet" href="css/style_presentation.css" /> -->
-    <link rel="stylesheet" href="css/style_footer.css" />
+    <link rel="stylesheet" href="css/rdv_service.css" />
+    <link rel="stylesheet" href="css/style_abonnement.css"/>
+    <link rel="stylesheet" href="css/style_general_manage.css" />
+    <link rel="stylesheet" href="css/style_liste_dossier.css" />
+    <link rel="stylesheet" href="css/style_devis_et_facture.css" />
+    <link rel="stylesheet" href="css/style_user_profil.css" />
+    <link rel="stylesheet" href="css/style_users_management.css" />
+    <link rel="stylesheet" href="css/style_rdv_management.css" />
+    <link rel="stylesheet" href="css/style_ConnexionIndex.css" />
+    <link rel="stylesheet" href="css/style_email_modify_password.css" />
+    <link rel="stylesheet" href="css/style_presentation.css" />
+  <link rel="stylesheet" href="css/style_footer.css" />
   </head>
-  <body>
+  <body style="height: 100%;">
     <header>
       <nav class="navbar navbar-expand-lg navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +61,9 @@
             <li class="nav-item">
 
               <a class="nav-link" href="index.php"><?= t("Accueil") ?><span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="webgl.php"><?= t("Demonstration 3D") ?></a>
             </li>
             <?php
                 if(isset($_SESSION['cdtype_user']) && $_SESSION['cdtype_user'] == 'pat'){
@@ -83,7 +86,7 @@
                     <?php if ($_SESSION['idTabAbonnement'] != null) {
                       ?>
                       <a class="dropdown-item" href="rdv_service.php"><?= t("Demander un service")?></a>
-                      <a class="dropdown-item" href="rdv_service_total.php"><?= t("Liste des services en cours")?></a>
+                      <a class="dropdown-item" href="rdv_service_total.php"><?= t("Services en cours")?></a>
                   <?php } ?>
                        <a class="dropdown-item" href="abonnement.php"><?=t("Abonnement") ?></a>
                        <a class="dropdown-item" href="devis.php"><?=t("Devis")?></a>
@@ -98,10 +101,9 @@
           if(isset($_SESSION['cdtype_user']) && $_SESSION['cdtype_user'] == 'pre'){
           ?>
           <li class="nav_item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=("Rendez-vous")?></a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= t("Administration")?></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuAdmin">
                   <a class="dropdown-item" href="rdv_service_pre.php"><?= t("Devis") ?></a>
-                  <a class="dropdown-item" href="create_service.php"><?= t("Intervention") ?></a>
               </div>
           </li>
           <?php } ?>
@@ -112,7 +114,7 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="image/Symboles/account.png">
+                <img src="image/Symboles/homme.png">
               </a>
               <?php if(isset($_SESSION['nmuser']) && $_SESSION != []){ ?>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
@@ -129,7 +131,7 @@
             </li>
           </ul>
          <!-- Dropdown pour choisir le language -->
-          <div class="nav-item">
+          <div class="nav-item col-3">
               <form method="get" action="changer_language.php">
                 <div class="form-inline row">
                   <select name="lang" class="form-control col-6">

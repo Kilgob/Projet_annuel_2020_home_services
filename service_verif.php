@@ -1,6 +1,5 @@
 <?php
     include_once("./lang.php");
-    session_start();
     include 'config.php';
 
 
@@ -79,7 +78,7 @@
           </div>
         </div>
 
-    </div>
+
     </form>
   </div>
 </section>
@@ -89,7 +88,7 @@
     echo '</div>';
     echo '<div class="form-group">';
     ?>
-    <div class="row d-flex justify-content-center title_my_row">
+    <div class="row d-flex justify-content-center">
         <p>Sélectionner un service de cette catégorie pour le voir en détail : </p>
         <select onchange="searchservice()" name="type_user" id="select_service">
             <?php
@@ -103,6 +102,7 @@
             <div id="info_service" class="d-flex justify-content-center">
             </div>
     <?php
+    echo '</div>';
     echo '</div>';
     echo '</div>';
     echo '</div>';

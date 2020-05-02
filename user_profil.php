@@ -45,7 +45,7 @@ include 'config.php';
                                 </div>
 
                                 <input class="btn btn-secondary" type="submit" value="<?= t("Valider les changements") ?>" />
-                                <a href="user_account_delete.php"><input class="btn btn-secondary" type="button" value="<?= t("Supprimer son compte") ?>" /></a>
+                                <!-- <a href="user_account_delete.php"><input class="btn btn-secondary" type="button" value="<?= t("Supprimer son compte") ?>" /></a> -->
                                 <input type='hidden' value="<?php echo $_SESSION['nmuser']; ?>" /><br><br>
 
                             </div>

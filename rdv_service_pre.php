@@ -42,7 +42,7 @@ foreach ($list_intervention['data'] as $intervention) {
     $date = new DateTime($intervention["dtcrea"]);
 ?>
     <li class="list-group-item" data-toggle="modal" data-target="#devismodal" data-whatever="@mdo" onclick="devis(<?php echo $intervention["iddevis"];?>)">
-        Devis pris pour le <strong><?= $date->format('Y-m-d') ?></strong> pour le service suivant : <br>
+        Devis pris pour le <strong><?php echo strftime("%d/%m/%Y", strtotime($intervention['dtcrea'])); ?></strong> à <strong><?php echo strftime("%H:%M", strtotime($intervention['dtcrea'])); ?></strong> pour le service suivant : <br>
         <strong><?php echo getNameService($intervention["idservice"]); ?></strong>
     </li>
 <?php

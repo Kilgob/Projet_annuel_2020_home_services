@@ -15,7 +15,10 @@ if ($_GET['id'] != '') {
     $liste_service = json_decode($json, true);
 
     foreach ($liste_service["data"] as $service) {
-        echo "<input type='radio' name='service' value='" . $service["idservice"] . "'/>" . $service["lb"] . "</input><br>";
+      if ($service['statut'] == 1) {
+        echo "<input type='radio' name='service' value='" . $service["idservice"] . "'/><p class='service'>" . $service["lb"] . "</p></input><br>";
+
+      }
     }
 }
 ?>

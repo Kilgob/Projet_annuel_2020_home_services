@@ -30,7 +30,7 @@
     //Trouve la date de début ainsi que la date de fin d'abonnement
     $total_cycle_abo = $abonnement_siege['data'][0]['cycleabo'];
 
-    while (($dtfin_abo = strftime("%Y-%m-%d", strtotime('+' . $total_cycle_abo . 'days', strtotime($intervention['data'][0]['dtcrea'])))) < strftime("%Y-%m-%d", strtotime($intervention['data'][0]['dtfin']))) {
+    while (($dtfin_abo = strftime("%Y-%m-%d", strtotime('+' . $total_cycle_abo . 'days', strtotime($date_abonnement['data'][0]['dtcrea'])))) < strftime("%Y-%m-%d", strtotime($intervention['data'][0]['dtfin']))) {
       $total_cycle_abo += $abonnement_siege['data'][0]['cycleabo'];
 
     }
@@ -81,8 +81,8 @@
 
     // ligne des totaux
     $pdf->totalAdd(array('Total HT', number_format($total * 100/120,2)));
-    $pdf->totalAdd(array('TVA', number_format($total,2) - number_format($total * 100/120,2)));
-    $pdf->totalAdd(array('Sous total TTC', number_format($total,2)));
+    //$pdf->totalAdd(array('TVA', number_format($total,2) - number_format($total * 100/120,2)));
+    $pdf->totalAdd(array('Total TTC', number_format($total,2)));
 
     // #3 Importe le gabarit
     //

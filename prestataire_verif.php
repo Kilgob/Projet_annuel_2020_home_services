@@ -29,7 +29,7 @@
     echo '</div>';
 
     echo '<div id="scroll_folder" class="form-elegant" >';
-    echo '<div id=under_srcoll>';
+    // echo '<div id=under_srcoll>';
     echo '<div></div>';
     echo '<div class="form-group">';
     echo '<i id="size_date">Date de création du compte : ' . substr($userInfo['data'][0]['dtcrea'],0, -9) . '</i>';

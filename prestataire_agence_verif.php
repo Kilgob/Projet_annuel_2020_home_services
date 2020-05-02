@@ -17,8 +17,7 @@ $infoAgence=json_decode($json, true);
 ?>
 
 
-<div id="new_prest" class="row d-flex justify-content-center">
-    <div class="form-elegant">
+    <div class="form-elegant-gestion">
         <div class="card">
             <nav>
                 <ul id="display_users" class="nav nav-pills flex-column ">
@@ -85,4 +84,3 @@ $infoAgence=json_decode($json, true);
             </nav>
         </div>
     </div>
-</div>

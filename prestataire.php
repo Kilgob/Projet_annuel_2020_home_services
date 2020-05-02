@@ -2,7 +2,7 @@
 
     include 'header.php';
     include 'config.php';
-    
+
  if($_SESSION['cdtype_user'] == 'cli' && $_SESSION['cdtype_user'] == 'pre'){
     header('Location: homePage.php');
     exit;
@@ -31,8 +31,11 @@
       <div class="row d-flex justify-content-center">
         <div class="col-md-2 col_homePage">
           <div class="row d-flex justify-content-center title_my_row">
-
-              <div class="row d-flex justify-content-center title_my_row">
+            <h3> Gestion </h3>
+          </div>
+              <div class="row d-flex justify-content-center search_bar">
+                <div class="col-xs-2">
+                  <div class="space"></div>
                   <!-- <p>Choisissez votre agence</p> -->
                   <select onchange="showUserList()" name="agence_selected" id="agence_select">
                       <option value="default" selected><?= t("Sélectionnez une agence") ?></option>
@@ -42,9 +45,9 @@
                       }
                       ?>
                   </select>
+                </div>
               </div>
-
-              <div class="row d-flex justify-content-center title_my_row" id="type_user_list">
+              <div id="type_user_list">
                   <!-- <p>Choisissez quoi lister</p> -->
                   <!-- <select onchange="finPrest()" name="type_user" id="type_user">
                     <option value="default" selected>Faites un choix</option>
@@ -54,17 +57,15 @@
                   </select> -->
               </div>
 
-            <h3 id="title_list"><?= t("Veuillez sélectionner une agence puis un type d'utilisateur") ?></h3>
+            <!-- <h3 id="title_list"><?= t("Veuillez sélectionner une agence puis un type d'utilisateur") ?></h3> -->
+            <div id="new_prest" class="nav nav-pills flex-column">
+
+            </div>
           </div>
-
-
-          <div id="new_prest" class="row d-flex justify-content-center">
-
-          </div>
-        </div>
 
 
           <div id="section1" class="col-md-5 col_homePage"> <!--le dossier-->
+            <h5 id="users_select_message"><i>Veuillez sélectionner un utilisateur</i></h5>
           <!-- <div id="section1" class="dossier"> -->
             <!-- <h3 class="row d-flex justify-content-center title_my_row">Choisissez un dossier</h3> -->
           </div>
