@@ -69,7 +69,7 @@
     // #2 Créer une facture
     //
     // numéro de facture, date, texte avant le numéro de page
-    $pdf->initFacture("Facture n° TEMP", "Paris le " . strftime("%d/%m/%Y", strtotime($dtfin_abo)), "Page 1");
+    $pdf->initFacture("Facture", "Paris le " . strftime("%d/%m/%Y", strtotime($dtfin_abo)), "Page 1");
 
     if ($list_interventions != []) {
       $total = 0;

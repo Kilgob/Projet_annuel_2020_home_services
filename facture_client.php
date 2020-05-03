@@ -26,7 +26,7 @@ if($factures != NULL){ ?>
           <?php echo '<p>Facture du ' . strftime("%d/%m/%Y", strtotime($facture['dtdeb'])) . ' au ' . strftime("%d/%m/%Y", strtotime($facture['dtfin'])) . '</p><br>';
                 echo '<p>Montant : ' . $facture['montant'] . '€</p><br>';
                 echo '<form method="POST" target="_blank" action="facture/index.php">';
-                echo '<input type="hidden" name="idfac  ture" value="' . $facture['idfacture'] . '">';
+                echo '<input type="hidden" name="idfacture" value="' . $facture['idfacture'] . '">';
                 echo '<input type="hidden" name="dtdebut" value="' . strftime("%Y-%m-%d", strtotime($facture['dtdeb']))   . '">';
                 echo '<input type="hidden" name="dtfin" value="' . strftime("%Y-%m-%d", strtotime($facture['dtfin'])) . '">';
                 echo '<input id="button_display_facture" class="btn btn-secondary" type="submit" value="Afficher facture">';
